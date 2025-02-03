@@ -64,21 +64,22 @@ export const updatePostCategory = async (req, res) => {
   }
 };
 
-// Delete a post category by ID
 export const deletePostCategory = async (req, res) => {
-  const { id } = req.params; // Get the category ID from the URL params
+  const { id } = req.params;
 
   try {
-    // Check if category exists
-    const category = await PostCategory.findById(id);
+    // Check if category exists and delete it in one step
+    const category = await PostCategory.findByIdAndDelete(id);
+
     if (!category) {
       return res.status(404).json({ message: "Category not found" });
     }
 
-    // Delete category
-    await category.remove();
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error) {
+    console.error("Error during category deletion:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
+

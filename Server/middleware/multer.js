@@ -39,7 +39,6 @@
 // export default upload;
 import multer from 'multer';
 
-// Set storage for multer (if still needed)
 const storage = multer.memoryStorage();  // Use memoryStorage instead of diskStorage for Cloudinary upload
 
 const upload = multer({ storage });

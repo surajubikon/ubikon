@@ -15,6 +15,11 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Home from './pages/Home';
 
 import Dashboard from "./pages/admin/Dashboard";
+import Login from "./pages/admin/Login";
+import PostUpload from "./pages/admin/PostUpload";
+import PostCategoryPage from './pages/admin/PostCategoryPage';
+import UserDetails from './pages/admin/userDetails';
+
 // import About from './pages/About';
 // import Contact from './pages/Contact';
 
@@ -32,15 +37,16 @@ function App() {
         <meta name="keywords" content="Mobile App Development, Website Development, Indore, Madhya Pradesh" />
         <link rel="canonical" href="https://yourwebsite.com/" />
       </Helmet>
-     <Router>
+      <Router>
         <Routes>
             {/* frontend pages */}
             <Route path="/" element={<Home />} />
-
-
-            {/* admin pages */}
-            <Route path="dashboard" element={<Dashboard />} /> 
-        
+               {/* admin pages */}
+             <Route path="dashboard" element={<Dashboard />} /> 
+             <Route path="admin" element={<Login/>}/>
+             <Route path="/post-upload" element={<PostUpload/>}/>
+             <Route path="/categories" element={<PostCategoryPage/>}/>
+              <Route path="/users" element={<UserDetails/>}/> 
         </Routes>
       </Router>
     </>

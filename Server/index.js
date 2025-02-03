@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import postCategoryRoutes from "./routes/postCategoryRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-
+import contactRoutes from './routes/contactRoutes.js';
 
 dotenv.config();
 
@@ -20,6 +20,7 @@ app.use(cors());
 app.use("/api/admin", adminRoutes);
 app.use("/api/categories", postCategoryRoutes);
 app.use("/api/posts", postRoutes);
+app.use('/api/contact', contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 
