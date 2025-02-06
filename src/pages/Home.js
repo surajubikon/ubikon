@@ -8,7 +8,7 @@ import Wsimg from '../assets/img/ws-img.png';
 import slides1 from '../assets/img/slides-1.png';
 import slides2 from '../assets/img/slides-2.png';
 import slidesbg from '../assets/img/slidesbg.png';
-
+import Chatbot from './Chatbot';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <div className='col-sm-12'>
       <Navbar />
-
+   
       <div className='main-slides-area bg-bectangle-bottom'>
         <div className='container'>
           <div class="main-slides-shape-1">
@@ -166,6 +166,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
+              
 
               </Slider>
             </div>
@@ -439,9 +440,11 @@ const Home = () => {
               </form>
             </div>
           </div>
-
+         
           {/* Footer Bottom Section */}
           <div className="text-center copyright">
+
+          <Chatbot />
             <p>© Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
           </div>
         </div>

@@ -39,6 +39,9 @@ function App() {
       </Helmet>
       <Router>
         <Routes>
+        
+      
+   
             {/* frontend pages */}
             <Route path="/" element={<Home />} />
                {/* admin pages */}
