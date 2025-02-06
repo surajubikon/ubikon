@@ -21,7 +21,7 @@ import PostCategoryPage from './pages/admin/PostCategoryPage';
 import UserDetails from './pages/admin/userDetails';
 
 // import About from './pages/About';
-// import Contact from './pages/Contact';
+ import Contact from './pages/Contact';
 
 function App() {
   return ( 
@@ -41,6 +41,8 @@ function App() {
         <Routes>
             {/* frontend pages */}
             <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+
                {/* admin pages */}
              <Route path="dashboard" element={<Dashboard />} /> 
              <Route path="admin" element={<Login/>}/>

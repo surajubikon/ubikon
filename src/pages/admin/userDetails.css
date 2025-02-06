@@ -7,10 +7,7 @@
     background-color: #fff;
 }
 
-h2 {
-    text-align: center;
-    color: #333;
-}
+
 
 table {
     width: 100%;
@@ -37,8 +34,4 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-p {
-    text-align: center;
-    color: #666;
-    font-size: 16px;
-}
+

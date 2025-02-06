@@ -9,6 +9,9 @@ body {
 a {
   text-decoration: none !important;
 }
+ul, li {
+  padding: 0;
+}
 
 @font-face {
     font-family: 'TenorSans';
@@ -759,7 +762,135 @@ footer ul .nav-link
   position: relative;
   margin-top: 20px;
 }
+.contact-details-section {
+  background-color: #000;
+  color: #fff;
+  padding: 125px 0 0 0;
+  margin-bottom: 177px;
+}
+
+
+.cnt-heading {
+  margin-bottom: 80px;
+}
+
+
+/********/
+
+
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 57px 0;
+  overflow: hidden;
+}
+
+.contact-details {
+  padding: 30px;
+  background-color: #f9f5ff;
+}
+
+.contact-details h2 {
+  color: #0d0c22;
+  margin-bottom: 10px;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.contact-details p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.contact-details ul {
+  list-style: none;
+  padding-left: 0 !important;
+}
+
+.contact-details ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.contact-details ul li i {
+  font-size: 20px;
+  color: #6a0dad;
+  margin-right: 15px;
+}
+
+.contact-form {
+  padding: 30px;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border:none !important;
+  border-radius: 0px !important;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc !important;
+}
+.contact-form .form-group{
+  position: relative
+}
+.contact-form .icon {
+  position: absolute;
+  left: 15px;
+  top: 19px;
+}
+.contact-form input {
+  padding-left: 26px;
+}
+.contact-form textarea {
+  resize: none;
+  height: 120px;
+  padding-left: 39px;
+}
+
+.contact-form label {
+  font-size: 14px;
+  color: #555;
+}
+:focus-visible {
+  outline: none;
+}
 
 
 
+.partners {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+}
+.partnerlg {
+  background: #dddddd;
+  width: 166px;
+  height: 67px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e1e1e1;
+}
+.partners img {
+  max-height: 40px;
+}
+
+.partners img:hover {
+  opacity: 1;
+}
   
