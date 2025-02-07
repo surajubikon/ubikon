@@ -27,7 +27,7 @@ const sendEmail = async ({ sendTo, subject, formData }) => {
   const htmlContent = `
     <h3>New Contact Form Submission</h3>
     <p><strong>Name:</strong> ${formData.yourName}</p>
-    <p><strong>Company Name:</strong> ${formData.companyName}</p>
+    <p><strong>Subject:</strong> ${formData.subject}</p>
     <p><strong>Email:</strong> ${formData.email}</p>
     <p><strong>Contact Number:</strong> ${formData.contactNumber}</p>
     <p><strong>Message:</strong> ${formData.textMessage}</p>
@@ -36,7 +36,7 @@ const sendEmail = async ({ sendTo, subject, formData }) => {
   try {
     // Send the email
     const info = await transporter.sendMail({
-      from: `"indvo" <${process.env.EMAIL_USER}>`, // sender address
+      from: `"Ubikon Technologies" <${process.env.EMAIL_USER}>`, // sender address
       to: sendTo, // receiver address (backend ko jana hai)
       subject: subject, // subject line
       html: htmlContent, // html body

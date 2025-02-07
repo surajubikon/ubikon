@@ -1,4 +1,4 @@
-const verifyEmailTemplate = ({ yourName, companyName, email, contactNumber, textMessage }) => {
+const verifyEmailTemplate = ({ yourName, subject, email, contactNumber, textMessage }) => {
     return `
         <p>Dear ${yourName},</p>
         
@@ -7,7 +7,7 @@ const verifyEmailTemplate = ({ yourName, companyName, email, contactNumber, text
         <h3>Contact Information:</h3>
         <ul>
             <li><strong>Name:</strong> ${yourName}</li>
-            <li><strong>Company Name:</strong> ${companyName}</li>
+            <li><strong>Subject:</strong> ${subject}</li>
             <li><strong>Email:</strong> ${email}</li>
             <li><strong>Contact Number:</strong> ${contactNumber}</li>
             <li><strong>Message:</strong> ${textMessage}</li>
@@ -19,7 +19,5 @@ const verifyEmailTemplate = ({ yourName, companyName, email, contactNumber, text
         <p>Your Company Name</p>
     `;
 };
-
-
 
 export default verifyEmailTemplate;

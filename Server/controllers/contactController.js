@@ -1,50 +1,57 @@
 import Contact from '../models/Contact.js';
 import sendEmail from '../email/email.js'; // Import sendEmail function
-import verifyEmailTemplate from '../email/template.email.js'
+import verifyEmailTemplate from '../email/template.email.js';
+import { validationResult } from 'express-validator';
 
 export const createContact = async (req, res) => {
   try {
-    const { yourName, companyName, email, contactNumber, textMessage } = req.body;
+    console.log("Received request body:", req.body); // Debug log
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: "Validation failed", errors: errors.array() });
+    }
+
+    const { yourName, subject, email, contactNumber, textMessage, agree } = req.body;
+
+    if (agree === undefined || typeof agree !== "boolean") {
+      return res.status(400).json({ message: "Agree field is required and must be boolean" });
+    }
 
     // Database mein contact ko save karo
-    const contact = new Contact({ yourName, companyName, email, contactNumber, textMessage });
+    const contact = new Contact({ yourName, subject, email, contactNumber, textMessage, agree });
     await contact.save();
 
     // Email ke liye template generate karo
     const emailContent = verifyEmailTemplate({ 
       name: yourName, 
       yourName, 
-      companyName, 
+      subject, 
       email, 
       contactNumber, 
-      textMessage 
+      textMessage
     });
 
     // Email bhejne ka function call karo
-    const emailInfo = await sendEmail({
-      sendTo: 'amaankhan.ubikon@gmail.com', // Yeh wo email address hai jahan aapko notification jana hai
-      subject: 'New Contact Form Submission', // Subject line
-      formData: { yourName, companyName, email, contactNumber, textMessage }, // Form data jo email mein bhejna hai
-      html: emailContent, // Template se generated HTML content
+    await sendEmail({
+      sendTo: 'yourrony@gmail.com',
+      subject: 'Ubikon Technologies Contact Form Submission',
+      formData: { yourName, subject, email, contactNumber, textMessage },
+      html: emailContent,
     });
 
-
-    // Success response bhejo
     res.status(201).json({ message: 'Contact created successfully', contact });
   } catch (error) {
-   
+    console.error("Error creating contact:", error); // Debugging error
     res.status(500).json({ message: 'Failed to create contact', error: error.message });
   }
 };
 
-
-
 export const getContacts = async (req, res) => {
-    try {
-      const contacts = await Contact.find();
-      res.status(200).json(contacts);
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to fetch contacts', error: error.message });
-    }
-  };
-  
+  try {
+    const contacts = await Contact.find();
+    res.status(200).json(contacts);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch contacts', error: error.message });
+  }
+};
