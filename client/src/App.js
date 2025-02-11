@@ -63,7 +63,7 @@ function App() {
           <Route path="/users" element={<UserDetails />} />
           <Route path="/blog" element={<Blogpage />} />
            */}
-<Route path="admin" element={<Login />} />
+            <Route path="admin" element={<Login />} />
           {/* Protected admin routes */}
           <Route path="/post-upload" element={
             <PrivateRoute>
