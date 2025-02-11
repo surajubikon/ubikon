@@ -16,7 +16,7 @@ const Chatbot = () => {
 
   const defaultOptions = {
     loop: true,
-    autoplay: true, // Animation will play on loop
+    autoplay: false, // Animation will play on loop
     animationData: animation,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
@@ -95,11 +95,11 @@ const Chatbot = () => {
           audioChunks.push(event.data);
         };
 
-        mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-          const audioUrl = URL.createObjectURL(audioBlob);
-          socket.send(audioUrl); // Send audio URL or the actual audio to the backend
-        };
+        // mediaRecorder.onstop = () => {
+        //   // const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+        //   // const audioUrl = URL.createObjectURL(audioBlob);
+        //   // socket.send(audioUrl); // Send audio URL or the actual audio to the backend
+        // };
 
         mediaRecorder.start();
 

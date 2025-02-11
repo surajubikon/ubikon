@@ -11,7 +11,7 @@ const Project = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/posts/create");
+                const response = await axios.get("http://localhost:8000/api/posts/create");
                 console.log("API", response.data);
                 setPosts(response.data);
             } catch (error) {

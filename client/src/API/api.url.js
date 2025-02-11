@@ -1,4 +1,5 @@
-export const baseURL = "http://localhost:5000";
+// export const baseURL = "http://localhost:8000";
+export const baseURL = "http://localhost:8000";
 
 const api = {
     register: {

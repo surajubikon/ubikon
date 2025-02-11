@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate , Link} from "react-router-dom"; 
 import api, { baseURL } from '../../API/api.url';
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -63,7 +63,11 @@ const Login = () => {
         </div>
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
+          
         </button>
+        <div>
+  <Link to="/register">Don't have an account? Register here</Link>
+</div>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PostCategoryPage.css";
 
-const API_URL = "http://localhost:5000/api/categories";
+const API_URL = "http://localhost:8000/api/categories";
 
 function PostCategoryPage() {
   const [categories, setCategories] = useState([]);

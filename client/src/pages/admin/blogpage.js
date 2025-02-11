@@ -8,7 +8,7 @@ function BlogPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories/all"); // ✅ API endpoint yahan check karein
+        const response = await axios.get("http://localhost:8000/api/categories/all"); // ✅ API endpoint yahan check karein
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);

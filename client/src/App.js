@@ -23,6 +23,7 @@ import PostCategoryPage from './pages/admin/PostCategoryPage';
 import UserDetails from './pages/admin/userDetails';
 import Blogpage from './pages/admin/blogpage.js';
 // import About from './pages/About';
+import Register from './pages/admin/Register.js';
 import Contact from './pages/Contact';
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
 
+<Route path='/register' element={<Register />} />
           {/* admin pages */}
           {/* <Route path="dashboard" element={<Dashboard />} /> 
               */}

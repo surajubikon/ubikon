@@ -90,7 +90,7 @@ export const updatePost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Postmodels.find().populate("PostCategory", "name slug");
+    const posts = await Postmodels.find().populate("category", "name slug");
     res.json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });

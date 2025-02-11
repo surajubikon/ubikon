@@ -11,7 +11,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from 'react-helmet'; // Ensure you import Helmet for SEO
-
+import Footer from '../components/Footer';
 const Contact = () => {
   const [formData, setFormData] = useState({
     yourName: '',
@@ -173,59 +173,7 @@ const Contact = () => {
           <div className='partnerlg'><img src={clLogo} alt="Partner 5" /></div>
         </div>
         {/* Footer */}
-        <footer className="bg-black text-white">
-          <div className="container">
-            <div className="footer-shape-1">
-              <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png" alt="image" />
-            </div>
-            <div className="footer-shape-3">
-              <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-3.png" alt="image" />
-            </div>
-            <div className="row">
-              <div className="col-md-3">
-                <img width={139} src="../assets/img/logo.png" alt="Ubikon Logo" />
-                <p>Empowering Your Business with Expert Mobile App & Website Development</p>
-                <div className='d-flex mt-3'>
-                  <ul className="nav widget-social">
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-facebook-f"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-twitter"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-instagram"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-md-3 ">
-                <h5 className='fw-bold'>Links</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><a className="nav-link" href="#">About Us</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Services</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">News</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Pricing</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Projects</a></li>
-                </ul>
-              </div>
-              <div className="col-md-3 ">
-                <h5 className='fw-bold'>Pages</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><a className="nav-link" href="#">Privacy Policy</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Terms of Service</a></li>
-                </ul>
-              </div>
-              <div className='col-md-3'>
-                <h5 className='fw-bold mb-4'>Subscribe Newsletter</h5>
-                <form>
-                  <div className='newsletter-form'>
-                    <input className='input-newsletter' placeholder='Enter your email' type='email' required />
-                    <button className='default-btn'>Subscribe</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="text-center copyright">
-              <p>&copy; Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
-            </div>
-          </div>
-        </footer>
+       <Footer/>
         <ToastContainer />
       </div>
     </div>

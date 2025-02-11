@@ -40,7 +40,7 @@ function PostUpload() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/categories/all");
+                const response = await axios.get("http://localhost:8000/api/categories/all");
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -51,7 +51,7 @@ function PostUpload() {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/posts/create", {
+            const response = await axios.get("http://localhost:8000/api/posts/create", {
                 params: {
                     page: currentPage,
                     limit: postsPerPage,
@@ -104,7 +104,7 @@ function PostUpload() {
                 formDataToSend.append(key, formData[key]);
             }
 
-            const response = await axios.post("http://localhost:5000/api/posts/create", formDataToSend, {
+            const response = await axios.post("http://localhost:8000/api/posts/create", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -139,8 +139,7 @@ function PostUpload() {
                 formDataToSend.append(key, editFormData[key]);
             }
 
-            await axios.put(
-                `http://localhost:5000/api/posts/update/${editFormData.id}`,
+            await axios.put(`http://localhost:8000/api/posts/update/${editFormData.id}`,
                 formDataToSend,
                 {
                     headers: {
@@ -162,7 +161,7 @@ function PostUpload() {
     // Handle delete post
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/posts/delete/${id}`);
+            await axios.delete(`http://localhost:8000/api/posts/delete/${id}`);
             fetchPosts(); // Refresh the posts list
         } catch (error) {
             setError("Failed to delete post. Please try again.");
@@ -173,7 +172,7 @@ function PostUpload() {
     // Open edit modal and fetch post data
     const openEditModal = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/posts/create/${id}`);
+            const response = await axios.get(`http://localhost:8000/api/posts/create/${id}`);
             setEditFormData(response.data);
             setEditModal(true);
         } catch (error) {
