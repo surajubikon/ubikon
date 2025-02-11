@@ -3,18 +3,16 @@ import Navbar from '../components/Navbar';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Logo from '../assets/img/logo.png';
+
 import Wsimg from '../assets/img/ws-img.png';
 import slides1 from '../assets/img/slides-1.png';
 import slides2 from '../assets/img/slides-2.png';
 import slidesbg from '../assets/img/slidesbg.png';
-import Chatbot from './Chatbot';
+
+import Project from "../pages/admin/Project";
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import Footer from '../components/Footer';
 
 
 
@@ -24,16 +22,6 @@ const Home = () => {
     infinite: true,          // Infinite scrolling
     speed: 500,              // Transition speed in ms
     slidesToShow: 3,         // Number of slides to show
-    slidesToScroll: 1,    // Number of slides to scroll
-    autoplay: true,          // Enable autoplay
-    autoplaySpeed: 3000,     // Delay between transitions
-    arrows: false,            // Show next/prev arrows
-  };
-  const blog = {
-    dots: false,              // Show navigation dots
-    infinite: true,          // Infinite scrolling
-    speed: 500,              // Transition speed in ms
-    slidesToShow: 2,         // Number of slides to show
     slidesToScroll: 1,    // Number of slides to scroll
     autoplay: true,          // Enable autoplay
     autoplaySpeed: 3000,     // Delay between transitions
@@ -187,6 +175,9 @@ const Home = () => {
                 <p> Explore our portfolio to see how we have helped businesses in Indore and across the globe achieve their digital goals. Our client-centric approach ensures that we deliver exceptional results with every project.</p>
                 {/* <button className='default-btn mt-5'>Discover Now</button> */}
               </div>
+              <div>
+                {/* <Project /> */}
+              </div>
             </div>
           </div>
         </div>
@@ -227,152 +218,20 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='blog-section'>
+      <div className='blog-section' id="blog-section">
         <div className='container'>
           <div className='blog-heading'>
             <span>ARTICLE</span>
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-            <Slider {...blog}>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">How Technology Dominate In The new World In 2022</a></h3>
-                      <p>Lorem ipsum dolor sit amet conset sadipscing elitr sed diam nonumy eir m od tempor invidunt ut labore.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">How Technology Dominate In The new World In 2022</a></h3>
-                      <p>Lorem ipsum dolor sit amet conset sadipscing elitr sed diam nonumy eir m od tempor invidunt ut labore.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Slider>
+          
+                <Project/>
+           
           </div>
         </div>
       </div>
-      <footer className="bg-black text-white">
-        <div className="container">
-          <div class="footer-shape-1">
-            <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png" alt="image" />
-          </div>
-          <div class="footer-shape-3">
-            <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-3.png" alt="image" />
-          </div>
-          <div className="row">
-            {/* About Section */}
-            <div className="col-md-3">
-
-              <a class="nav-link px-0 my-3" aria-current="page" href="#"><img width={139} src={Logo} /></a>
-              <p>Empowering Your Business with Expert Mobile App & Website Development</p>
-              <div className='d-flex mt-3'>
-                <ul class="nav widget-social">
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-youtube"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-instagram"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-md-3 ">
-              <h5 className='fw-bold'>Links</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">News</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-3 ">
-              <h5 className='fw-bold'>Pages</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">News</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
-                </li>
-              </ul>
-            </div>
-            <div className='col-md-3'>
-              <h5 className='fw-bold mb-4'>Subscribe Newsletter</h5>
-              <form>
-                <div className='newsletter-form'>
-                  <div className=''>
-                    <input className='input-newsletter' placeholder='' type='text' />
-                  </div>
-                  <button className='default-btn disabled'>Subcribe</button>
-                </div>
-              </form>
-            </div>
-          </div>
-         
-          {/* Footer Bottom Section */}
-          <div className="text-center copyright">
-
-          <Chatbot />
-            <p>© Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
-          </div>
-        </div>
-      </footer>
+     <Footer/>
     </div>
   );
 };

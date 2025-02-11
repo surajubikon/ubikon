@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import api, { baseURL } from '../API/api.url';
 import appointment from '../assets/img/appointment.png';
 import AD from '../assets/img/address.png';
 import PH from '../assets/img/phone.png';
@@ -11,7 +11,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from 'react-helmet'; // Ensure you import Helmet for SEO
-
+import Footer from '../components/Footer';
 const Contact = () => {
   const [formData, setFormData] = useState({
     yourName: '',
@@ -19,8 +19,9 @@ const Contact = () => {
     contactNumber: '',
     subject: '',
     textMessage: '',
-    agree: false,
+    // agree: false,
   });
+  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design","Digital Marketing","Digital Marketing","Search Engine Optimization (SEO)","Search Engine Optimization (SEO)"];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,7 +34,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/contact/create', formData);
+      const response = await axios.post(`${baseURL}${api.contact.createContact.url}`, formData);
       toast.success(response?.data?.message || 'Message sent successfully!', {
         autoClose: 3000,
         style: { background: '#d0f0ff', color: '#000' },
@@ -44,7 +45,7 @@ const Contact = () => {
         contactNumber: '',
         subject: '',
         textMessage: '',
-        agree: false,
+        // agree: false,
       });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to submit contact form', {
@@ -138,19 +139,25 @@ const Contact = () => {
                     <span className="icon"><i className="fa-solid fa-phone"></i></span>
                     <input type="text" name="contactNumber" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
                   </div>
-                  <div className="form-group col-sm-6">
-                    <span className="icon"><i className="fas fa-info-circle"></i></span>
-                    <input type="text" name="subject" placeholder="Subject" value={formData.subject} onChange={handleChange} />
+                  <div className='form-group col-sm-6'>
+                    
+                  <span className="icon"><i className="fa-solid fa-info"></i></span>
+                    <select name="subject" value={formData.subject} onChange={handleChange} required>
+                      <option value="">Select Services</option>
+                      {subjects.map((subj, index) => (
+                        <option key={index} value={subj}>{subj}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className='form-group'>
                   <span className='icon'><i className="fas fa-pencil-alt"></i></span>
                   <textarea name="textMessage" placeholder="How can we help you? Feel free to get in touch!" value={formData.textMessage} onChange={handleChange} required></textarea>
                 </div>
-                <label>
+                {/* <label>
                   <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange} required />
                   I agree that my data is collected and stored.
-                </label>
+                </label> */}
                 <button type="submit" className='default-btn mt-5'>Get In Touch</button>
               </form>
             </div>
@@ -166,59 +173,7 @@ const Contact = () => {
           <div className='partnerlg'><img src={clLogo} alt="Partner 5" /></div>
         </div>
         {/* Footer */}
-        <footer className="bg-black text-white">
-          <div className="container">
-            <div className="footer-shape-1">
-              <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png" alt="image" />
-            </div>
-            <div className="footer-shape-3">
-              <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-3.png" alt="image" />
-            </div>
-            <div className="row">
-              <div className="col-md-3">
-                <img width={139} src="../assets/img/logo.png" alt="Ubikon Logo" />
-                <p>Empowering Your Business with Expert Mobile App & Website Development</p>
-                <div className='d-flex mt-3'>
-                  <ul className="nav widget-social">
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-facebook-f"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-twitter"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" href="#"><i className="fa-brands fa-instagram"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-md-3 ">
-                <h5 className='fw-bold'>Links</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><a className="nav-link" href="#">About Us</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Services</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">News</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Pricing</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Projects</a></li>
-                </ul>
-              </div>
-              <div className="col-md-3 ">
-                <h5 className='fw-bold'>Pages</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><a className="nav-link" href="#">Privacy Policy</a></li>
-                  <li className="nav-item"><a className="nav-link" href="#">Terms of Service</a></li>
-                </ul>
-              </div>
-              <div className='col-md-3'>
-                <h5 className='fw-bold mb-4'>Subscribe Newsletter</h5>
-                <form>
-                  <div className='newsletter-form'>
-                    <input className='input-newsletter' placeholder='Enter your email' type='email' required />
-                    <button className='default-btn'>Subscribe</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="text-center copyright">
-              <p>&copy; Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
-            </div>
-          </div>
-        </footer>
+       <Footer/>
         <ToastContainer />
       </div>
     </div>

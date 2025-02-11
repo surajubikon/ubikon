@@ -88,8 +88,6 @@ export const updatePost = async (req, res) => {
 };
 
 
-// Other controller functions...
-// Get all posts
 export const getPosts = async (req, res) => {
   try {
     const posts = await Postmodels.find().populate("category", "name slug");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
-
+import { useNavigate , Link} from "react-router-dom"; 
+import api, { baseURL } from '../../API/api.url';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ const Login = () => {
     setError("");
     try {
         const response = await axios.post(
-            "http://localhost:5000/api/admin/login",
+            `${baseURL}${api.login.url}`,
             { email, password },
             {
                 headers: {
@@ -24,16 +24,19 @@ const Login = () => {
             }
         );
         console.log("Login Successful:", response.data);
-       
-        navigate("/dashboard"); 
+        
+        // Store the token and authentication status
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("token", response.data.token); // Assuming token is returned
+
+        navigate("/dashboard");  // Redirect to dashboard
     } catch (err) {
         console.error("Login Failed:", err);
         setError("Login failed. Please check your credentials.");
     } finally {
-        setLoading(false); 
+        setLoading(false);
     }
 };
-
 
   return (
     <div>
@@ -60,7 +63,11 @@ const Login = () => {
         </div>
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
+          
         </button>
+        <div>
+  <Link to="/register">Don't have an account? Register here</Link>
+</div>
       </form>
     </div>
   );
