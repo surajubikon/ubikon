@@ -9,7 +9,7 @@ import slides1 from '../assets/img/slides-1.png';
 import slides2 from '../assets/img/slides-2.png';
 import slidesbg from '../assets/img/slidesbg.png';
 import Chatbot from './Chatbot';
-
+import Project from "../pages/admin/Project";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -24,16 +24,6 @@ const Home = () => {
     infinite: true,          // Infinite scrolling
     speed: 500,              // Transition speed in ms
     slidesToShow: 3,         // Number of slides to show
-    slidesToScroll: 1,    // Number of slides to scroll
-    autoplay: true,          // Enable autoplay
-    autoplaySpeed: 3000,     // Delay between transitions
-    arrows: false,            // Show next/prev arrows
-  };
-  const blog = {
-    dots: false,              // Show navigation dots
-    infinite: true,          // Infinite scrolling
-    speed: 500,              // Transition speed in ms
-    slidesToShow: 2,         // Number of slides to show
     slidesToScroll: 1,    // Number of slides to scroll
     autoplay: true,          // Enable autoplay
     autoplaySpeed: 3000,     // Delay between transitions
@@ -187,6 +177,9 @@ const Home = () => {
                 <p> Explore our portfolio to see how we have helped businesses in Indore and across the globe achieve their digital goals. Our client-centric approach ensures that we deliver exceptional results with every project.</p>
                 {/* <button className='default-btn mt-5'>Discover Now</button> */}
               </div>
+              <div>
+                {/* <Project /> */}
+              </div>
             </div>
           </div>
         </div>
@@ -227,129 +220,17 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='blog-section'>
+      <div className='blog-section' id="blog-section">
         <div className='container'>
           <div className='blog-heading'>
             <span>ARTICLE</span>
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-            <Slider {...blog}>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">How Technology Dominate In The new World In 2022</a></h3>
-                      <p>Lorem ipsum dolor sit amet conset sadipscing elitr sed diam nonumy eir m od tempor invidunt ut labore.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">How Technology is Shaping the Future: Trends to Watch in 2023</a></h3>
-                      <p>Summary: Explore the top technological advancements that are set to change our lives in the coming year. From AI to blockchain, discover what to expect.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">The Importance of Mobile App Development for Business Growth</a></h3>
-                      <p>Summary: Learn why investing in mobile apps is crucial for businesses today and how it can lead to increased engagement and revenue.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">SEO Best Practices for 2023: How to Boost Your Website’s Visibility</a></h3>
-                      <p>Summary: Discover the latest SEO strategies that can help your website rank higher in search results and attract more traffic.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">UI/UX Design Trends: Enhancing User Experience in 2023</a></h3>
-                      <p>Summary: This article discusses the latest UI/UX design trends and how they can significantly improve user satisfaction for your digital products.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">The Rise of E-commerce: Essential Features for Your Online Store</a></h3>
-                      <p>Summary: A comprehensive guide to the must-have features for an e-commerce website that can enhance customer experience and drive sales.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Slider>
+          
+                <Project/>
+            
+           
           </div>
         </div>
       </div>
@@ -406,6 +287,9 @@ const Home = () => {
                 <li class="nav-item">
                   <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="#">Contact Us</a>
+                </li>
               </ul>
             </div>
             <div className="col-md-3 ">
@@ -425,6 +309,9 @@ const Home = () => {
                 </li>
                 <li class="nav-item">
                   <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="#">Contact Us</a>
                 </li>
               </ul>
             </div>

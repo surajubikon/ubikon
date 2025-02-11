@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './userDetails.css';
-
+import api, {baseURL} from "../../API/api.url";
 function UserDetails() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ function UserDetails() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/contact/create");
+        const response = await axios.get(`${baseURL}${api.contact.getContacts.url}`);
         const contactsWithFlags = response.data.map(contact => ({
           ...contact,
           isNew: true, // Mark all fetched contacts as new initially

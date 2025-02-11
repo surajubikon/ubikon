@@ -834,7 +834,7 @@ flex-direction: column;
 gap: 15px;
 }
 
-.contact-form input,
+.contact-form input, .contact-form select,
 .contact-form textarea {
 width: 100%;
 padding: 12px;
@@ -849,7 +849,7 @@ position: relative
 .contact-form .icon {
 position: absolute;
 left: 15px;
-top: 19px;
+top: 12px;
 }
 .contact-form input {
 padding-left: 26px !important;

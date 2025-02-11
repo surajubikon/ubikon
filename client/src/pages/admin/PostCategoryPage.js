@@ -1,67 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './PostCategoryPage.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./PostCategoryPage.css";
+
+const API_URL = "http://localhost:5000/api/categories";
 
 function PostCategoryPage() {
   const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false); // Track if we're in edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
   const [currentCategoryId, setCurrentCategoryId] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    slug: '',
-    seoTitle: '',
-    seoMetaDescription: ''
-  });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
-  // Fetch categories on page load
+  const [formData, setFormData] = useState({
+    title: "",
+    slug: "",
+    description: "",
+    content: "",
+    author: "",
+    tags: "",
+    categories: "",
+    seoTitle: "",
+    seoMetaDescription: "",
+    seoKeywords: "",
+    thumbnail: null,
+    coverImage: null,
+    status: "draft",
+    publishedAt: "",
+  });
+
+  const [preview, setPreview] = useState({ thumbnail: null, coverImage: null });
+
   useEffect(() => {
     fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/categories/create');
-      setCategories(response.data);
+      const response = await axios.get(`${API_URL}/all`);
+      setCategories(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
-      setError('Error fetching categories');
+      console.error(error);
+      setError("Failed to fetch categories.");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const name = e.target.name;
+
+    if (file) {
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      setPreview((prev) => ({ ...prev, [name]: URL.createObjectURL(file) }));
     }
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
+    setError("");
 
     try {
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        data.append(key, value);
+      });
+
       if (isEditMode) {
-        // Update category
-        await axios.put(`http://localhost:5000/api/categories/update/${currentCategoryId}`, formData);
-        setCategories(categories.map((category) =>
-          category._id === currentCategoryId ? { ...category, ...formData } : category
-        ));
+        await axios.put(`${API_URL}/update/${currentCategoryId}`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
       } else {
-        // Create category
-        const response = await axios.post('http://localhost:5000/api/categories/create', formData);
-        setCategories((prev) => [...prev, response.data]); // Update categories list
+        const response = await axios.post(`${API_URL}/create`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        setCategories([...categories, response.data]);
       }
 
-      setFormData({
-        name: '',
-        slug: '',
-        seoTitle: '',
-        seoMetaDescription: ''
-      });
-      setShowModal(false); // Close modal after submission
+      setShowModal(false);
+      fetchCategories();
     } catch (error) {
-      setError('Failed to save category. Please try again.');
+      console.error(error);
+      setError("Failed to save category.");
     } finally {
       setLoading(false);
     }
@@ -69,10 +93,10 @@ function PostCategoryPage() {
 
   const handleEdit = (category) => {
     setFormData({
-      name: category.name,
-      slug: category.slug,
-      seoTitle: category.seoTitle,
-      seoMetaDescription: category.seoMetaDescription
+      ...category,
+      tags: category.tags.join(", "),
+      categories: category.categories.join(", "),
+      seoKeywords: category.seoKeywords.join(", "),
     });
     setCurrentCategoryId(category._id);
     setIsEditMode(true);
@@ -81,116 +105,157 @@ function PostCategoryPage() {
 
   const handleDelete = async (categoryId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/categories/delete/${categoryId}`);
-      setCategories(categories.filter((category) => category._id !== categoryId)); // Remove category from the list
+      await axios.delete(`${API_URL}/delete/${categoryId}`);
+      setCategories(categories.filter((category) => category._id !== categoryId));
     } catch (error) {
-      setError('Failed to delete category. Please try again.');
+      console.error(error);
+      setError("Failed to delete category.");
     }
   };
 
   return (
     <div className="post-category-page">
-      <button className="add-category-btn" onClick={() => { setShowModal(true); setIsEditMode(false); }}>
-        Add Category
+      <button className="add-btn" onClick={() => { setShowModal(true); setIsEditMode(false); }}>
+        + Add Category
       </button>
 
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>{isEditMode ? 'Edit Post Category' : 'Create Post Category'}</h3>
-            {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Category Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="slug">Slug</label>
-                <input
-                  type="text"
-                  name="slug"
-                  id="slug"
-                  value={formData.slug}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="seoTitle">SEO Title</label>
-                <input
-                  type="text"
-                  name="seoTitle"
-                  id="seoTitle"
-                  value={formData.seoTitle}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="seoMetaDescription">SEO Meta Description</label>
-                <input
-                  type="text"
-                  name="seoMetaDescription"
-                  id="seoMetaDescription"
-                  value={formData.seoMetaDescription}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <button type="submit" disabled={loading}>
-                {loading ? 'Saving...' : isEditMode ? 'Update' : 'Create'}
-              </button>
-            </form>
-            <button onClick={() => setShowModal(false)} className="close-btn">X</button>
-          </div>
-        </div>
+        <CategoryModal
+          isEditMode={isEditMode}
+          formData={formData}
+          preview={preview}
+          loading={loading}
+          error={error}
+          handleChange={handleChange}
+          handleFileChange={handleFileChange}
+          handleSubmit={handleSubmit}
+          onClose={() => setShowModal(false)}
+        />
       )}
 
-      <div className="categories-list">
-        <h3>Categories List</h3>
-        {categories.length === 0 ? (
-          <p>No categories available.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>SEO Title</th>
-                <th>SEO Meta Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categories.map((category) => (
-                <tr key={category._id}>
-                  <td>{category.name}</td>
-                  <td>{category.slug}</td>
-                  <td>{category.seoTitle}</td>
-                  <td>{category.seoMetaDescription}</td>
-                  <td>
-                    <button className="edit-btn" onClick={() => handleEdit(category)}>
-                      Edit
-                    </button>
-                    <button className="delete-btn" onClick={() => handleDelete(category._id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <CategoryList categories={categories} handleEdit={handleEdit} handleDelete={handleDelete} />
     </div>
   );
 }
 
 export default PostCategoryPage;
+
+const CategoryModal = ({
+  isEditMode,
+  formData,
+  preview,
+  loading,
+  error,
+  handleChange,
+  handleFileChange,
+  handleSubmit,
+  onClose,
+}) => (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h3>{isEditMode ? "Edit Post Category" : "Create Post Category"}</h3>
+      {error && <p className="error">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Title" required />
+        <input type="text" name="slug" value={formData.slug} onChange={handleChange} placeholder="Slug" required />
+        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" required></textarea>
+        <textarea name="content" value={formData.content} onChange={handleChange} placeholder="Content" required></textarea>
+        <input type="text" name="author" value={formData.author} onChange={handleChange} placeholder="Author" required />
+        <input type="text" name="tags" value={formData.tags} onChange={handleChange} placeholder="Tags (comma separated)" />
+        <input type="text" name="categories" value={formData.categories} onChange={handleChange} placeholder="Categories (comma separated)" />
+        <input type="text" name="seoTitle" value={formData.seoTitle} onChange={handleChange} placeholder="SEO Title" />
+        <textarea name="seoMetaDescription" value={formData.seoMetaDescription} onChange={handleChange} placeholder="SEO Meta Description"></textarea>
+        <input type="text" name="seoKeywords" value={formData.seoKeywords} onChange={handleChange} placeholder="SEO Keywords (comma separated)" />
+        
+        <label>Thumbnail:</label>
+        <input type="file" name="thumbnail" onChange={handleFileChange} accept="image/*" />
+        {preview.thumbnail && <img src={preview.thumbnail} alt="Thumbnail Preview" width="100" />}
+
+        <label>Cover Image:</label>
+        <input type="file" name="coverImage" onChange={handleFileChange} accept="image/*" />
+        {preview.coverImage && <img src={preview.coverImage} alt="Cover Preview" width="100" />}
+
+        <select name="status" value={formData.status} onChange={handleChange}>
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+          <option value="scheduled">Scheduled</option>
+        </select>
+        <input type="datetime-local" name="publishedAt" value={formData.publishedAt} onChange={handleChange} />
+
+        <button type="submit" disabled={loading}>{loading ? "Saving..." : isEditMode ? "Update" : "Create"}</button>
+      </form>
+      <button onClick={onClose}>Close</button>
+    </div>
+  </div>
+);
+
+const CategoryList = ({ categories, handleEdit, handleDelete }) => (
+  <div className="categories-list">
+    <h3>Categories List</h3>
+    {categories.length > 0 ? (
+      <table className="category-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Slug</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Tags</th>
+            <th>Categories</th>
+            <th>SEO Title</th>
+            <th>SEO Meta Description</th>
+            <th>SEO Keywords</th>
+            <th>Thumbnail</th>
+            <th>Cover Image</th>
+            <th>Status</th>
+            <th>Published At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category, index) => (
+            <tr key={category._id}>
+              <td>{index + 1}</td>
+              <td>{category.title}</td>
+              <td>{category.slug}</td>
+              <td>{category.description}</td>
+              <td>{category.author}</td>
+              <td>{category.tags?.join(", ")}</td>
+              <td>{category.categories?.join(", ")}</td>
+              <td>{category.seoTitle}</td>
+              <td>{category.seoMetaDescription}</td>
+              <td>{category.seoKeywords?.join(", ")}</td>
+              <td>
+                {category.thumbnail ? (
+                  <img src={category.thumbnail} alt="Thumbnail" width="50" />
+                ) : (
+                  "No Image"
+                )}
+              </td>
+              <td>
+                {category.coverImage ? (
+                  <img src={category.coverImage} alt="Cover" width="50" />
+                ) : (
+                  "No Image"
+                )}
+              </td>
+              <td>{category.status}</td>
+              <td>{new Date(category.publishedAt).toLocaleString()}</td>
+              <td>
+                <button className="edit-btn" onClick={() => handleEdit(category)}>
+                  Edit
+                </button>
+                <button className="delete-btn" onClick={() => handleDelete(category._id)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <p>No categories available</p>
+    )}
+  </div>
+);

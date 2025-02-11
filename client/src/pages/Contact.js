@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import api, { baseURL } from '../API/api.url';
 import appointment from '../assets/img/appointment.png';
 import AD from '../assets/img/address.png';
 import PH from '../assets/img/phone.png';
@@ -19,8 +19,9 @@ const Contact = () => {
     contactNumber: '',
     subject: '',
     textMessage: '',
-    agree: false,
+    // agree: false,
   });
+  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design","Digital Marketing","Digital Marketing","Search Engine Optimization (SEO)","Search Engine Optimization (SEO)"];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,7 +34,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/contact/create', formData);
+      const response = await axios.post(`${baseURL}${api.contact.createContact.url}`, formData);
       toast.success(response?.data?.message || 'Message sent successfully!', {
         autoClose: 3000,
         style: { background: '#d0f0ff', color: '#000' },
@@ -44,7 +45,7 @@ const Contact = () => {
         contactNumber: '',
         subject: '',
         textMessage: '',
-        agree: false,
+        // agree: false,
       });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to submit contact form', {
@@ -138,19 +139,25 @@ const Contact = () => {
                     <span className="icon"><i className="fa-solid fa-phone"></i></span>
                     <input type="text" name="contactNumber" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
                   </div>
-                  <div className="form-group col-sm-6">
-                    <span className="icon"><i className="fas fa-info-circle"></i></span>
-                    <input type="text" name="subject" placeholder="Subject" value={formData.subject} onChange={handleChange} />
+                  <div className='form-group col-sm-6'>
+                    
+                  <span className="icon"><i className="fa-solid fa-info"></i></span>
+                    <select name="subject" value={formData.subject} onChange={handleChange} required>
+                      <option value="">Select Services</option>
+                      {subjects.map((subj, index) => (
+                        <option key={index} value={subj}>{subj}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className='form-group'>
                   <span className='icon'><i className="fas fa-pencil-alt"></i></span>
                   <textarea name="textMessage" placeholder="How can we help you? Feel free to get in touch!" value={formData.textMessage} onChange={handleChange} required></textarea>
                 </div>
-                <label>
+                {/* <label>
                   <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange} required />
                   I agree that my data is collected and stored.
-                </label>
+                </label> */}
                 <button type="submit" className='default-btn mt-5'>Get In Touch</button>
               </form>
             </div>

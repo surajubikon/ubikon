@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Logo from '../assets/img/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from "react-scroll";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -25,9 +25,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-light header fixed-top ${
-        scrolled ? 'scrolled' : ''
-      }`}
+      className={`navbar navbar-expand-lg navbar-light header fixed-top ${scrolled ? 'scrolled' : ''
+        }`}
     >
       <div className="container">
         <a className="navbar-brand fw-bold" href="#">
@@ -48,17 +47,17 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <a className="nav-link active" href="#home">
-                 Home
+                Home
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                 About 
+                About
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Services 
+                Services
               </a>
             </li>
             <li className="nav-item">
@@ -67,10 +66,24 @@ const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a
+                className="nav-link"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent default anchor action
+                  document.getElementById("blog-section")?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
                 Blog
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/contact">
+                Contact Us
+              </a>
+            </li>
+
+
             {/* <li className="nav-item">
               <Link to="dashboard">Dashboard</Link>
             </li> */}
