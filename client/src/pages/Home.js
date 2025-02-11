@@ -266,84 +266,8 @@ const Home = () => {
                   <div class="col-lg-6">
                     <div class="blog-content">
                       <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">How Technology is Shaping the Future: Trends to Watch in 2023</a></h3>
-                      <p>Summary: Explore the top technological advancements that are set to change our lives in the coming year. From AI to blockchain, discover what to expect.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">The Importance of Mobile App Development for Business Growth</a></h3>
-                      <p>Summary: Learn why investing in mobile apps is crucial for businesses today and how it can lead to increased engagement and revenue.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">SEO Best Practices for 2023: How to Boost Your Website’s Visibility</a></h3>
-                      <p>Summary: Discover the latest SEO strategies that can help your website rank higher in search results and attract more traffic.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">UI/UX Design Trends: Enhancing User Experience in 2023</a></h3>
-                      <p>Summary: This article discusses the latest UI/UX design trends and how they can significantly improve user satisfaction for your digital products.</p>
-                      <a href="/koze/single-blog-1" class="blog-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="blog-card">
-                <div class="row align-items-center">
-                  <div class="col-lg-6">
-                    <div class="blog-image">
-                      <a href="/koze/single-blog-1" class="">
-                        <img src="https://vue.envytheme.com/koze/img/blog-1.9da8d82d.jpg" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="blog-content">
-                      <div class="date">9th July, 2022</div>
-                      <h3><a href="/koze/single-blog-1" class="">The Rise of E-commerce: Essential Features for Your Online Store</a></h3>
-                      <p>Summary: A comprehensive guide to the must-have features for an e-commerce website that can enhance customer experience and drive sales.</p>
+                      <h3><a href="/koze/single-blog-1" class="">How Technology Dominate In The new World In 2022</a></h3>
+                      <p>Lorem ipsum dolor sit amet conset sadipscing elitr sed diam nonumy eir m od tempor invidunt ut labore.</p>
                       <a href="/koze/single-blog-1" class="blog-btn">View More</a>
                     </div>
                   </div>
