@@ -227,7 +227,6 @@ const Home = () => {
           <div className='blog-slides'>
           
                 <Project/>
-            
            
           </div>
         </div>

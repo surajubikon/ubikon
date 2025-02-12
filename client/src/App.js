@@ -13,18 +13,23 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
-// Import your components/pages
+//Frontend//
 import Home from './pages/Home';
+import Contact from './pages/Contact';
+import Services from './pages/Services';
+import Demo from './pages/Demo';
+
+//Admin//
 
 import Dashboard from "./pages/admin/Dashboard";
 import Login from "./pages/admin/Login";
 import PostUpload from "./pages/admin/PostUpload";
 import PostCategoryPage from './pages/admin/PostCategoryPage';
 import UserDetails from './pages/admin/userDetails';
+
 import Blogpage from './pages/admin/blogpage.js';
 // import About from './pages/About';
 import Register from './pages/admin/Register.js';
-import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -48,8 +53,13 @@ function App() {
           {/* frontend pages */}
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/demo" element={<Demo />} />
 
-<Route path='/register' element={<Register />} />
+
+
+
+          <Route path='/register' element={<Register />} />
           {/* admin pages */}
           {/* <Route path="dashboard" element={<Dashboard />} /> 
               */}
@@ -65,7 +75,7 @@ function App() {
           <Route path="/users" element={<UserDetails />} />
           <Route path="/blog" element={<Blogpage />} />
            */}
-            <Route path="admin" element={<Login />} />
+          <Route path="admin" element={<Login />} />
           {/* Protected admin routes */}
           <Route path="/post-upload" element={
             <PrivateRoute>
