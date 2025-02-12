@@ -4,9 +4,11 @@ import Logo from '../assets/img/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +27,18 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-light header fixed-top ${scrolled ? 'scrolled' : ''
-        }`}
+      className={`navbar navbar-expand-lg navbar-light header fixed-top ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="container">
-        <a className="navbar-brand fw-bold" href="#">
-          <img width={107} src={Logo} />
+        <a
+          className="navbar-brand fw-bold"
+          href="/home"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default anchor behavior
+            navigate("/"); // Navigate to home page
+          }}
+        >
+          <img width={107} src={Logo} alt="Logo" />
         </a>
         <button
           className="navbar-toggler"
@@ -82,11 +90,6 @@ const Navbar = () => {
                 Contact Us
               </a>
             </li>
-
-
-            {/* <li className="nav-item">
-              <Link to="dashboard">Dashboard</Link>
-            </li> */}
           </ul>
         </div>
       </div>

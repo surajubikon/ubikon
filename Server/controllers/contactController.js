@@ -2,7 +2,7 @@ import Contact from '../models/Contact.js';
 import sendEmail from '../email/email.js'; // Import sendEmail function
 import verifyEmailTemplate from '../email/template.email.js';
 import { validationResult } from 'express-validator';
-const allowedSubjects = ["Mobile App Development", "Web Development", "UI/UX Design","Digital Marketing","Digital Marketing","Search Engine Optimization (SEO)","Search Engine Optimization (SEO)"];
+const allowedSubjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
 
 export const createContact = async (req, res) => {
   try {

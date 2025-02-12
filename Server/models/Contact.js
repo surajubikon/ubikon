@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const allowedSubjects = ["Mobile App Development", "Web Development", "UI/UX Design","Digital Marketing","Digital Marketing","Search Engine Optimization (SEO)","Search Engine Optimization (SEO)"];
+const allowedSubjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
 
 const contactSchema = new mongoose.Schema({
   yourName: { type: String, required: true },

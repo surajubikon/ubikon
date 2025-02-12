@@ -21,7 +21,7 @@ const Contact = () => {
     textMessage: '',
     // agree: false,
   });
-  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design","Digital Marketing","Digital Marketing","Search Engine Optimization (SEO)","Search Engine Optimization (SEO)"];
+  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -115,9 +115,23 @@ const Contact = () => {
               <h2>Have Questions? <br /> Get in Touch!</h2>
               <p>We are here to assist you with all your mobile app and website development needs. Let's start a conversation!</p>
               <ul>
-                <li><i className="fas fa-map-marker-alt"></i> C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore</li>
-                <li><i className="fas fa-mobile-alt"></i> +91 6264818989</li>
-                <li><i className="fas fa-envelope"></i> <a href="mailto:contact@ubikon.in">contact@ubikon.in</a></li>
+                <li>
+                  <i className="fas fa-map-marker-alt"></i>
+                  <a href="https://www.google.com/maps/place/C21+Mall,+Scheme+54+PU4+Vijay+Nagar,+Indore"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore
+                  </a>
+                </li>
+                <li>
+                  <i className="fas fa-mobile-alt"></i>
+                  <a href="tel:+916264818989">+91 6264818989</a>
+                </li>
+                <li>
+                  <i className="fas fa-envelope"></i>
+                  <a href="mailto:contact@ubikon.in">contact@ubikon.in</a>
+                </li>
+
               </ul>
             </div>
 
@@ -140,8 +154,8 @@ const Contact = () => {
                     <input type="text" name="contactNumber" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
                   </div>
                   <div className='form-group col-sm-6'>
-                    
-                  <span className="icon"><i className="fa-solid fa-info"></i></span>
+
+                    <span className="icon"><i className="fa-solid fa-info"></i></span>
                     <select name="subject" value={formData.subject} onChange={handleChange} required>
                       <option value="">Select Services</option>
                       {subjects.map((subj, index) => (
@@ -173,7 +187,7 @@ const Contact = () => {
           <div className='partnerlg'><img src={clLogo} alt="Partner 5" /></div>
         </div>
         {/* Footer */}
-       <Footer/>
+        <Footer />
         <ToastContainer />
       </div>
     </div>
