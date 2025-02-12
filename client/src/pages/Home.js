@@ -51,7 +51,7 @@ const Home = () => {
               <div className='main-slides-content'>
                 <span data-aos="fade-right" class="aos-init aos-animate">Join Thousands of Satisfied Clients and Boost Your Online Success</span>
                 <h1 data-aos="fade-right" class="aos-init aos-animate">Best IT Services for Your Business in Indore | Ubikon <span class="overlay" ></span></h1>
-                <p data-aos="fade-right" class="aos-init aos-animate">Welcome to Ubikon, your trusted partner in mobile app and website development. Based in Indore, Madhya Pradesh, we harness over 40 years of expertise to deliver cutting-edge digital solutions that elevate your business. From concept to execution, we ensure a seamless experience that drives results.</p>
+                <p data-aos="fade-right" class="aos-init aos-animate">Welcome to Ubikon, your trusted partner in mobile app and website development. Based in Indore, Madhya Pradesh, we harness over 8+ years of expertise to deliver cutting-edge digital solutions that elevate your business. From concept to execution, we ensure a seamless experience that drives results.</p>
                 <a href="contact.html" class="default-btn mt-5">Get Started Today!</a>
               </div>
             </div>
@@ -114,7 +114,7 @@ const Home = () => {
                 </div>
                 <div className=''>
                   <div className='services-item'>
-                    <div className="services-image">
+                    <div className="seblogrvices-image">
                       <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-1.jpg' />
                     </div>
                     <div class="services-content">

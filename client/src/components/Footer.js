@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-
+import WhatsApp from '../pages/WhatsApp';
+import PhoneCallButton from '../pages/PhoneCallButton';
 function Footer() {
   return (
     <>
@@ -105,8 +106,9 @@ function Footer() {
          
           {/* Footer Bottom Section */}
           <div className="text-center copyright">
-
+<WhatsApp/>
           <Chatbot />
+          <PhoneCallButton/>
             <p>© Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
           </div>
         </div>
