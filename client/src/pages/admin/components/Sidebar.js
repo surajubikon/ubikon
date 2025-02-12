@@ -10,15 +10,19 @@ const Sidebar = () => {
         <li className="active">
           <Link to="/dashboard"><FaHome /> Dashboard</Link>
         </li>
+        
         <li>
           <Link to="/users"><FaUser /> Users</Link>
         </li>
         <li>
+          <Link to="/blog-list"><FaUser /> BLOG</Link>
+        </li>
+        {/* <li>
           <Link to="/post-upload"><FaUser /> Post Upload</Link>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link to="/categories"><FaCogs /> Categories</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/settings"><FaCogs /> Settings</Link>
         </li>
