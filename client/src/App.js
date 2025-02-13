@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './API/PrivateRoute';  // Make sure the path is correct
-
 import { Helmet } from 'react-helmet';
 import logo from './logo.svg';
 import './App.css';
@@ -11,24 +10,15 @@ import './assets/css/admin/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-
-
-//Frontend//
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Demo from './pages/Demo';
-
-//Admin//
-
 import Dashboard from "./pages/admin/Dashboard";
 import Login from "./pages/admin/Login";
-import PostUpload from "./pages/admin/PostUpload";
-import PostCategoryPage from './pages/admin/PostCategoryPage';
 import UserDetails from './pages/admin/userDetails';
-
-import Blogpage from './pages/admin/blogpage.js';
+import Blogpage from './pages/admin/BlogPage.js';
+import BlogDetails from './pages/admin/BlogDeatails.js';
 // import About from './pages/About';
 import Register from './pages/admin/Register.js';
 
@@ -56,6 +46,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
           <Route path="/demo" element={<Demo />} />
+          <Route path="/blog/:slug" element={<BlogDetails />} />
 
 
 
@@ -70,35 +61,21 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           } />
-          {/* 
-          <Route path="/post-upload" element={<PostUpload />} />
-          <Route path="/categories" element={<PostCategoryPage />} />
-          <Route path="/users" element={<UserDetails />} />
-          <Route path="/blog" element={<Blogpage />} />
-           */}
+           <Route path="/blog-list" element={
+            <PrivateRoute>
+              <Blogpage />
+            </PrivateRoute>
+          } />
+         
           <Route path="admin" element={<Login />} />
           {/* Protected admin routes */}
-          <Route path="/post-upload" element={
-            <PrivateRoute>
-              <PostUpload />
-            </PrivateRoute>
-          } />
-          <Route path="/categories" element={
-            <PrivateRoute>
-              <PostCategoryPage />
-            </PrivateRoute>
-          } />
+          
           <Route path="/users" element={
             <PrivateRoute>
               <UserDetails />
             </PrivateRoute>
           } />
-          <Route path="/blog" element={
-            <PrivateRoute>
-              <Blogpage />
-            </PrivateRoute>
-          } />
-
+         
           {/* Protected route for dashboard */}
           <Route path="/dashboard" element={
             <PrivateRoute>

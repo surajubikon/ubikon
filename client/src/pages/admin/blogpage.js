@@ -1,61 +1,215 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import './Blogpage.css'; // Import external CSS file
 
-function BlogPage() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+function Blogpage() {
+  const [blogs, setBlogs] = useState([]);
+  const [formData, setFormData] = useState({
+    title: "",
+    slug: "",
+    description: "",
+    thumbnail: "",
+    ckeditor: "",
+    coverImage: "",
+    thumbnailFile: null,
+    coverImageFile: null,
+  });
+  const [showModal, setShowModal] = useState(false);
+  const [editBlogId, setEditBlogId] = useState(null);
 
+  // Fetch Blogs
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/api/categories/all"); // ✅ API endpoint yahan check karein
-        setPosts(response.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
+    axios
+      .get("http://localhost:8000/api/blogpost/all")
+      .then((res) => setBlogs(res.data))
+      .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 
+  // Handle Add or Edit Blog
+  const handleAddOrEditBlog = async (e) => {
+    e.preventDefault();
+    const form = new FormData();
+
+    // Append form fields including files
+    form.append("title", formData.title);
+    form.append("slug", formData.slug);
+    form.append("description", formData.description);
+    form.append("ckeditor", formData.ckeditor);
+    form.append("thumbnail", formData.thumbnailFile);
+    form.append("coverImage", formData.coverImageFile);
+    try {
+      if (editBlogId) {
+        // Editing an existing blog
+        const res = await axios.put(`http://localhost:8000/api/blogpost/update/${editBlogId}`, form, {
+          headers: { "Content-Type": "multipart/form-data" }
+        });
+        setBlogs(blogs.map(blog => (blog._id === editBlogId ? res.data : blog)));
+      } else {
+        // Adding a new blog
+        const res = await axios.post("http://localhost:8000/api/blogpost/create", form, {
+          headers: { "Content-Type": "multipart/form-data" }
+        });
+        setBlogs([...blogs, res.data]);
+      }
+      setShowModal(false);
+      setFormData({
+        title: "",
+        slug: "",
+        description: "",
+        thumbnail: "",
+        ckeditor: "",
+        coverImage: "",
+        thumbnailFile: null,
+        coverImageFile: null,
+      });
+      setEditBlogId(null);
+      alert(editBlogId ? "Blog updated successfully!" : "Blog added successfully!");
+    } catch (error) {
+      console.error("Error saving blog:", error.response?.data || error);
+    }
+  };
+
+  // Handle Edit
+  const handleEdit = (blog) => {
+    setEditBlogId(blog._id);
+    setFormData({
+      title: blog.title,
+      slug: blog.slug,
+      description: blog.description,
+      thumbnail: blog.thumbnail,
+      ckeditor: blog.ckeditor,
+      coverImage: blog.coverImage,
+      thumbnailFile: null,
+      coverImageFile: null,
+    });
+    setShowModal(true);
+  };
+
+  // Handle Delete
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/blogpost/delete/${id}`);
+      setBlogs(blogs.filter(blog => blog._id !== id));
+      alert("Blog deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
+  };
+
+  // Handle file change for thumbnail
+  const handleThumbnailChange = (e) => {
+    setFormData({ ...formData, thumbnailFile: e.target.files[0] });
+  };
+
+  // Handle file change for cover image
+  const handleCoverImageChange = (e) => {
+    setFormData({ ...formData, coverImageFile: e.target.files[0] });
+  };
+
   return (
-    <div>
-      <h2>Blog Posts</h2>
-      {loading ? (
+    <div className="blogpage-container">
+      <button onClick={() => setShowModal(true)} className="add-blog-btn">
+        ➕ Add Blog
+      </button>
+
+      {blogs.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          {posts.length > 0 ? (
-            posts.map((post) => (
-              <div key={post._id} style={{ border: "1px solid #ddd", padding: "10px", margin: "10px 0" }}>
-                <h3>{post.title}</h3>
-                <p><strong>Author:</strong> {post.author}</p>
-                <p><strong>Slug:</strong> {post.slug}</p>
-                <p><strong>Description:</strong> {post.description}</p>
-                <p><strong>Content:</strong> {post.content}</p>
-                <p><strong>Headings:</strong> {post.headings?.join(", ") || "N/A"}</p>
-                <p><strong>Tags:</strong> {post.tags?.join(", ") || "N/A"}</p>
-                <p><strong>Categories:</strong> {post.categories?.join(", ") || "N/A"}</p>
-                <p><strong>SEO Title:</strong> {post.seoTitle || "N/A"}</p>
-                <p><strong>SEO Meta Description:</strong> {post.seoMetaDescription || "N/A"}</p>
-                <p><strong>SEO Keywords:</strong> {post.seoKeywords?.join(", ") || "N/A"}</p>
-                
-                {post.thumbnail && <img src={post.thumbnail} alt="Thumbnail" width="100" />}
-                {post.coverImage && <img src={post.coverImage} alt="Cover" width="200" />}
+        <table className="blog-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Slug</th>
+              <th>Description</th>
+              <th>Image</th>
+              <th>Published Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {blogs.map((blog) => (
+              <tr key={blog._id}>
+                <td>{blog.title}</td>
+                <td>{blog.slug}</td>
+                <td dangerouslySetInnerHTML={{ __html: blog.description }} />
+                <td>
+                  <img src={blog.thumbnail} alt="Thumbnail" className="blog-thumbnail" />
+                  <img src={blog.coverImage} alt="Cover" className="blog-cover-image" />
+                </td>
+                <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
+                <td>
+                  <button onClick={() => handleEdit(blog)} className="edit-btn">✏️ Edit</button>
+                  <button onClick={() => handleDelete(blog._id)} className="delete-btn">❌ Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
-                <p><strong>Status:</strong> {post.status}</p>
-                <p><strong>Published At:</strong> {post.publishedAt ? new Date(post.publishedAt).toLocaleString() : "Not Published"}</p>
-              </div>
-            ))
-          ) : (
-            <p>No posts available.</p>
-          )}
+      {/* Add/Edit Blog Modal */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>{editBlogId ? "Edit Blog" : "Add Blog"}</h2>
+            <form onSubmit={handleAddOrEditBlog}>
+              <input
+                type="text"
+                placeholder="Enter Blog Title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+                className="form-input"
+              />
+              <textarea
+                placeholder="Enter Description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                required
+                className="form-textarea"
+              />
+              <input
+                type="file"
+                onChange={handleThumbnailChange}
+                className="form-file"
+              />
+              {formData.thumbnailFile && (
+                <img
+                  src={URL.createObjectURL(formData.thumbnailFile)}
+                  alt="Thumbnail Preview"
+                  className="image-preview"
+                />
+              )}
+              <input
+                type="file"
+                onChange={handleCoverImageChange}
+                className="form-file"
+              />
+              {formData.coverImageFile && (
+                <img
+                  src={URL.createObjectURL(formData.coverImageFile)}
+                  alt="Cover Image Preview"
+                  className="image-preview"
+                />
+              )}
+              <input
+                type="text"
+                placeholder="Enter CKEditor Content"
+                value={formData.ckeditor}
+                onChange={(e) => setFormData({ ...formData, ckeditor: e.target.value })}
+                className="form-input"
+              />
+              <br />
+              <button type="submit" className="submit-btn">{editBlogId ? "✅ Update Blog" : "✅ Save Blog"}</button>
+              <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">
+                ❌ Cancel
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-export default BlogPage;
+export default Blogpage;

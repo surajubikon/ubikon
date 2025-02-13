@@ -4,10 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { WebSocketServer } from "ws";
 import connectDB from "./config/db.js";
-
 import adminRoutes from "./routes/adminRoutes.js";
-import postCategoryRoutes from "./routes/postCategoryRoutes.js";
-import postRoutes from "./routes/postRoutes.js";
+import BlogpostRoutes from "./routes/blogPostRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import aiChatRoutes from "./routes/aiChatRoutes.js";
 
@@ -20,8 +18,7 @@ app.use(cors());
 
 // Routes
 app.use("/api/admin", adminRoutes);
-app.use("/api/categories", postCategoryRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/blogpost", BlogpostRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/aichat", aiChatRoutes);
 

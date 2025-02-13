@@ -4,17 +4,19 @@ import {
   createBlogPost, 
   getBlogPosts, 
   getBlogPostById, 
+  getBlogPostBySlug,
   updateBlogPost, 
   deleteBlogPost 
-} from '../controllers/postCategoryController.js';
+} from '../controllers/blogPostController.js';
 
 const router = express.Router();
 
 router.post('/create', upload.fields([{ name: 'thumbnail' }, { name: 'coverImage' }]), createBlogPost);
-  // ✅ Create blog post
-router.get('/all', getBlogPosts);       // ✅ Get all blog posts
-router.get('/:id', getBlogPostById);    // ✅ Get single blog post by ID
+router.get('/all', getBlogPosts);       
+router.get('/:id', getBlogPostById);
+router.get('/:slug', getBlogPostBySlug);  // Changed from :id to :slug
+
 router.put('/update/:id', upload.fields ([{ name: 'thumbnail' }, { name: 'coverImage' }]),  updateBlogPost); // ✅ Update blog post
-router.delete('/delete/:id',  deleteBlogPost); // ✅ Delete blog post
+router.delete('/delete/:id',  deleteBlogPost); 
 
 export default router;
