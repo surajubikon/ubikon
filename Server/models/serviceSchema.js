@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const BlogpostSchema = new mongoose.Schema(
+const ServiceSchema = new mongoose.Schema(
 
   {
     title: {
@@ -38,4 +38,4 @@ const BlogpostSchema = new mongoose.Schema(
 
 
 
-export default mongoose.model("PostCategory", BlogpostSchema);
+export default mongoose.model("service", ServiceSchema);

@@ -19,10 +19,13 @@ export const createContact = async (req, res) => {
       return res.status(400).json({ message: "Invalid subject selected" });
     }
 
-    
+     // Custom date and time
+     const date = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
+     const time = new Date().toLocaleTimeString();  // HH:MM:SS AM/PM
+ 
 
     // Database mein contact ko save karo
-    const contact = new Contact({ yourName, subject, email, contactNumber, textMessage });
+    const contact = new Contact({ yourName, subject, email, contactNumber, textMessage, date, time });
     await contact.save();
 
     // Email ke liye template generate karo
@@ -32,14 +35,16 @@ export const createContact = async (req, res) => {
       subject, 
       email, 
       contactNumber, 
-      textMessage
+      textMessage,
+      date,
+      time
     });
 
     // Email bhejne ka function call karo
     await sendEmail({
       sendTo: 'yourrony@gmail.com',
       subject: 'Ubikon Technologies Contact Form Submission',
-      formData: { yourName, subject, email, contactNumber, textMessage },
+      formData: { yourName, subject, email, contactNumber, textMessage,date, time },
       html: emailContent,
     });
 

@@ -1,25 +1,26 @@
-import Blogposts from "../models/blogPost.js";
+import serviceSchema from "../models/serviceSchema.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
-export const createBlogPost = async (req, res) => {
-  const { title, ckeditor, description, seometa , publishedAt } = req.body;
+
+export const createService = async (req, res) => {
+  const { title, ckeditor, description, seometa, publishedAt } = req.body;
 
   try {
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required." });
     }
 
-   
+    // Generate slug from the title
     const slug = title
-      .toLowerCase() 
-      .trim() 
-      .replace(/[^a-z0-9\s-]/g, '') 
-      .replace(/\s+/g, '-') 
-      .replace(/-+/g, '-'); 
+      .toLowerCase() // Convert title to lowercase
+      .trim() // Remove any extra spaces at the beginning or end
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
 
-    const postExists = await Blogposts.findOne({ slug });
-    if (postExists) {
-      return res.status(400).json({ message: "Post with this slug already exists" });
+    const serviceExists = await serviceSchema.findOne({ slug });
+    if (serviceExists) {
+      return res.status(400).json({ message: "Service with this slug already exists" });
     }
 
     // Handle image uploads
@@ -36,8 +37,8 @@ export const createBlogPost = async (req, res) => {
       coverImageUrl = coverImageUpload.secure_url;
     }
 
-    // Create the blog post with image URLs
-    const blogPost = await Blogposts.create({
+    // Create the service with image URLs
+    const service = await serviceSchema.create({
       title,
       slug,
       ckeditor,
@@ -48,41 +49,41 @@ export const createBlogPost = async (req, res) => {
       coverImage: coverImageUrl,
     });
 
-    res.status(201).json(blogPost);
+    res.status(201).json(service);
   } catch (error) {
-    console.error("Error in createBlogPost:", error);
+    console.error("Error in createService:", error);
     res.status(500).json({ message: error.message });
   }
 };
 
-
-// Get all blog posts
-export const getBlogPosts = async (req, res) => {
+// Get all services
+export const getService = async (req, res) => {
   try {
-    const blogPosts = await Blogposts.find().sort({ createdAt: -1 });
-    res.json(blogPosts);
+    const services = await serviceSchema.find().sort({ createdAt: -1 });
+    res.json(services);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const getBlogPostById = async (req, res) => {
+export const getServiceById = async (req, res) => {
   const { id } = req.params;
- 
+
   try {
-    const blogPost = await Blogposts.find({ slug: id });
-    if (!blogPost) {
-      return res.status(404).json({ message: "Post not found" });
+    const service = await serviceSchema.findById(id);
+    if (!service) {
+      return res.status(404).json({ message: "Service not found" });
     }
-    res.json(blogPost);
+    res.json(service);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-// Update a blog post
-export const updateBlogPost = async (req, res) => {
+
+// Update a service
+export const updateService = async (req, res) => {
   const { id } = req.params;
-  const { title, ckeditor, description,seometa, publishedAt } = req.body;
+  const { title, ckeditor, description, seometa, publishedAt } = req.body;
   const updates = req.body;
 
   try {
@@ -111,45 +112,44 @@ export const updateBlogPost = async (req, res) => {
       updatedFields.coverImage = coverImageUpload.secure_url;
     }
 
-    // Update the blog post
-    const updatedPost = await Blogposts.findByIdAndUpdate(id, updatedFields, { new: true });
+    // Update the service
+    const updatedService = await serviceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 
-    if (!updatedPost) {
-      return res.status(404).json({ message: "Post not found" });
+    if (!updatedService) {
+      return res.status(404).json({ message: "Service not found" });
     }
 
-    res.json(updatedPost);
+    res.json(updatedService);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Delete a blog post
-export const deleteBlogPost = async (req, res) => {
+// Delete a service
+export const deleteService = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedPost = await Blogposts.findByIdAndDelete(id);
-    if (!deletedPost) {
-      return res.status(404).json({ message: "Post not found" });
+    const deletedService = await serviceSchema.findByIdAndDelete(id);
+    if (!deletedService) {
+      return res.status(404).json({ message: "Service not found" });
     }
-    res.json({ message: "Post deleted successfully" });
+    res.json({ message: "Service deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
-export const getBlogPostBySlug = async (req, res) => {
+export const getServiceBySlug = async (req, res) => {
   const { slug } = req.params; // Get slug from URL params
 
   try {
-    const blogPost = await Blogposts.findOne({ slug }); // Find blog post by slug
-    if (!blogPost) {
-      return res.status(404).json({ message: "Blog post not found" });
+    const service = await serviceSchema.findOne({ slug }); // Find service by slug
+    if (!service) {
+      return res.status(404).json({ message: "Service not found" });
     }
-    res.status(200).json(blogPost);
+    res.status(200).json(service);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching the blog post" });
+    res.status(500).json({ message: "Error fetching the service" });
   }
 };

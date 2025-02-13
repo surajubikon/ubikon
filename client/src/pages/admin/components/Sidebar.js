@@ -17,6 +17,9 @@ const Sidebar = () => {
         <li>
           <Link to="/blog-list"><FaUser /> BLOG</Link>
         </li>
+        <li>
+          <Link to="/servicepage-list"><FaUser /> Service</Link>
+        </li>
         {/* <li>
           <Link to="/post-upload"><FaUser /> Post Upload</Link>
         </li> */}

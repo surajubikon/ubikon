@@ -20,7 +20,7 @@ import Blogpage from './pages/admin/BlogPage.js';
 import BlogDetails from './pages/admin/BlogDeatails.js';
 // import About from './pages/About';
 import Register from './pages/admin/Register.js';
-
+import ServicePage from './pages/admin/ServicePage.js';
 function App() {
   return (
     <>
@@ -63,6 +63,12 @@ function App() {
            <Route path="/blog-list" element={
             <PrivateRoute>
               <Blogpage />
+            </PrivateRoute>
+          } />
+
+<Route path="/servicepage-list" element={
+            <PrivateRoute>
+              <ServicePage />
             </PrivateRoute>
           } />
          

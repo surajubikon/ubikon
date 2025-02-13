@@ -26,7 +26,7 @@
 //       setIsBotTyping(true); 
 
       
-//       const response = await axios.post('http://localhost:8000/api/aichat/board', { message });
+//       const response = await axios.post('https://ubikon.in/api/aichat/board', { message });
 
       
 //       setTimeout(() => {
@@ -156,7 +156,7 @@
 //       if (socket.readyState === WebSocket.OPEN) {
 //         socket.send(message); // Send via WebSocket if connected
 //       } else {
-//         const response = await axios.post("http://localhost:8000/api/aichat/bot", { 
+//         const response = await axios.post("https://ubikon.in/api/aichat/bot", { 
 //           message, 
 //           assistanceId 
 //         });

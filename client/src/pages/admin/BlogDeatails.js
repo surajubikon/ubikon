@@ -13,7 +13,7 @@ function BlogDetails() {
     useEffect(() => {
         const fetchBlogDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/blogpost/${slug}`);
+                const response = await axios.get(`https://ubikon.in/api/blogpost/${slug}`);
                 console.log("API Response:", response.data);  // Log the response
                 setBlog(response.data[0]);  // Set the blog data in state
                 setLoading(false);

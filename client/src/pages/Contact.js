@@ -19,6 +19,7 @@ const Contact = () => {
     contactNumber: '',
     subject: '',
     textMessage: '',
+
     // agree: false,
   });
   const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];

@@ -10,27 +10,18 @@ import slides2 from '../assets/img/slides-2.png';
 import slidesbg from '../assets/img/slidesbg.png';
 
 import Project from "../pages/admin/Project";
-
-
+import Service from '../pages/Service.js';
+import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
 
 
 
 const Home = () => {
-  const settings = {
-    dots: false,              // Show navigation dots
-    infinite: true,          // Infinite scrolling
-    speed: 500,              // Transition speed in ms
-    slidesToShow: 3,         // Number of slides to show
-    slidesToScroll: 1,    // Number of slides to scroll
-    autoplay: true,          // Enable autoplay
-    autoplaySpeed: 3000,     // Delay between transitions
-    arrows: false,            // Show next/prev arrows
-  };
+  const navigate = useNavigate();
   return (
     <div className='col-sm-12'>
       <Navbar />
-   
+
       <div className='main-slides-area bg-bectangle-bottom'>
         <div className='container'>
           <div class="main-slides-shape-1">
@@ -91,72 +82,17 @@ const Home = () => {
               <div className='services-conten'>
                 <span class="">Services</span>
                 <h1 class="">Our Premier <br /> <b> Services </b></h1>
-                <p>We are technology solutions providing company all over the world doing over 40 years.</p>
-                <button className='default-btn mt-5'>Explore All Services</button>
+                <p>We are technology solutions providing company all over the world doing over 8+ years.</p>
+                <button
+                  className='default-btn mt-5'
+                  onClick={() => navigate("/services")}
+                >
+                  Explore All Services
+                </button>
               </div>
             </div>
             <div className='col-md-8'>
-
-              <Slider {...settings}>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-4.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Mobile App Development</a>
-                      </h3>
-                      <p> Transform your business ideas into stunning mobile applications. Our team specializes in user-friendly and scalable mobile app development for both Android and iOS platforms.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="seblogrvices-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-1.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Website Development</a>
-                      </h3>
-                      <p>  Elevate your online presence with our responsive and engaging website development services. We ensure that your website not only meets the latest standards in design and functionality but also attracts and converts visitors.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">UI/UX Design</a>
-                      </h3>
-                      <p>  User experience is at the heart of what we do. We create visually appealing and intuitive designs that engage users and enhance interaction.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Digital Marketing</a>
-                      </h3>
-                      <p>  Drive traffic and potential customers to your website with our tailored digital marketing strategies, including SEO, PPC, and social media marketing.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              
-
-              </Slider>
+              <Service />
             </div>
           </div>
         </div>
@@ -191,7 +127,7 @@ const Home = () => {
                 </span>
                 <h1 class="">Success Stories from <b>Satisfied Customers</b></h1>
                 <p>Discover the Sweet Talk of Our Happy Clients</p>
-                <p>At Ubikon, we take pride in delivering exceptional digital solutions for businesses across the globe. For over 40 years, our commitment to quality and customer satisfaction has garnered us a loyal clientele. Here’s what some of our clients have to say:
+                <p>At Ubikon, we take pride in delivering exceptional digital solutions for businesses across the globe. For over 8+ years, our commitment to quality and customer satisfaction has garnered us a loyal clientele. Here’s what some of our clients have to say:
                 </p>
                 <button className='default-btn mt-5'>Ready to Start Your Success Story?</button>
               </div>
@@ -225,13 +161,13 @@ const Home = () => {
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-          
-                <Project/>
-           
+
+            <Project />
+
           </div>
         </div>
       </div>
-     <Footer/>
+      <Footer />
     </div>
   );
 };

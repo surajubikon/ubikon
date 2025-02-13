@@ -11,6 +11,7 @@ function Blogpage() {
     thumbnail: "",
     ckeditor: "",
     coverImage: "",
+    seometa:"",
     thumbnailFile: null,
     coverImageFile: null,
   });
@@ -20,7 +21,7 @@ function Blogpage() {
   // Fetch Blogs
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/blogpost/all")
+      .get("https://ubikon.in/api/blogpost/all")
       .then((res) => setBlogs(res.data))
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
@@ -34,19 +35,20 @@ function Blogpage() {
     form.append("title", formData.title);
     form.append("slug", formData.slug);
     form.append("description", formData.description);
+    form.append("seometa", formData.seometa);
     form.append("ckeditor", formData.ckeditor);
     form.append("thumbnail", formData.thumbnailFile);
     form.append("coverImage", formData.coverImageFile);
     try {
       if (editBlogId) {
         // Editing an existing blog
-        const res = await axios.put(`http://localhost:8000/api/blogpost/update/${editBlogId}`, form, {
+        const res = await axios.put(`https://ubikon.in/api/blogpost/update/${editBlogId}`, form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setBlogs(blogs.map(blog => (blog._id === editBlogId ? res.data : blog)));
       } else {
         // Adding a new blog
-        const res = await axios.post("http://localhost:8000/api/blogpost/create", form, {
+        const res = await axios.post("https://ubikon.in/api/blogpost/create", form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setBlogs([...blogs, res.data]);
@@ -56,6 +58,7 @@ function Blogpage() {
         title: "",
         slug: "",
         description: "",
+        seometa:"",
         thumbnail: "",
         ckeditor: "",
         coverImage: "",
@@ -76,6 +79,7 @@ function Blogpage() {
       title: blog.title,
       slug: blog.slug,
       description: blog.description,
+      seometa: blog.seometa,
       thumbnail: blog.thumbnail,
       ckeditor: blog.ckeditor,
       coverImage: blog.coverImage,
@@ -88,7 +92,7 @@ function Blogpage() {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/blogpost/delete/${id}`);
+      await axios.delete(`https://ubikon.in/api/blogpost/delete/${id}`);
       setBlogs(blogs.filter(blog => blog._id !== id));
       alert("Blog deleted successfully!");
     } catch (error) {
@@ -121,6 +125,7 @@ function Blogpage() {
               <th>Title</th>
               <th>Slug</th>
               <th>Description</th>
+              <th>SEO Meta</th>
               <th>Image</th>
               <th>Published Date</th>
               <th>Actions</th>
@@ -132,6 +137,7 @@ function Blogpage() {
                 <td>{blog.title}</td>
                 <td>{blog.slug}</td>
                 <td dangerouslySetInnerHTML={{ __html: blog.description }} />
+                <td>{blog.seometa}</td>
                 <td>
                   <img src={blog.thumbnail} alt="Thumbnail" className="blog-thumbnail" />
                   <img src={blog.coverImage} alt="Cover" className="blog-cover-image" />
@@ -168,30 +174,13 @@ function Blogpage() {
                 required
                 className="form-textarea"
               />
-              <input
-                type="file"
-                onChange={handleThumbnailChange}
-                className="form-file"
+              <textarea
+                placeholder="Enter seometa"
+                value={formData.seometa}
+                onChange={(e) => setFormData({ ...formData, seometa: e.target.value })}
+                required
+                className="form-textarea"
               />
-              {formData.thumbnailFile && (
-                <img
-                  src={URL.createObjectURL(formData.thumbnailFile)}
-                  alt="Thumbnail Preview"
-                  className="image-preview"
-                />
-              )}
-              <input
-                type="file"
-                onChange={handleCoverImageChange}
-                className="form-file"
-              />
-              {formData.coverImageFile && (
-                <img
-                  src={URL.createObjectURL(formData.coverImageFile)}
-                  alt="Cover Image Preview"
-                  className="image-preview"
-                />
-              )}
               <input
                 type="text"
                 placeholder="Enter CKEditor Content"
@@ -199,8 +188,40 @@ function Blogpage() {
                 onChange={(e) => setFormData({ ...formData, ckeditor: e.target.value })}
                 className="form-input"
               />
+
+              {/* Thumbnail Image Upload */}
+              <label className="image-label">Upload Preview</label>
+              <input type="file" onChange={handleThumbnailChange} className="form-file" />
+              {formData.thumbnailFile && (
+                <div className="image-preview-container">
+                  
+                  <img
+                    src={URL.createObjectURL(formData.thumbnailFile)}
+                    alt="Thumbnail Preview"
+                    className="image-preview"
+                  />
+                </div>
+              )}
+
+              {/* Cover Image Upload */}
+              <label className="image-label">Upload Cover Image</label>
+              <input type="file" onChange={handleCoverImageChange} className="form-file" />
+              {formData.coverImageFile && (
+                <div className="image-preview-container">
+                  
+                  <img
+                    src={URL.createObjectURL(formData.coverImageFile)}
+                    alt="Cover Image Preview"
+                    className="image-preview"
+                  />
+                </div>
+              )}
+
+              
               <br />
-              <button type="submit" className="submit-btn">{editBlogId ? "✅ Update Blog" : "✅ Save Blog"}</button>
+              <button type="submit" className="submit-btn">
+                {editBlogId ? "✅ Update Blog" : "✅ Save Blog"}
+              </button>
               <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">
                 ❌ Cancel
               </button>
@@ -208,6 +229,8 @@ function Blogpage() {
           </div>
         </div>
       )}
+
+
     </div>
   );
 }

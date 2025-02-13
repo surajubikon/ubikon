@@ -7,9 +7,9 @@ const contactSchema = new mongoose.Schema({
   subject: { type: String, required: true, enum: allowedSubjects }, // Restrict to allowed values
   email: { type: String, required: true },
   contactNumber: { type: String, required: true },
-  textMessage: { type: String, required: true, maxlength: 500 }
+  textMessage: { type: String, required: true, maxlength: 5000 }
+}, { timestamps: true });  // Automatically adds createdAt and updatedAt
 
-});
 
 const Contact = mongoose.model('Contact', contactSchema);
 

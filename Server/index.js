@@ -8,7 +8,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import BlogpostRoutes from "./routes/blogPostRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import aiChatRoutes from "./routes/aiChatRoutes.js";
-
+import serviceRoutes from "./routes/serviceRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -20,6 +20,7 @@ app.use(cors());
 app.use("/api/admin", adminRoutes);
 app.use("/api/blogpost", BlogpostRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/services", serviceRoutes);
 app.use("/api/aichat", aiChatRoutes);
 
 const PORT = process.env.PORT || 8000;
