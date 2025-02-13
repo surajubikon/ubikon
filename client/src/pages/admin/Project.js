@@ -30,7 +30,31 @@ const Project = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-    };
+        responsive: [
+            {
+              breakpoint: 1024,   // Large screens (below 1024px)
+              settings: {
+                slidesToShow: 2, 
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 768,   // Tablets (below 768px)
+              settings: {
+                slidesToShow: 1, 
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 480,   // Mobile devices (below 480px)
+              settings: {
+                slidesToShow: 1, 
+                slidesToScroll: 1,
+                dots: true,  // Keep dots for better UX
+              },
+            },
+          ],
+        };
 
     return (
         <div className="container">

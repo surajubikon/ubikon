@@ -3,6 +3,10 @@ import Navbar from '../components/Navbar';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import slidesshape1 from '../assets/img/slides-shape-1.png'
+import slidesandroid1 from '../assets/img/slides-android1.png'
+import slidesshape3 from '../assets/img/slides-shape-3.png'
+import slidesshape4 from '../assets/img/slides-shape-4.png'
 
 import Wsimg from '../assets/img/ws-img.png';
 import slides1 from '../assets/img/slides-1.png';
@@ -18,15 +22,41 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const settings = {
-    dots: false,              // Show navigation dots
-    infinite: true,          // Infinite scrolling
-    speed: 500,              // Transition speed in ms
-    slidesToShow: 3,         // Number of slides to show
-    slidesToScroll: 1,    // Number of slides to scroll
-    autoplay: true,          // Enable autoplay
-    autoplaySpeed: 3000,     // Delay between transitions
-    arrows: false,            // Show next/prev arrows
+    dots: false,              // Hide navigation dots
+    infinite: true,           // Enable infinite scrolling
+    speed: 500,               // Transition speed in ms
+    slidesToShow: 3,          // Default slides to show (Desktop)
+    slidesToScroll: 1,        // Number of slides to scroll
+    autoplay: true,           // Enable autoplay
+    autoplaySpeed: 3000,      // Delay between transitions
+    arrows: false,            // Hide next/prev arrows
+    responsive: [
+      {
+        breakpoint: 1024,  // Large screens (below 1024px)
+        settings: {
+          slidesToShow: 2, // Show 2 slides at a time
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // Tablets (below 768px)
+        settings: {
+          slidesToShow: 1, // Show 1 slide at a time
+          slidesToScroll: 1,
+          dots: true, // Enable dots for better navigation
+        },
+      },
+      {
+        breakpoint: 480, // Mobile devices (below 480px)
+        settings: {
+          slidesToShow: 1, // Show 1 slide at a time
+          slidesToScroll: 1,
+          dots: true, // Enable dots for better UX
+        },
+      },
+    ],
   };
+  
   return (
     <div className='col-sm-12'>
       <Navbar />
@@ -34,20 +64,20 @@ const Home = () => {
       <div className='main-slides-area bg-bectangle-bottom'>
         <div className='container'>
           <div class="main-slides-shape-1">
-            <img src="https://templates.envytheme.com/coze/default/assets/images/home-slides/slides-shape-1.png" alt="image" />
+            <img src={slidesshape1} alt="image" />
           </div>
           <div className='main-slides-shape-2' >
-            <img src='https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png' />
+            <img src={slidesandroid1} />
           </div>
           <div className='main-slides-shape-3' >
-            <img src='https://vue.envytheme.com/koze/img/projects-shape-3.03208ab8.png' />
+            <img src={slidesshape3} />
           </div>
           <div className='main-slides-shape-4' >
-            <img src='https://vue.envytheme.com/koze/img/projects-shape-2.e4150a75.png' />
+            <img src={slidesshape4} />
           </div>
 
           <div className='row'>
-            <div className='col-md-7'>
+            <div className='col-12 col-xs-12 col-md-7'>
               <div className='main-slides-content'>
                 <span data-aos="fade-right" class="aos-init aos-animate">Join Thousands of Satisfied Clients and Boost Your Online Success</span>
                 <h1 data-aos="fade-right" class="aos-init aos-animate">Best IT Services for Your Business in Indore | Ubikon <span class="overlay" ></span></h1>
@@ -78,7 +108,7 @@ const Home = () => {
                 <button className='default-btn mt-5'>Explore Our Journey and Vision!</button>
               </div>
             </div>
-            <div className='col-md-6'>
+            <div className='col-md-6 mt-4 mt-md-0'>
               <img className='w-100' src={Wsimg} />
             </div>
           </div>
@@ -95,8 +125,7 @@ const Home = () => {
                 <button className='default-btn mt-5'>Explore All Services</button>
               </div>
             </div>
-            <div className='col-md-8'>
-
+            <div className='col-md-8 mt-5 mt-md-0'>
               <Slider {...settings}>
                 <div className=''>
                   <div className='services-item'>

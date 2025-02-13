@@ -41,7 +41,7 @@ const Navbar = () => {
           <img width={107} src={Logo} alt="Logo" />
         </a>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler bg-white"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
