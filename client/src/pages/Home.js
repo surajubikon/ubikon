@@ -3,6 +3,10 @@ import Navbar from '../components/Navbar';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import slidesshape1 from '../assets/img/slides-shape-1.png'
+import slidesandroid1 from '../assets/img/slides-android1.png'
+import slidesshape3 from '../assets/img/slides-shape-3.png'
+import slidesshape4 from '../assets/img/slides-shape-4.png'
 
 import Wsimg from '../assets/img/ws-img.png';
 import slides1 from '../assets/img/slides-1.png';
@@ -17,7 +21,46 @@ import Footer from '../components/Footer';
 
 
 const Home = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+  const settings = {
+    dots: false,              // Hide navigation dots
+    infinite: true,           // Enable infinite scrolling
+    speed: 500,               // Transition speed in ms
+    slidesToShow: 3,          // Default slides to show (Desktop)
+    slidesToScroll: 1,        // Number of slides to scroll
+    autoplay: true,           // Enable autoplay
+    autoplaySpeed: 3000,      // Delay between transitions
+    arrows: false,            // Hide next/prev arrows
+    responsive: [
+      {
+        breakpoint: 1024,  // Large screens (below 1024px)
+        settings: {
+          slidesToShow: 2, // Show 2 slides at a time
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // Tablets (below 768px)
+        settings: {
+          slidesToShow: 1, // Show 1 slide at a time
+          slidesToScroll: 1,
+          dots: true, // Enable dots for better navigation
+        },
+      },
+      {
+        breakpoint: 480, // Mobile devices (below 480px)
+        settings: {
+          slidesToShow: 1, // Show 1 slide at a time
+          slidesToScroll: 1,
+          dots: true, // Enable dots for better UX
+        },
+      },
+    ],
+  };
+  
+>>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
   return (
     <div className='col-sm-12'>
       <Navbar />
@@ -25,20 +68,20 @@ const Home = () => {
       <div className='main-slides-area bg-bectangle-bottom'>
         <div className='container'>
           <div class="main-slides-shape-1">
-            <img src="https://templates.envytheme.com/coze/default/assets/images/home-slides/slides-shape-1.png" alt="image" />
+            <img src={slidesshape1} alt="image" />
           </div>
           <div className='main-slides-shape-2' >
-            <img src='https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png' />
+            <img src={slidesandroid1} />
           </div>
           <div className='main-slides-shape-3' >
-            <img src='https://vue.envytheme.com/koze/img/projects-shape-3.03208ab8.png' />
+            <img src={slidesshape3} />
           </div>
           <div className='main-slides-shape-4' >
-            <img src='https://vue.envytheme.com/koze/img/projects-shape-2.e4150a75.png' />
+            <img src={slidesshape4} />
           </div>
 
           <div className='row'>
-            <div className='col-md-7'>
+            <div className='col-12 col-xs-12 col-md-7'>
               <div className='main-slides-content'>
                 <span data-aos="fade-right" class="aos-init aos-animate">Join Thousands of Satisfied Clients and Boost Your Online Success</span>
                 <h1 data-aos="fade-right" class="aos-init aos-animate">Best IT Services for Your Business in Indore | Ubikon <span class="overlay" ></span></h1>
@@ -69,7 +112,7 @@ const Home = () => {
                 <button className='default-btn mt-5'>Explore Our Journey and Vision!</button>
               </div>
             </div>
-            <div className='col-md-6'>
+            <div className='col-md-6 mt-4 mt-md-0'>
               <img className='w-100' src={Wsimg} />
             </div>
           </div>
@@ -91,8 +134,72 @@ const Home = () => {
                 </button>
               </div>
             </div>
+<<<<<<< HEAD
             <div className='col-md-8'>
               <Service />
+=======
+            <div className='col-md-8 mt-5 mt-md-0'>
+              <Slider {...settings}>
+                <div className=''>
+                  <div className='services-item'>
+                    <div className="services-image">
+                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-4.jpg' />
+                    </div>
+                    <div class="services-content">
+                      <h3>
+                        <a href="services-details.html">Mobile App Development</a>
+                      </h3>
+                      <p> Transform your business ideas into stunning mobile applications. Our team specializes in user-friendly and scalable mobile app development for both Android and iOS platforms.</p>
+                      <a href="services-details.html" class="services-btn">View More</a>
+                    </div>
+                  </div>
+                </div>
+                <div className=''>
+                  <div className='services-item'>
+                    <div className="seblogrvices-image">
+                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-1.jpg' />
+                    </div>
+                    <div class="services-content">
+                      <h3>
+                        <a href="services-details.html">Website Development</a>
+                      </h3>
+                      <p>  Elevate your online presence with our responsive and engaging website development services. We ensure that your website not only meets the latest standards in design and functionality but also attracts and converts visitors.</p>
+                      <a href="services-details.html" class="services-btn">View More</a>
+                    </div>
+                  </div>
+                </div>
+                <div className=''>
+                  <div className='services-item'>
+                    <div className="services-image">
+                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
+                    </div>
+                    <div class="services-content">
+                      <h3>
+                        <a href="services-details.html">UI/UX Design</a>
+                      </h3>
+                      <p>  User experience is at the heart of what we do. We create visually appealing and intuitive designs that engage users and enhance interaction.</p>
+                      <a href="services-details.html" class="services-btn">View More</a>
+                    </div>
+                  </div>
+                </div>
+                <div className=''>
+                  <div className='services-item'>
+                    <div className="services-image">
+                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
+                    </div>
+                    <div class="services-content">
+                      <h3>
+                        <a href="services-details.html">Digital Marketing</a>
+                      </h3>
+                      <p>  Drive traffic and potential customers to your website with our tailored digital marketing strategies, including SEO, PPC, and social media marketing.</p>
+                      <a href="services-details.html" class="services-btn">View More</a>
+                    </div>
+                  </div>
+                </div>
+              
+
+              </Slider>
+>>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
             </div>
           </div>
         </div>

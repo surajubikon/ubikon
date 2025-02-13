@@ -246,7 +246,7 @@ position: relative;
 background-image: url(../img/bg-bectangle-bottom.svg);
 content: "";
 position: absolute;
-bottom: -147px;
+bottom: -146px;
 width: 100%;
 height: 147px;
 left: 0;
@@ -301,8 +301,8 @@ margin-top: 30px;
 
 .main-slides-shape-1 {
 position: absolute;
-left: 50px;
-top: 65px;
+left: 125px;
+top: 147px;
 z-index: 1;
 }
 .main-slides-shape-1 img {
@@ -310,6 +310,7 @@ animation-name: rotateme;
 animation-duration: 5s;
 animation-iteration-count: infinite;
 animation-timing-function: linear;
+width: 74px;
 }
 @keyframes rotateme {
 0% {
@@ -331,11 +332,14 @@ animation: moveleftbounce 2s linear infinite;
 
 .main-slides-shape-2 {
 position: absolute;
-top: 20%;
-left: 50%;
+top: 28%;
+left: 43%;
 transform: translateY(-11%) translateX(-50%);
 z-index: 1;
 animation: moveleftbounce 2s linear infinite;
+}
+.main-slides-shape-2 img {
+  width: 70px;
 }
 
 @keyframes moveleftbounce {
@@ -350,7 +354,7 @@ animation: moveleftbounce 2s linear infinite;
 .main-slides-shape-3 {
 position: absolute;
 bottom: 10%;
-right: 32%;
+right: 36%;
 transform: translateY(-10%) translateX(-32%);
 z-index: 1;
 }
@@ -359,6 +363,7 @@ animation-name: rotateme;
 animation-duration: 5s;
 animation-iteration-count: infinite;
 animation-timing-function: linear;
+width: 109px;
 }
 
 @keyframes rotateme {
@@ -371,14 +376,14 @@ animation-timing-function: linear;
 }
 .main-slides-shape-4 {
 position: absolute;
-bottom: 10%;
-left: -18%;
+bottom: -84px;
+left: 108px;
 z-index: 1;
 transform: translateY(-10%) translateX(-20%);
 animation: moveleftbounce 1s linear infinite;
 }
 .main-slides-shape-4 img {
-width: 188px;
+width: 98px;
 }
 @keyframes moveleftbounce {
 0%, 100% {
@@ -938,3 +943,39 @@ opacity: 1;
   z-index:11;
   position: relative;
 }
+
+/***blog-banner***/
+.blog-banner-title {
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+}
+.blog-details-content {
+  margin: 40px;
+}
+.blog-details-content h1 {
+  font-size: 43px;
+  font-weight:bold !important;
+}
+.blogcoverimage  {
+  border-radius: 11px;
+  box-shadow: 2px 2px 17px -10px;
+}
+.blog-details-content .blog-published-dt {
+  font-size: 14px;
+  margin: 19px 1px 18px;
+  color: #5b5b5c;
+}
+.blog-details-content .blog-content {
+  font-size: 14px;
+  line-height: 26px;
+  margin-top: 34px;
+}
+/***blog-banner***/

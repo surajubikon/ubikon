@@ -20,7 +20,7 @@ function Footer() {
           </div>
           <div className="row">
             {/* About Section */}
-            <div className="col-md-3">
+            <div className="col-md-3 mb-4 mb-md-0">
 
               <a class="nav-link px-0 my-3" aria-current="page" href="#"><img width={139} src={Logo} /></a>
               <p>Empowering Your Business with Expert Mobile App & Website Development</p>
@@ -45,7 +45,7 @@ function Footer() {
                 </ul>
               </div>
             </div>
-            <div className="col-md-3 ">
+            <div className="col-md-3 col-6 ">
               <h5 className='fw-bold'>Links</h5>
               <ul class="nav flex-column">
                 <li class="nav-item">
@@ -68,7 +68,7 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-md-3 ">
+            <div className="col-md-3 col-6">
               <h5 className='fw-bold'>Pages</h5>
               <ul class="nav flex-column">
                 <li class="nav-item">
@@ -91,7 +91,7 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className='col-md-3'>
+            <div className='col-md-3 mt-4 mt-md-0'>
               <h5 className='fw-bold mb-4'>Subscribe Newsletter</h5>
               <form>
                 <div className='newsletter-form'>

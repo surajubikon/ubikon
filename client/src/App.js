@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import logo from './logo.svg';
 import './App.css';
 import './assets/css/style.css'
+import './assets/css/responsive.css'
 import './assets/css/admin/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';

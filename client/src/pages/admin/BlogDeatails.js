@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 function BlogDetails() {
     const { slug } = useParams();  // Get the slug from the URL
@@ -31,28 +33,45 @@ function BlogDetails() {
 
 
     return (
-        <div className="blog-details">
-            {blog ? (
-                <>
-                    <h1>{blog.title}</h1>
-                    {blog.coverImage && <img src={blog.coverImage} alt={blog.title} />}
-                    {blog.thumbnail && (
-                        <img
-                            src={blog.thumbnail}
-                            alt={blog.title}
-                            style={{ width: '100%', maxWidth: '500px', height: 'auto' }} // Adjust the width, maxWidth, and height
-                        />
-                    )}
+        <>
+            <Navbar />
+            <div className="blog-details">
+                {blog ? (
+                    <>
+                        <div className='blog-banner position-relative'>
+                            <div className='text-center blog-banner-title'>
+                                <h2>Blog</h2>
+                                <p>Stay Updated with the Latest Tech Insights</p>
+                            </div>
+                            {blog.coverImage && <img className='w-100 blogcoverimage' src={blog.coverImage} alt={blog.title} />}
+                        </div>
+                        <div className='blog-details-content'>
+                            <div className='container'>
+                                <div className='col-md-8 m-auto'>
+                                    <h1>{blog.title}</h1>
+                                    <p className='blog-published-dt'><strong>Published on:</strong> {new Date(blog.createdAt).toLocaleDateString()}</p>
+                                    {blog.thumbnail && (
+                                        <img
+                                            src={blog.thumbnail}
+                                            alt={blog.title}
+                                            className='w-100'
+                                        />
+                                    )}
+                                    <div className='blog-content'>
+                                        <p>{blog.description}</p>
+                                        <div className="" dangerouslySetInnerHTML={{ __html: blog.ckeditor }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <p>Blog not found</p>
+                )}
 
-                    <p>{blog.description}</p>
-                    <p><strong>Published on:</strong> {new Date(blog.createdAt).toLocaleDateString()}</p>
-                    <div className="blog-content" dangerouslySetInnerHTML={{ __html: blog.ckeditor }}></div>
-                </>
-            ) : (
-                <p>Blog not found</p>
-            )}
-
-        </div>
+            </div>
+            <Footer />
+        </>
     );
 }
 
