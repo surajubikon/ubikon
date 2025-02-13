@@ -18,7 +18,6 @@ import { Helmet } from "react-helmet";  // Import React Helmet
 
 const ServicePage = () => {
 
-<<<<<<< HEAD
   const [services, setServices] = useState([]);
 
   useEffect(() => {
@@ -35,9 +34,7 @@ const ServicePage = () => {
     fetchServices();
   }, []);
   const settings = {
-=======
-  const services = {
->>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
+
     dots: false,              // Show navigation dots
     infinite: true,           // Infinite scrolling
     speed: 500,               // Transition speed in ms
@@ -67,15 +64,12 @@ const ServicePage = () => {
                 <h2 className="fw-bold">Our Services</h2>
                 <p>We Provide Perfect IT Solutions for Your Business</p>
               </div>
-<<<<<<< HEAD
               <Helmet>
                 <title>Our Services - Software, App, Website Development</title>
                 <meta name="description" content="Explore our expert services in Software Development, App Development, Website Development, and more. High-quality solutions for your business needs." />
                 <meta name="keywords" content="software development, app development, website development, IT services, business solutions, mobile apps, web apps, ecommerce development, AI, blockchain, digital transformation" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-=======
->>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
             </div>
           </div>
 
@@ -115,7 +109,6 @@ const ServicePage = () => {
               <p>We ensure you have every functionality you need to build, run, and expand your marketplace</p>
             </div>
             <div className="container">
-<<<<<<< HEAD
               <div className="row justify-content-center">
                 <div className="col-md-8">
                   <Slider {...settings}>
@@ -167,48 +160,10 @@ const ServicePage = () => {
         </div>
       </div>
       <Footer />
-=======
-              <div className="row">
-                <Slider {...services}>
-                  <div className="">
-                    <div className="card text-center" >
-                      <div className="text-center"><img src={serviceimg1} className="card-img-top" alt="Card Image" /></div>
-                      <div className="card-body">
-                        <h5 className="card-title">Google / Meta Ads</h5>
-                        <p className="card-text">Get more website traffic, more customers & more online visibility with powerful SEO services.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <div className="card text-center">
-                      <div className="text-center"><img src={serviceimg1} className="card-img-top" alt="Card Image" /></div>
-                      <div className="card-body">
-                        <h5 className="card-title">Google / Meta Ads</h5>
-                        <p className="card-text">Get more website traffic, more customers & more online visibility with powerful SEO services.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <div className="card text-center">
-                      <div className="text-center"><img src={serviceimg1} className="card-img-top" alt="Card Image" /></div>
-                      <div className="card-body">
-                        <h5 className="card-title">Google / Meta Ads</h5>
-                        <p className="card-text">Get more website traffic, more customers & more online visibility with powerful SEO services.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                </Slider>
-              </div>
-            </div>
-          </div>
-        </div>
+            
+        
 
 
-      </div>
->>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
     </>
   );
 };

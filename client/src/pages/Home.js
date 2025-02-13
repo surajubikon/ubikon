@@ -18,12 +18,10 @@ import Service from '../pages/Service.js';
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
 
-
+ 
 
 const Home = () => {
-<<<<<<< HEAD
   const navigate = useNavigate();
-=======
   const settings = {
     dots: false,              // Hide navigation dots
     infinite: true,           // Enable infinite scrolling
@@ -60,7 +58,6 @@ const Home = () => {
     ],
   };
   
->>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
   return (
     <div className='col-sm-12'>
       <Navbar />
@@ -134,72 +131,8 @@ const Home = () => {
                 </button>
               </div>
             </div>
-<<<<<<< HEAD
             <div className='col-md-8'>
               <Service />
-=======
-            <div className='col-md-8 mt-5 mt-md-0'>
-              <Slider {...settings}>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-4.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Mobile App Development</a>
-                      </h3>
-                      <p> Transform your business ideas into stunning mobile applications. Our team specializes in user-friendly and scalable mobile app development for both Android and iOS platforms.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="seblogrvices-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-1.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Website Development</a>
-                      </h3>
-                      <p>  Elevate your online presence with our responsive and engaging website development services. We ensure that your website not only meets the latest standards in design and functionality but also attracts and converts visitors.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">UI/UX Design</a>
-                      </h3>
-                      <p>  User experience is at the heart of what we do. We create visually appealing and intuitive designs that engage users and enhance interaction.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-                <div className=''>
-                  <div className='services-item'>
-                    <div className="services-image">
-                      <img width="100%" src='https://templates.envytheme.com/coze/default/assets/images/services/services-3.jpg' />
-                    </div>
-                    <div class="services-content">
-                      <h3>
-                        <a href="services-details.html">Digital Marketing</a>
-                      </h3>
-                      <p>  Drive traffic and potential customers to your website with our tailored digital marketing strategies, including SEO, PPC, and social media marketing.</p>
-                      <a href="services-details.html" class="services-btn">View More</a>
-                    </div>
-                  </div>
-                </div>
-              
-
-              </Slider>
->>>>>>> be82d62ee98057e83800cb31f33961004bed53c8
             </div>
           </div>
         </div>

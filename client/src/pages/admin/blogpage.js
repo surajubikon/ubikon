@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './Blogpage.css'; // Import external CSS file
 
-function Blogpage() {
+function BlogPage() {
   const [blogs, setBlogs] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -235,4 +235,4 @@ function Blogpage() {
   );
 }
 
-export default Blogpage;
+export default BlogPage;
