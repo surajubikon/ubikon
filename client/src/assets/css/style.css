@@ -22,6 +22,7 @@ padding: 0;
 
 .fixed-top {
   background-color: #000 !important;
+  z-index: 999;
 }
 .navbar {
   font-family: 'TenorSans';
@@ -49,12 +50,12 @@ padding: 0;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #c02c1b; 
+  color: #f58539; 
 }
 
 .navbar-nav .nav-link.active {
   font-weight: bold;
-  color: #c02c1b; 
+  color: #f58539; 
 }
 
 /* / Add Sticky Transition / */
@@ -63,6 +64,29 @@ padding: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.mega-menu-dropdown .mega-menu {
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: 100%;
+  position: absolute;
+  background: white;
+  z-index: 1000;
+  display: none; /* Hide by default */
+  border-top: 3px solid #007bff;
+}
+
+.mega-menu-dropdown.nav-item:hover .mega-menu {
+  display: block; /* Show menu on hover */
+}
+
+.mega-menu-dropdown .mega-menu .container {
+  padding: 1rem;
+}
+
+.mega-menu-dropdown .mega-menu .col {
+  min-width: 250px;
+}
 
 
 
@@ -175,12 +199,17 @@ justify-content: center;
 position: relative;
 border-radius: 10px;
 z-index: 0;
-background: radial-gradient(circle, #feb302, #f8c600, #eed900, #e0ec00, #cdff05);;
+background: rgb(249,135,43);
+background: -moz-linear-gradient(90deg, rgba(249,135,43,1) 0%, rgba(244,202,55,1) 51%, rgba(249,135,43,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(249,135,43,1) 0%, rgba(244,202,55,1) 51%, rgba(249,135,43,1) 100%);
+background: linear-gradient(90deg, rgba(249,135,43,1) 0%, rgba(244,202,55,1) 51%, rgba(249,135,43,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9872b",endColorstr="#f9872b",GradientType=1);
 box-shadow: none;
 overflow: hidden;
 white-space: nowrap;
+border: none;
 }
-.default-btn:before {
+/* .default-btn:before {
 content: "";
 position: absolute;
 top: 0;
@@ -195,7 +224,7 @@ z-index: -1;
 transform-origin: top center;
 transform: translateX(-50%) translateY(-5%) scale(0.4);
 transition: transform 0.9s;
-}
+} */
 .widget-social li a i {
 color: #CDC4D9;
 display: inline-block;
@@ -979,3 +1008,26 @@ opacity: 1;
   margin-top: 34px;
 }
 /***blog-banner***/
+
+
+/********/
+/* Right Sidebar Modal */
+.modal.right .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 400px; /* Adjust width as needed */
+  height: 100%;
+  right: 0;
+  top: 0;
+  transform: translateX(100%); /* Initially hidden */
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal.right.show .modal-dialog {
+  transform: translateX(0); /* Slide in effect */
+}
+
+.modal-content {
+  height: 100%;
+  border-radius: 0;
+}
