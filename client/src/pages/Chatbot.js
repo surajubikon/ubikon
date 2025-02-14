@@ -73,7 +73,7 @@ const Chatbot = () => {
   return (
     <div className="chatbot-container">
       <button className="chatbot-btn" onClick={toggleChat}>
-        <Lottie options={defaultOptions} style={{ width: '100px', height: '100px' }} />
+        <Lottie options={defaultOptions} style={{ width: '160px', height: '100px' }} />
       </button>
 
       {isOpen && (

@@ -22,41 +22,6 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const navigate = useNavigate();
-  const settings = {
-    dots: false,              // Hide navigation dots
-    infinite: true,           // Enable infinite scrolling
-    speed: 500,               // Transition speed in ms
-    slidesToShow: 3,          // Default slides to show (Desktop)
-    slidesToScroll: 1,        // Number of slides to scroll
-    autoplay: true,           // Enable autoplay
-    autoplaySpeed: 3000,      // Delay between transitions
-    arrows: false,            // Hide next/prev arrows
-    responsive: [
-      {
-        breakpoint: 1024,  // Large screens (below 1024px)
-        settings: {
-          slidesToShow: 2, // Show 2 slides at a time
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768, // Tablets (below 768px)
-        settings: {
-          slidesToShow: 1, // Show 1 slide at a time
-          slidesToScroll: 1,
-          dots: true, // Enable dots for better navigation
-        },
-      },
-      {
-        breakpoint: 480, // Mobile devices (below 480px)
-        settings: {
-          slidesToShow: 1, // Show 1 slide at a time
-          slidesToScroll: 1,
-          dots: true, // Enable dots for better UX
-        },
-      },
-    ],
-  };
   
   return (
     <div className='col-sm-12'>
@@ -131,7 +96,7 @@ const Home = () => {
                 </button>
               </div>
             </div>
-            <div className='col-md-8'>
+            <div className='col-md-8 mt-5 mt-md-0'>
               <Service />
             </div>
           </div>

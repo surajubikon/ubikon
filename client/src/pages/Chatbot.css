@@ -1,8 +1,8 @@
 /* Container for floating chat button */
 .chatbot-container {
     position: fixed;
-    bottom: 155px;
-    right: 18px;
+    bottom: 0px;
+    right: -6px;
     z-index: 1000; /* Ensure the chatbot is always above other content */
   }
   
@@ -12,7 +12,7 @@
     border: none;
     color: white;
     border-radius: 50%;
-    width: 100px;
+    width: 140px;
     height: 100px;
     display: flex;
     justify-content: center;
