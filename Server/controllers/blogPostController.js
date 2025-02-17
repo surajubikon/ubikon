@@ -1,18 +1,19 @@
 import Blogposts from "../models/blogPost.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
+import sharp from 'sharp';
+
 export const createBlogPost = async (req, res) => {
-  const { title, ckeditor, description, seometa , publishedAt } = req.body;
+  const { title, content, description, seometa , publishedAt } = req.body;
 
   try {
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required." });
     }
 
-   
     const slug = title
-      .toLowerCase() 
-      .trim() 
+      .toLowerCase()
+      .trim()
       .replace(/[^a-z0-9\s-]/g, '') 
       .replace(/\s+/g, '-') 
       .replace(/-+/g, '-'); 
@@ -25,27 +26,52 @@ export const createBlogPost = async (req, res) => {
     // Handle image uploads
     let thumbnailUrl = '';
     let coverImageUrl = '';
+    let previewImageUrl = ''; // New variable for Preview Image
 
     if (req.files?.thumbnail) {
-      const thumbnailUpload = await uploadToCloudinary(req.files.thumbnail[0].buffer);
+      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
+        .resize(800, 600)  // Resize image to 800x600
+        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
+        .toBuffer();  // Get processed image as buffer
+      
+
+      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
       thumbnailUrl = thumbnailUpload.secure_url;
     }
 
     if (req.files?.coverImage) {
-      const coverImageUpload = await uploadToCloudinary(req.files.coverImage[0].buffer);
+      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
+        .resize(1200, 800)  // Resize image to 1200x800
+        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
+        .toBuffer();  // Get processed image as buffer
+     
+
+      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
       coverImageUrl = coverImageUpload.secure_url;
+    }
+
+    if (req.files?.previewImage) {  // Handling Preview Image
+      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
+        .resize(400, 300)  // Resize image to 400x300 for preview
+        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
+        .toBuffer();  // Get processed image as buffer
+    
+
+      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
+      previewImageUrl = previewImageUpload.secure_url;
     }
 
     // Create the blog post with image URLs
     const blogPost = await Blogposts.create({
       title,
       slug,
-      ckeditor,
+      content,
       description,
       seometa,
       publishedAt,
       thumbnail: thumbnailUrl,
       coverImage: coverImageUrl,
+      previewImage: previewImageUrl, 
     });
 
     res.status(201).json(blogPost);
@@ -79,10 +105,9 @@ export const getBlogPostById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Update a blog post
 export const updateBlogPost = async (req, res) => {
   const { id } = req.params;
-  const { title, ckeditor, description,seometa, publishedAt } = req.body;
+  const { title, content, description, seometa, publishedAt } = req.body;
   const updates = req.body;
 
   try {
@@ -100,15 +125,42 @@ export const updateBlogPost = async (req, res) => {
       updatedFields.slug = slug;
     }
 
-    // Handle image uploads if provided
+    // Handle image uploads if provided and process with Sharp
     if (req.files?.thumbnail) {
-      const thumbnailUpload = await uploadToCloudinary(req.files.thumbnail[0].buffer);
+      // Resize and compress thumbnail image using Sharp
+      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
+        .resize(800, 600)  // Resize image to 800x600
+        .webp({ quality: 80 })  // Compress to 80% quality (JPEG format)
+        .toBuffer();  // Get processed image as buffer
+
+      // Upload the processed thumbnail to Cloudinary
+      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
       updatedFields.thumbnail = thumbnailUpload.secure_url;
     }
 
     if (req.files?.coverImage) {
-      const coverImageUpload = await uploadToCloudinary(req.files.coverImage[0].buffer);
+      // Resize and compress cover image using Sharp
+      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
+        .resize(1200, 800)  // Resize image to 1200x800
+        .webp({ quality: 80 })  // Compress to 80% quality (JPEG format)
+        .toBuffer();  // Get processed image as buffer
+
+      // Upload the processed cover image to Cloudinary
+      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
       updatedFields.coverImage = coverImageUpload.secure_url;
+    }
+
+    // Handle Preview Image upload if provided
+    if (req.files?.previewImage) {
+      // Resize and compress preview image using Sharp
+      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
+        .resize(400, 300)  // Resize image to 400x300 for preview
+        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
+        .toBuffer();  // Get processed image as buffer
+
+      // Upload the processed preview image to Cloudinary
+      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
+      updatedFields.previewImage = previewImageUpload.secure_url;
     }
 
     // Update the blog post
@@ -120,6 +172,7 @@ export const updateBlogPost = async (req, res) => {
 
     res.json(updatedPost);
   } catch (error) {
+    console.error('Error in updateBlogPost:', error);
     res.status(500).json({ message: error.message });
   }
 };

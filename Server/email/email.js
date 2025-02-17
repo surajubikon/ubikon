@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 
 // Function to send email
 const sendEmail = async ({ sendTo, subject, formData }) => {
-  console.log("Sending email to:", sendTo); // Log the recipient's email for debugging purposes
+   // Log the recipient's email for debugging purposes
 
   // Create an email content based on the form data
   const htmlContent = `

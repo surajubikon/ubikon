@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+// add rich text editor
+
 import axios from "axios";
+import { useState, useEffect, useRef } from 'react';
 import './Blogpage.css'; // Import external CSS file
+import BundledEditor from './bundled'; // Import BundledEditor (TinyMCE)
 
 function BlogPage() {
   const [blogs, setBlogs] = useState([]);
@@ -9,14 +12,18 @@ function BlogPage() {
     slug: "",
     description: "",
     thumbnail: "",
-    ckeditor: "",
     coverImage: "",
-    seometa:"",
+    seometa: "",
+    previewImage: "",
     thumbnailFile: null,
     coverImageFile: null,
+    previewImageFile: null,
+    content: "" // New state for editor content
+    
   });
   const [showModal, setShowModal] = useState(false);
   const [editBlogId, setEditBlogId] = useState(null);
+  const editorRef = useRef(null);
 
   // Fetch Blogs
   useEffect(() => {
@@ -31,14 +38,16 @@ function BlogPage() {
     e.preventDefault();
     const form = new FormData();
 
-    // Append form fields including files
+    // Append form fields including files and editor content
     form.append("title", formData.title);
     form.append("slug", formData.slug);
     form.append("description", formData.description);
     form.append("seometa", formData.seometa);
-    form.append("ckeditor", formData.ckeditor);
+    form.append("content", formData.content); 
     form.append("thumbnail", formData.thumbnailFile);
     form.append("coverImage", formData.coverImageFile);
+    form.append("previewImage", formData.previewImageFile);
+
     try {
       if (editBlogId) {
         // Editing an existing blog
@@ -58,12 +67,14 @@ function BlogPage() {
         title: "",
         slug: "",
         description: "",
-        seometa:"",
+        seometa: "",
         thumbnail: "",
-        ckeditor: "",
         coverImage: "",
+        previewImage: "",
         thumbnailFile: null,
         coverImageFile: null,
+        previewImageFile: null,
+        content: "" // Reset editor content after submission
       });
       setEditBlogId(null);
       alert(editBlogId ? "Blog updated successfully!" : "Blog added successfully!");
@@ -81,10 +92,13 @@ function BlogPage() {
       description: blog.description,
       seometa: blog.seometa,
       thumbnail: blog.thumbnail,
-      ckeditor: blog.ckeditor,
       coverImage: blog.coverImage,
+      previewImage: blog.previewImage,
       thumbnailFile: null,
       coverImageFile: null,
+      previewImageFile: null,
+      content: blog.ckeditor || "" // Populate editor content from existing blog data
+      
     });
     setShowModal(true);
   };
@@ -110,6 +124,11 @@ function BlogPage() {
     setFormData({ ...formData, coverImageFile: e.target.files[0] });
   };
 
+  // Handle file change for preview image
+  const handlePreviewImageChange = (e) => {
+    setFormData({ ...formData, previewImageFile: e.target.files[0] });
+  };
+
   return (
     <div className="blogpage-container">
       <button onClick={() => setShowModal(true)} className="add-blog-btn">
@@ -124,25 +143,32 @@ function BlogPage() {
             <tr>
               <th>Title</th>
               <th>Slug</th>
+              <th>content</th>
               <th>Description</th>
               <th>SEO Meta</th>
-              <th>Image</th>
+              <th>Images</th>
               <th>Published Date</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
+          {console.log(blogs)}
             {blogs.map((blog) => (
+             
               <tr key={blog._id}>
                 <td>{blog.title}</td>
                 <td>{blog.slug}</td>
+                <td>{blog.content}</td>
                 <td dangerouslySetInnerHTML={{ __html: blog.description }} />
                 <td>{blog.seometa}</td>
                 <td>
                   <img src={blog.thumbnail} alt="Thumbnail" className="blog-thumbnail" />
                   <img src={blog.coverImage} alt="Cover" className="blog-cover-image" />
+                  {blog.previewImage && (
+                    <img src={blog.previewImage} alt="Preview" className="blog-preview-image" />
+                  )}
                 </td>
-                <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
+               <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
                 <td>
                   <button onClick={() => handleEdit(blog)} className="edit-btn">✏️ Edit</button>
                   <button onClick={() => handleDelete(blog._id)} className="delete-btn">❌ Delete</button>
@@ -175,26 +201,44 @@ function BlogPage() {
                 className="form-textarea"
               />
               <textarea
-                placeholder="Enter seometa"
+                placeholder="Enter SEO Meta"
                 value={formData.seometa}
                 onChange={(e) => setFormData({ ...formData, seometa: e.target.value })}
                 required
                 className="form-textarea"
               />
-              <input
-                type="text"
-                placeholder="Enter CKEditor Content"
-                value={formData.ckeditor}
-                onChange={(e) => setFormData({ ...formData, ckeditor: e.target.value })}
-                className="form-input"
+
+              {/* TinyMCE Editor */}
+              <label>Content</label>
+              <BundledEditor
+                onInit={(_evt, editor) => editorRef.current = editor}
+                initialValue={formData.content}
+                init={{
+                  height: 0.5 * window.innerHeight,
+                  width: 0.75 * window.innerWidth,
+                  menubar: false,
+                  plugins: [
+                    'advlist', 'anchor', 'autolink', 'link', 'lists',
+                    'searchreplace', 'table', 'wordcount', 'code', 'directionality', 'media', 'preview', 'image', 'emoticons'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                    'bold italic underline forecolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'code directionality media table preview image emoticons',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                }}
+                onChange={() => {
+                  if (editorRef.current) {
+                    setFormData({ ...formData, content: editorRef.current.getContent() });
+                  }
+                }}
               />
 
-              {/* Thumbnail Image Upload */}
-              <label className="image-label">Upload Preview</label>
+              {/* File Uploads for Thumbnail, Cover Image, Preview Image */}
+              <label className="image-label">Upload Thumbnail</label>
               <input type="file" onChange={handleThumbnailChange} className="form-file" />
               {formData.thumbnailFile && (
                 <div className="image-preview-container">
-                  
                   <img
                     src={URL.createObjectURL(formData.thumbnailFile)}
                     alt="Thumbnail Preview"
@@ -203,12 +247,10 @@ function BlogPage() {
                 </div>
               )}
 
-              {/* Cover Image Upload */}
               <label className="image-label">Upload Cover Image</label>
               <input type="file" onChange={handleCoverImageChange} className="form-file" />
               {formData.coverImageFile && (
                 <div className="image-preview-container">
-                  
                   <img
                     src={URL.createObjectURL(formData.coverImageFile)}
                     alt="Cover Image Preview"
@@ -217,7 +259,18 @@ function BlogPage() {
                 </div>
               )}
 
-              
+              <label className="image-label">Upload Preview Image</label>
+              <input type="file" onChange={handlePreviewImageChange} className="form-file" />
+              {formData.previewImageFile && (
+                <div className="image-preview-container">
+                  <img
+                    src={URL.createObjectURL(formData.previewImageFile)}
+                    alt="Preview Image Preview"
+                    className="preview-image"
+                  />
+                </div>
+              )}
+
               <br />
               <button type="submit" className="submit-btn">
                 {editBlogId ? "✅ Update Blog" : "✅ Save Blog"}
@@ -229,8 +282,6 @@ function BlogPage() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

@@ -11,12 +11,12 @@ import {
 
 const router = express.Router();
 
-router.post('/create', upload.fields([{ name: 'thumbnail' }, { name: 'coverImage' }]), createService);
+router.post('/create', upload.fields([{ name: 'thumbnail' }, { name: 'coverImage' }, { name: 'previewImage' }]), createService);
 router.get('/all', getService);       
 router.get('/:id', getServiceById);
 router.get('/:slug', getServiceBySlug);  // Changed from :id to :slug
 
-router.put('/update/:id', upload.fields ([{ name: 'thumbnail' }, { name: 'coverImage' }]),  updateService); // ✅ Update blog post
+router.put('/update/:id', upload.fields ([{ name: 'thumbnail' }, { name: 'coverImage' }, { name: 'previewImage' }]),  updateService); // ✅ Update blog post
 router.delete('/delete/:id',  deleteService); 
 
 export default router;

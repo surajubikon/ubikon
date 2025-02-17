@@ -22,20 +22,32 @@ import BlogDetails from './pages/admin/BlogDeatails.js';
 // import About from './pages/About';
 import Register from './pages/admin/Register.js';
 import ServicePage from './pages/admin/ServicePage.js';
+import NotFound from './pages/NotFound/NotFound.js';
+
 function App() {
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Ubikon - Mobile App & Website Development Services</title>
+        <title>Top Mobile App & Website Development in Indore - Ubikon Technologies</title>
         <meta
           name="description"
-          content="Ubikon offers top-notch mobile app and website development services in Indore, Madhya Pradesh."
+          content="Transform your business with Ubikon Technologies. Specializing in mobile app development, website design, and e-commerce solutions in Indore. Elevate your online presence today!"
         />
-        <meta name="keywords" content="Mobile App Development, Website Development, Indore, Madhya Pradesh" />
-        <link rel="canonical" href="https://yourwebsite.com/" />
-      </Helmet>
+        <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
+        <link rel="canonical" href="https://www.ubikon.in/" />
+        <meta name="author" content="Ubikon Technologies" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSXNG8NJ1S"></script>
+           <script>
+             {`
+               window.dataLayer = window.dataLayer || [];
+               function gtag(){dataLayer.push(arguments);}
+               gtag('js', new Date());
+               gtag('config', 'G-TSXNG8NJ1S');
+             `}
+           </script>
+           </Helmet>
       <Router>
         <Routes>
 
@@ -43,7 +55,9 @@ function App() {
 
           {/* frontend pages */}
           <Route path="/" element={<Home />} />
+          {/* <Route path="/ck" element={} */}
           <Route path="/contact" element={<Contact />} />
+       
           <Route path="/services" element={<Services />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
@@ -61,35 +75,38 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           } />
-           <Route path="/blog-list" element={
+          <Route path="/blog-list" element={
             <PrivateRoute>
               <Blogpage />
             </PrivateRoute>
           } />
 
-<Route path="/servicepage-list" element={
+          <Route path="/servicepage-list" element={
             <PrivateRoute>
               <ServicePage />
             </PrivateRoute>
           } />
-         
+
           <Route path="admin" element={<Login />} />
           {/* Protected admin routes */}
-          
+
           <Route path="/users" element={
             <PrivateRoute>
               <UserDetails />
             </PrivateRoute>
           } />
-         
+
           {/* Protected route for dashboard */}
           <Route path="/dashboard" element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
           } />
+      <Route path="*" element={<NotFound />} />
+
         </Routes>
       </Router>
+     
     </>
   );
 }

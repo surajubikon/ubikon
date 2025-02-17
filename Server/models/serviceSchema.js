@@ -20,6 +20,9 @@ const ServiceSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
+    previewImage: {
+      type: String,
+    },
     ckeditor: { type: String }, 
     seometa : {
       type: String,

@@ -23,7 +23,7 @@ const Login = () => {
                 },
             }
         );
-        console.log("Login Successful:", response.data);
+        
         
         // Store the token and authentication status
         localStorage.setItem("isAuthenticated", "true");
