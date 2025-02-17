@@ -56,7 +56,7 @@ const Home = () => {
                 <img width="100%" src={slidesbg} />
                 <div className='main-slides-image'>
                   <img className='slides1' src={slides1} />
-                  <img className='slides2' src={slides2} />
+                 
                 </div>
               </div>
             </div>

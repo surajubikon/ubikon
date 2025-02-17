@@ -29,6 +29,28 @@ const ToggleSection = () => {
           <p className=""> <IoCallOutline /> +91 6264818989</p>
           <p className=""><MdOutlineMailOutline /> contact@ubikon.in</p>
           <p className=""><LuMapPin /> C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore</p>
+          <div className='d-flex mt-3'>
+            <ul class="nav widget-social">
+              <li class="nav-item">
+                <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
           <form className="mt-5">
             <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
             <div class="mb-3">
