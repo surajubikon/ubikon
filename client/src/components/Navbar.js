@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-dark header fixed-top ${scrolled ? 'scrolled' : ''}`}
+      className={`navbar navbar-expand-lg navbar-dark header fixed-top p-0 ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="container">
         <a
