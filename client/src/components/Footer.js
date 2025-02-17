@@ -10,7 +10,7 @@ import WhatsApp from '../pages/WhatsApp';
 function Footer() {
   return (
     <>
-     <footer className="bg-black text-white">
+      <footer className="bg-black text-white">
         <div className="container">
           <div class="footer-shape-1">
             <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png" alt="image" />
@@ -27,19 +27,21 @@ function Footer() {
               <div className='d-flex mt-3'>
                 <ul class="nav widget-social">
                   <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-facebook-f"></i>
+                    <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
+                      <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-twitter"></i>
+                    <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-youtube"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="#"><i class="fa-brands fa-instagram"></i>
+                    <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
                     </a>
                   </li>
                 </ul>
@@ -103,12 +105,12 @@ function Footer() {
               </form>
             </div>
           </div>
-         
+
           {/* Footer Bottom Section */}
           <div className="text-center copyright">
-<WhatsApp/>
-          <Chatbot />
-          {/* <PhoneCallButton/> */}
+            <WhatsApp />
+            <Chatbot />
+            {/* <PhoneCallButton/> */}
             <p>© Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
           </div>
         </div>

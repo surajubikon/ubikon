@@ -1,6 +1,7 @@
 import serviceSchema from "../models/serviceSchema.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
+import sharp from 'sharp';
 
 export const createService = async (req, res) => {
   const { title, ckeditor, description, seometa, publishedAt } = req.body;
@@ -12,8 +13,8 @@ export const createService = async (req, res) => {
 
     // Generate slug from the title
     const slug = title
-      .toLowerCase() // Convert title to lowercase
-      .trim() // Remove any extra spaces at the beginning or end
+      .toLowerCase()
+      .trim()
       .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
       .replace(/\s+/g, '-') // Replace spaces with hyphens
       .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
@@ -26,18 +27,42 @@ export const createService = async (req, res) => {
     // Handle image uploads
     let thumbnailUrl = '';
     let coverImageUrl = '';
+    let previewImageUrl = ''; // For the preview image
 
+    // Thumbnail Image
     if (req.files?.thumbnail) {
-      const thumbnailUpload = await uploadToCloudinary(req.files.thumbnail[0].buffer);
+      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
+        .resize(800, 600)
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
       thumbnailUrl = thumbnailUpload.secure_url;
     }
 
+    // Cover Image
     if (req.files?.coverImage) {
-      const coverImageUpload = await uploadToCloudinary(req.files.coverImage[0].buffer);
+      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
+        .resize(1200, 800)
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
       coverImageUrl = coverImageUpload.secure_url;
     }
 
-    // Create the service with image URLs
+    // Preview Image
+    if (req.files?.previewImage) {
+      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
+        .resize(400, 300)  // Adjust size as per your requirement
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
+      previewImageUrl = previewImageUpload.secure_url;
+    }
+
+    // Create service with image URLs
     const service = await serviceSchema.create({
       title,
       slug,
@@ -47,6 +72,7 @@ export const createService = async (req, res) => {
       publishedAt,
       thumbnail: thumbnailUrl,
       coverImage: coverImageUrl,
+      previewImage: previewImageUrl, // Add preview image URL
     });
 
     res.status(201).json(service);
@@ -55,6 +81,7 @@ export const createService = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get all services
 export const getService = async (req, res) => {
@@ -101,18 +128,39 @@ export const updateService = async (req, res) => {
       updatedFields.slug = slug;
     }
 
-    // Handle image uploads if provided
+    // Handle image uploads with Sharp for resizing and compression
     if (req.files?.thumbnail) {
-      const thumbnailUpload = await uploadToCloudinary(req.files.thumbnail[0].buffer);
+      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
+        .resize(800, 600)
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
       updatedFields.thumbnail = thumbnailUpload.secure_url;
     }
 
     if (req.files?.coverImage) {
-      const coverImageUpload = await uploadToCloudinary(req.files.coverImage[0].buffer);
+      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
+        .resize(1200, 800)
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
       updatedFields.coverImage = coverImageUpload.secure_url;
     }
 
-    // Update the service
+    // Handle Preview Image upload if it exists
+    if (req.files?.previewImage) {
+      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
+        .resize(400, 300) // Resize according to your requirement
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
+      updatedFields.previewImage = previewImageUpload.secure_url;
+    }
+
+    // Update the service with the updated fields
     const updatedService = await serviceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 
     if (!updatedService) {
@@ -121,9 +169,11 @@ export const updateService = async (req, res) => {
 
     res.json(updatedService);
   } catch (error) {
+    console.error("Error in updateService:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete a service
 export const deleteService = async (req, res) => {

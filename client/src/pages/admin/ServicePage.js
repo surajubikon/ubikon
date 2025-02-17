@@ -12,8 +12,10 @@ function ServicePage() {
     ckeditor: "",
     coverImage: "",
     seometa:"",
+    previewImage: "", // New field for preview image
     thumbnailFile: null,
     coverImageFile: null,
+    previewImageFile: null, // New state for preview image file
   });
   const [showModal, setShowModal] = useState(false);
   const [editServiceId, setEditServiceId] = useState(null);
@@ -39,6 +41,8 @@ function ServicePage() {
     form.append("ckeditor", formData.ckeditor);
     form.append("thumbnail", formData.thumbnailFile);
     form.append("coverImage", formData.coverImageFile);
+    form.append("previewImage", formData.previewImageFile); // Add preview image to form data
+
     try {
       if (editServiceId) {
         // Editing an existing service
@@ -62,8 +66,10 @@ function ServicePage() {
         thumbnail: "",
         ckeditor: "",
         coverImage: "",
+        previewImage: "", // Reset preview image field
         thumbnailFile: null,
         coverImageFile: null,
+        previewImageFile: null, // Reset preview image file
       });
       setEditServiceId(null);
       alert(editServiceId ? "Service updated successfully!" : "Service added successfully!");
@@ -83,8 +89,10 @@ function ServicePage() {
       thumbnail: service.thumbnail,
       ckeditor: service.ckeditor,
       coverImage: service.coverImage,
+      previewImage: service.previewImage, // Set preview image URL when editing
       thumbnailFile: null,
       coverImageFile: null,
+      previewImageFile: null, // Reset file state on edit
     });
     setShowModal(true);
   };
@@ -108,6 +116,11 @@ function ServicePage() {
   // Handle file change for cover image
   const handleCoverImageChange = (e) => {
     setFormData({ ...formData, coverImageFile: e.target.files[0] });
+  };
+
+  // Handle file change for preview image
+  const handlePreviewImageChange = (e) => {
+    setFormData({ ...formData, previewImageFile: e.target.files[0] });
   };
 
   return (
@@ -141,6 +154,9 @@ function ServicePage() {
                 <td>
                   <img src={service.thumbnail} alt="Thumbnail" className="service-thumbnail" />
                   <img src={service.coverImage} alt="Cover" className="service-cover-image" />
+                  {service.previewImage && (
+                    <img src={service.previewImage} alt="Preview" className="service-preview-image" />
+                  )}
                 </td>
                 <td>{new Date(service.createdAt).toLocaleDateString()}</td>
                 <td>
@@ -163,8 +179,8 @@ function ServicePage() {
               <textarea placeholder="Enter Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required className="form-textarea" />
               <textarea placeholder="Enter SEO Meta" value={formData.seometa} onChange={(e) => setFormData({ ...formData, seometa: e.target.value })} required className="form-textarea" />
               <input type="file" onChange={handleThumbnailChange} className="form-file" />
-              
               <input type="file" onChange={handleCoverImageChange} className="form-file" />
+              <input type="file" onChange={handlePreviewImageChange} className="form-file" /> {/* Add file input for preview image */}
               <button type="submit" className="submit-btn">{editServiceId ? "✅ Update Service" : "✅ Save Service"}</button>
               <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">❌ Cancel</button>
             </form>

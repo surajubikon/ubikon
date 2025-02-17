@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from '../components/Navbar';
-import Banner from '../assets/img/service-img.png';
+import Banner from '../assets/img/service-img.webp';
 import srv1 from '../assets/img/srvimg1.png';
 import srv2 from '../assets/img/srvimg2.png';
 import srv3 from '../assets/img/srvimg3.png';
@@ -24,7 +24,7 @@ const ServicePage = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get("https://ubikon.in/api/services/all");
-        console.log("API Response:", response.data);
+       
         setServices(response.data);
       } catch (error) {
         console.error("Error fetching services:", error.response?.data || error.message);

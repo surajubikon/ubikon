@@ -13,7 +13,7 @@ const Service = () => {
         const fetchServices = async () => {
             try {
                 const response = await axios.get("https://ubikon.in/api/services/all");
-                console.log("API Response:", response.data);
+               
                 setServices(response.data);
             } catch (error) {
                 console.error("Error fetching services:", error.response?.data || error.message);

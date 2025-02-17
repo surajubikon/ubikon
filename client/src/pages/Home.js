@@ -8,10 +8,10 @@ import slidesandroid1 from '../assets/img/slides-android1.png'
 import slidesshape3 from '../assets/img/slides-shape-3.png'
 import slidesshape4 from '../assets/img/slides-shape-4.png'
 
-import Wsimg from '../assets/img/ws-img.png';
-import slides1 from '../assets/img/slides-1.png';
-import slides2 from '../assets/img/slides-2.png';
-import slidesbg from '../assets/img/slidesbg.png';
+import Wsimg from '../assets/img/ws-img.webp';
+import slides1 from '../assets/img/slides-1.webp';
+import slides2 from '../assets/img/slides-2.webp';
+import slidesbg from '../assets/img/slidesbg.webp';
 
 import Project from "../pages/admin/Project";
 import Service from '../pages/Service.js';
@@ -45,9 +45,9 @@ const Home = () => {
           <div className='row'>
             <div className='col-12 col-xs-12 col-md-7'>
               <div className='main-slides-content'>
-                <span data-aos="fade-right" class="aos-init aos-animate">Join Thousands of Satisfied Clients and Boost Your Online Success</span>
-                <h1 data-aos="fade-right" class="aos-init aos-animate">Best IT Services for Your Business in Indore | Ubikon <span class="overlay" ></span></h1>
-                <p data-aos="fade-right" class="aos-init aos-animate">Welcome to Ubikon, your trusted partner in mobile app and website development. Based in Indore, Madhya Pradesh, we harness over 8+ years of expertise to deliver cutting-edge digital solutions that elevate your business. From concept to execution, we ensure a seamless experience that drives results.</p>
+                <span data-aos="fade-right" class="aos-init aos-animate">Trusted by Leading Brands Worldwide</span>
+                <h1 data-aos="fade-right" class="aos-init aos-animate">Expert Mobile App & Website Development in Indore<span class="overlay" ></span></h1>
+                <p data-aos="fade-right" class="aos-init aos-animate">Elevate your brand with Ubikon Technologies. We specialize in custom mobile app development and responsive web solutions that drive growth and engagement. Discover the difference our expert team can make</p>
                 <a href="contact.html" class="default-btn mt-5">Get Started Today!</a>
               </div>
             </div>
@@ -70,7 +70,7 @@ const Home = () => {
               <div className='wt-we-do-conten'>
                 <span class="">About Us</span>
                 <h1 class="">Who We Are: Your Digital Transformation Partners</h1>
-                <p> Ubikon combines innovative technology with creative design to deliver exceptional mobile app and website development services. Our team of web gurus and digital guides is dedicated to ensuring your business outshines the competition. Recognized in Indore, Madhya Pradesh, and globally, we are committed to driving digital transformation for our clients.</p>
+                <p>At Ubikon Technologies, we blend cutting-edge technology with innovative design to deliver exceptional mobile app and website development services. With over 8 years of experience, our talented team is dedicated to helping your business outshine the competition. Based in Indore, Madhya Pradesh, and serving clients globally, we are committed to driving digital transformation for your business.</p>
                 <button className='default-btn mt-5'>Explore Our Journey and Vision!</button>
               </div>
             </div>
@@ -87,7 +87,7 @@ const Home = () => {
               <div className='services-conten'>
                 <span class="">Services</span>
                 <h1 class="">Our Premier <br /> <b> Services </b></h1>
-                <p>We are technology solutions providing company all over the world doing over 8+ years.</p>
+                <p>Ubikon Technologies offers a comprehensive range of technology solutions tailored to meet global business needs. Our core services include:</p>
                 <button
                   className='default-btn mt-5'
                   onClick={() => navigate("/services")}

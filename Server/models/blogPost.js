@@ -20,7 +20,12 @@ const BlogpostSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
-    ckeditor: { type: String }, 
+    previewImage: {
+      type: String,
+    },
+    content: { // New field for TinyMCE content
+      type: String,
+    },
     seometa : {
       type: String,
     },

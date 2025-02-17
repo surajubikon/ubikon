@@ -6,7 +6,7 @@ const allowedSubjects = ["Mobile App Development", "Web Development", "UI/UX Des
 
 export const createContact = async (req, res) => {
   try {
-    console.log("Received request body:", req.body); // Debug log
+  
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
