@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const BlogpostSchema = new mongoose.Schema(
+const SubServiceSchema = new mongoose.Schema(
 
   {
     title: {
@@ -12,6 +12,11 @@ const BlogpostSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    serviceId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "service",
+        required: true,
+    },
     
     description: {
       type: String,
@@ -20,17 +25,12 @@ const BlogpostSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
-    previewImage: {
-      type: String,
-    },
-    content: { // New field for TinyMCE content
-      type: String,
-      required: true,
-    },
+   
+    content: { 
+        type: String ,
+        required: true ,
+}, 
     seometa : {
-      type: String,
-    },
-    coverImage: {
       type: String,
     },
    
@@ -44,4 +44,4 @@ const BlogpostSchema = new mongoose.Schema(
 
 
 
-export default mongoose.model("PostCategory", BlogpostSchema);
+export default mongoose.model("subservice", SubServiceSchema);

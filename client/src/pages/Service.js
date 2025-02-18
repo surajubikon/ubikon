@@ -74,7 +74,7 @@ const Service = () => {
                         <div key={service._id}>
                             <div className="services-item">
                                 <div className="services-image">
-                                    <Link to={`/service/${service.slug}`}>
+                                    <Link to={`/service-list/${service.slug}`}>
                                         {service.thumbnail && (
                                             <img width="100%" src={service.thumbnail} alt={service.title || "Image"} />
                                         )}

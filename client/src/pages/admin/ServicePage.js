@@ -23,7 +23,7 @@ function ServicePage() {
   // Fetch Services
   useEffect(() => {
     axios
-      .get("https://ubikon.in/api/services/all")
+      .get("http://localhost:8000/api/services/all")
       .then((res) => setServices(res.data))
       .catch((err) => console.error("Error fetching services:", err));
   }, []);
@@ -46,13 +46,13 @@ function ServicePage() {
     try {
       if (editServiceId) {
         // Editing an existing service
-        const res = await axios.put(`https://ubikon.in/api/services/update/${editServiceId}`, form, {
+        const res = await axios.put(`http://localhost:8000/api/services/update/${editServiceId}`, form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setServices(services.map(service => (service._id === editServiceId ? res.data : service)));
       } else {
         // Adding a new service
-        const res = await axios.post("https://ubikon.in/api/services/create", form, {
+        const res = await axios.post("http://localhost:8000/api/services/create", form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setServices([...services, res.data]);
@@ -100,7 +100,7 @@ function ServicePage() {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ubikon.in/api/services/delete/${id}`);
+      await axios.delete(`http://localhost:8000/api/services/delete/${id}`);
       setServices(services.filter(service => service._id !== id));
       alert("Service deleted successfully!");
     } catch (error) {
@@ -126,7 +126,7 @@ function ServicePage() {
   return (
     <div className="servicepage-container">
       <button onClick={() => setShowModal(true)} className="add-service-btn">
-        ➕ Add Service
+        ➕ Add Category
       </button>
 
       {services.length === 0 ? (

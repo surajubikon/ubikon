@@ -12,7 +12,7 @@ const Project = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get("https://ubikon.in/api/blogpost/all");
+                const response = await axios.get("http://localhost:8000/api/blogpost/all");
              
                 setPosts(response.data);
             } catch (error) {

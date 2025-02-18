@@ -28,7 +28,7 @@ function BlogPage() {
   // Fetch Blogs
   useEffect(() => {
     axios
-      .get("https://ubikon.in/api/blogpost/all")
+      .get("http://localhost:8000/api/blogpost/all")
       .then((res) => setBlogs(res.data))
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
@@ -51,13 +51,13 @@ function BlogPage() {
     try {
       if (editBlogId) {
         // Editing an existing blog
-        const res = await axios.put(`https://ubikon.in/api/blogpost/update/${editBlogId}`, form, {
+        const res = await axios.put(`http://localhost:8000/api/blogpost/update/${editBlogId}`, form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setBlogs(blogs.map(blog => (blog._id === editBlogId ? res.data : blog)));
       } else {
         // Adding a new blog
-        const res = await axios.post("https://ubikon.in/api/blogpost/create", form, {
+        const res = await axios.post("http://localhost:8000/api/blogpost/create", form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setBlogs([...blogs, res.data]);
@@ -106,7 +106,7 @@ function BlogPage() {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ubikon.in/api/blogpost/delete/${id}`);
+      await axios.delete(`http://localhost:8000/api/blogpost/delete/${id}`);
       setBlogs(blogs.filter(blog => blog._id !== id));
       alert("Blog deleted successfully!");
     } catch (error) {
@@ -158,7 +158,8 @@ function BlogPage() {
               <tr key={blog._id}>
                 <td>{blog.title}</td>
                 <td>{blog.slug}</td>
-                <td>{blog.content}</td>
+                <td dangerouslySetInnerHTML={{ __html: blog.content }}></td>
+
                 <td dangerouslySetInnerHTML={{ __html: blog.description }} />
                 <td>{blog.seometa}</td>
                 <td>
@@ -266,7 +267,7 @@ function BlogPage() {
                   <img
                     src={URL.createObjectURL(formData.previewImageFile)}
                     alt="Preview Image Preview"
-                    className="preview-image"
+                    className="image-preview"
                   />
                 </div>
               )}

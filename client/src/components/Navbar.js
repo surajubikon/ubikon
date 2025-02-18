@@ -6,6 +6,7 @@ import { faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg
 import { Link } from "react-scroll";
 import { useNavigate } from "react-router-dom";
 import { IoCallOutline } from "react-icons/io5";
+import ServiceCategory from './ServiceCategory';
 
 
 const Navbar = () => {
@@ -74,6 +75,7 @@ const Navbar = () => {
               <a class="nav-link dropdown-toggle" href="" id="megaMenu" role="button">
                 Services
               </a>
+
               <div class="mega-menu">
                 <div class="container">
                   <div class="row">
@@ -101,6 +103,7 @@ const Navbar = () => {
                       <a class="dropdown-item" href="#">Item 11</a>
                       <a class="dropdown-item" href="#">Item 12</a>
                     </div>
+                    
                   </div>
                 </div>
               </div>
