@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import slidesshape1 from '../assets/img/slides-shape-1.png'
@@ -12,6 +11,11 @@ import Wsimg from '../assets/img/ws-img.webp';
 import slides1 from '../assets/img/slides-1.webp';
 import slides2 from '../assets/img/slides-2.webp';
 import slidesbg from '../assets/img/slidesbg.webp';
+import FB from '../assets/img/fb.png';
+import IN from '../assets/img/insta.png';
+import Link from '../assets/img/link.png';
+import JD from '../assets/img/jd.png';
+import MAP from '../assets/img/map.png';
 
 import Project from "../pages/admin/Project";
 import Service from '../pages/Service.js';
@@ -172,6 +176,73 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div class="social-section">
+        <div class="container">
+          <div class="blog-heading">
+            <span>Social Media</span>
+            <h2>Let’s Grow Together<br/> on Social <b>Media</b></h2>
+          </div>
+          <div className='row row-cols-1  row-cols-md-5'>
+              <div className='col'>
+                  <div className='social-icon text-center'>
+                      <img className='mb-3' src={FB} />
+                      <p className='fw-bold' >20K+ Followers</p>
+                  </div>
+              </div>
+              <div className='col'>
+                  <div className='social-icon text-center'>
+                      <img className='mb-3' src={IN} />
+                      <p className='fw-bold' >20K+ Followers</p>
+                  </div>
+              </div>
+              <div className='col'>
+                  <div className='social-icon text-center'>
+                      <img className='mb-3' src={Link} />
+                      <p className='fw-bold' >200K+ Connections</p>
+                  </div>
+              </div>
+              <div className='col'>
+                  <div className='social-icon text-center'>
+                      <img className='mb-3' src={JD} />
+                      <p className='fw-bold' >5 Star Rating</p>
+                  </div>
+              </div>
+              <div className='col'>
+                  <div className='social-icon text-center'>
+                      <img className='mb-3' src={MAP} />
+                      <p className='fw-bold' >800+ client visits</p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div className='project-client-conten'>
+        <div className='container'>
+             <div className='card p-4 bg-black text-white text-center'>
+                <div className='card-body'>
+                  <div className='row'>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 18+  </h3>
+                          <h5> Year of <br/> Experience</h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 110+  </h3>
+                          <h5> Project <br/> delivered  </h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 120+  </h3>
+                          <h5> Satisfied <br/> Customers</h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 10+  </h3>
+                          <h5>  Cities <br/> Worldwide</h5>
+                      </div>
+                  </div>
+                </div>  
+             </div> 
+        </div>
+      </div>
+      
       <Footer />
     </div>
   );

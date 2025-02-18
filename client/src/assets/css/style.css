@@ -71,14 +71,19 @@ padding: 0;
   width: 100%;
   top: 100%;
   position: absolute;
-  background: white;
+  background: #000;
   z-index: 1000;
   display: none; /* Hide by default */
-  border-top: 3px solid #007bff;
+  border-top: 2px solid #f58539;
 }
 
 .mega-menu-dropdown.nav-item:hover .mega-menu {
   display: block; /* Show menu on hover */
+}
+.mega-menu .dropdown-item {
+  padding: 15px 18px;
+  background: #fff;
+  margin: 7px 0px;
 }
 
 .mega-menu-dropdown .mega-menu .container {
@@ -1009,8 +1014,42 @@ opacity: 1;
 }
 /***blog-banner***/
 
+/******/
+.project-client-conten {
+  margin-bottom: 165px;
+  margin-top: 40px;
+}
+.project-client-conten .card {
+  border-radius: 20px !important;
+}
+.project-client-conten .card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.project-client-conten .card h5 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+.project-client-conten .card .box{
+  position: relative;
+}
+.project-client-conten .card .box:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 1px;
+  height: 100%; 
+  background-color: #fff;
+}
+.project-client-conten .card .box:last-child::before {
+  content: none; /* Removes the pseudo-element */
+  display: none; /* Hides it */
+}
 
 /********/
+
 /* Right Sidebar Modal */
 
 
