@@ -7,8 +7,7 @@ import ServiceCategory from './ServiceCategory';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,18 +15,12 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
+    
 
     window.addEventListener('scroll', handleScroll);
-    document.addEventListener('mousedown', handleClickOutside);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -48,9 +41,10 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
             <li className="nav-item"><a className="nav-link" href="#">About</a></li>
+            <ServiceCategory />
 
             {/* Services Dropdown */}
-            <li 
+            {/* <li 
               className="nav-item mega-menu-dropdown dropdown position-static" 
               ref={dropdownRef} 
               onMouseEnter={() => setShowDropdown(true)} 
@@ -71,7 +65,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-            </li>
+            </li> */}
 
             <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
             <li className="nav-item">

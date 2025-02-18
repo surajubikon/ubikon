@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import { Link } from "react-router-dom";
 
 function ServiceCategory() {
   const [services, setServices] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
   const navigate = useNavigate();  // Hook to navigate programmatically
 
   useEffect(() => {
@@ -16,6 +18,17 @@ function ServiceCategory() {
       .catch(error => {
         console.error('Error fetching services:', error);
       });
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setShowDropdown(false);
+        }
+        
+       };
+      
+       document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
   }, []);
 
   const handleClick = (slug) => {
@@ -34,11 +47,15 @@ function ServiceCategory() {
   }, {});
 
   return (
-    <li className="nav-item mega-menu-dropdown dropdown position-static">
-      <a className="nav-link dropdown-toggle" href="" id="megaMenu" role="button">
-        Services
-      </a>
-      <div className="mega-menu">
+    <li 
+              className="nav-item mega-menu-dropdown dropdown position-static" 
+              ref={dropdownRef} 
+              onMouseEnter={() => setShowDropdown(true)} 
+              onMouseLeave={() => setShowDropdown(false)}
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+       <a className="nav-link dropdown-toggle" role="button">Services</a>
+       <div className={`dropdown-menu mega-menu ${showDropdown ? 'show' : ''}`}>
         <div className="container">
           <div className="row">
             {/* Map over each service */}
