@@ -131,7 +131,8 @@ const Home = () => {
                 <span class="">What Our Clients Say
                 </span>
                 <h1 class="">Success Stories from <b>Satisfied Customers</b></h1>
-                <p>Discover the Sweet Talk of Our Happy Clients</p>
+                <p>Hear from our satisfied clients who have experienced transformative results with Ubikon Technologies.
+                </p>
                 <p>At Ubikon, we take pride in delivering exceptional digital solutions for businesses across the globe. For over 8+ years, our commitment to quality and customer satisfaction has garnered us a loyal clientele. Here’s what some of our clients have to say:
                 </p>
                 <button className='default-btn mt-5'>Ready to Start Your Success Story?</button>
@@ -141,17 +142,17 @@ const Home = () => {
               <div className='testimonials-item'>
                 <div className='item-box'>
                   <img src='https://vue.envytheme.com/koze/img/testimonials-1.6896791a.jpg' />
-                  <p> "Ubikon transformed our vision into a stunning mobile app that has garnered rave reviews from our users. Their team's expertise and commitment to our project were evident from the start." </p>
+                  <p> "Ubikon transformed our vision into a stunning mobile app that has garnered rave reviews from our users. Their team's expertise and commitment were evident from the start." </p>
                   <h4>— Aditi Sharma, CEO of Tech Innovators</h4>
                 </div>
                 <div className='item-box'>
                   <img src='https://vue.envytheme.com/koze/img/testimonials-2.06fe6281.jpg' />
-                  <p> "The website development services provided by Ubikon have completely revitalized our online presence. We’ve seen a significant increase in traffic and engagement since launch." </p>
+                  <p> The website development services provided by Ubikon have completely revitalized our online presence. We’ve seen a significant increase in traffic and engagement since launch </p>
                   <h4>— Rajesh Mehta, Owner of Explore Indore</h4>
                 </div>
                 <div className='item-box'>
                   <img src='https://vue.envytheme.com/koze/img/testimonials-3.cba125a4.jpg' />
-                  <p> "Working with Ubikon has been a game-changer for our business. Their digital marketing strategies have effectively increased our visibility and customer base." </p>
+                  <p> "Working with Ubikon has been a game-changer for our business. Their digital marketing strategies have effectively increased our visibility and customer base" </p>
                   <h4>— Priya Khatri, Marketing Director of E-Commerce Solutions</h4>
                 </div>
               </div>
