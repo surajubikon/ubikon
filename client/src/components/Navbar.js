@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { IoCallOutline } from "react-icons/io5";
 import Logo from '../assets/img/logo.png';
+import ServiceCategory from './ServiceCategory';
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);

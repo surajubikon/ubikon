@@ -82,7 +82,6 @@ export const createService = async (req, res) => {
   }
 };
 
-
 // Get all services
 export const getService = async (req, res) => {
   try {

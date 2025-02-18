@@ -5,7 +5,7 @@ import sharp from 'sharp';
 
 export const createBlogPost = async (req, res) => {
   const { title, content, description, seometa , publishedAt } = req.body;
-
+  
   try {
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required." });
@@ -65,7 +65,7 @@ export const createBlogPost = async (req, res) => {
     const blogPost = await Blogposts.create({
       title,
       slug,
-      content,
+      content: content||" default",
       description,
       seometa,
       publishedAt,

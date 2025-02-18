@@ -23,6 +23,8 @@ import BlogDetails from './pages/admin/BlogDeatails.js';
 import Register from './pages/admin/Register.js';
 import ServicePage from './pages/admin/ServicePage.js';
 import NotFound from './pages/NotFound/NotFound.js';
+import SubService from './pages/admin/SubService.js';
+import ServiceDetails from './pages/ServiceDetails.js';
 
 function App() {
   return (
@@ -59,6 +61,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
        
           <Route path="/services" element={<Services />} />
+          <Route path="/services-details/:slug" element={<ServiceDetails />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
 
@@ -81,9 +84,14 @@ function App() {
             </PrivateRoute>
           } />
 
-          <Route path="/servicepage-list" element={
+          <Route path="/category-list" element={
             <PrivateRoute>
               <ServicePage />
+            </PrivateRoute>
+          } />
+           <Route path="/sub-category-list" element={
+            <PrivateRoute>
+              <SubService />
             </PrivateRoute>
           } />
 

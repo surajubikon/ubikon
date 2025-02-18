@@ -1,8 +1,13 @@
-import React from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaCaretDown } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Sidebar = () => {
+  const [isServiceOpen, setIsServiceOpen] = useState(false);
+
+  // Toggle dropdown visibility for Service
+  const toggleServiceDropdown = () => setIsServiceOpen(!isServiceOpen);
+
   return (
     <div className="sidebar">
       <h2>Admin Panel</h2>
@@ -10,22 +15,34 @@ const Sidebar = () => {
         <li className="active">
           <Link to="/dashboard"><FaHome /> Dashboard</Link>
         </li>
-        
+
         <li>
           <Link to="/users"><FaUser /> Users</Link>
         </li>
         <li>
           <Link to="/blog-list"><FaUser /> BLOG</Link>
         </li>
+
+        {/* Service Dropdown */}
         <li>
-          <Link to="/servicepage-list"><FaUser /> Service</Link>
+          <div onClick={toggleServiceDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <FaUser /> Service <FaCaretDown />
+          </div>
+
+          {/* Dropdown content */}
+          {isServiceOpen && (
+            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
+              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
+                  <li><Link to="/category-list">Category</Link></li>
+                  <li><Link to="/sub-category-list">Sub Category</Link></li>
+                  {/* <li><Link to="">Subcategory 2</Link></li> */}
+                </ul>
+              
+             
+            </ul>
+          )}
         </li>
-        {/* <li>
-          <Link to="/post-upload"><FaUser /> Post Upload</Link>
-        </li> */}
-        {/* <li>
-          <Link to="/categories"><FaCogs /> Categories</Link>
-        </li> */}
+
         <li>
           <Link to="/settings"><FaCogs /> Settings</Link>
         </li>

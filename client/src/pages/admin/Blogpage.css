@@ -107,11 +107,28 @@
     background-color: #c0392b;
   }
   
-  .image-preview {
-    width: 100px;
-    height: 100px;
-    margin-top: 10px;
-  }
+ /* Resize images to smaller sizes */
+.image-preview {
+  width: 80px; /* Reduce size */
+  height: 80px; /* Reduce size */
+  margin-top: 10px;
+  object-fit: cover; /* Ensures proper cropping */
+}
+
+.image-preview-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Optional: Additional tweaks for image styling */
+.image-label {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
   
   .thumbnail-image {
     width: 100%;

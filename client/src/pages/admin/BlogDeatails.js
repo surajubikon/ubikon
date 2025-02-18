@@ -15,7 +15,7 @@ function BlogDetails() {
     useEffect(() => {
         const fetchBlogDetails = async () => {
             try {
-                const response = await axios.get(`https://ubikon.in/api/blogpost/${slug}`);
+                const response = await axios.get(`http://localhost:8000/api/blogpost/${slug}`);
                 // Log the response
                 setBlog(response.data[0]);  // Set the blog data in state
                 setLoading(false);
@@ -59,7 +59,7 @@ function BlogDetails() {
                                     )}
                                     <div className='blog-content'>
                                         <p>{blog.description}</p>
-                                        <div className="" dangerouslySetInnerHTML={{ __html: blog.ckeditor }}></div>
+                                        <div className="" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
                                     </div>
                                 </div>
                             </div>
