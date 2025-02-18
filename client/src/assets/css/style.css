@@ -47,6 +47,7 @@ padding: 0;
   margin-right: 15px;
   transition: color 0.3s ease;
   text-transform: uppercase;
+  padding: 34px 0;
 }
 
 .navbar-nav .nav-link:hover {
@@ -432,8 +433,7 @@ left: 0;
 bottom: 0;
 justify-content: center;
 align-items: center;
-display: flex
-;
+display: flex;
 }
 .main-slides-image img {
 animation-name: moveDownContinuous;
@@ -445,12 +445,12 @@ width: 285px;
 position: absolute;
 }
 @keyframes moveDownContinuous {
-from {
-    transform: translateY(-5%);
-}
-to {
-    transform: translateY(5%);
-}
+  from {
+      transform: translateY(-5%);
+  }
+  to {
+      transform: translateY(5%);
+  }
 }
 
 
@@ -462,9 +462,9 @@ opacity: 1;
 opacity: 0;
 }
 
-.main-slides-bg:hover .slides1 {
+/* .main-slides-bg:hover .slides1 {
 opacity: 0;
-}
+} */
 
 .main-slides-bg:hover .slides2 {
 opacity: 1;
@@ -1012,22 +1012,64 @@ opacity: 1;
 
 /********/
 /* Right Sidebar Modal */
-.modal.right .modal-dialog {
+
+
+.content-box {
+  background: #f4f4f4;
+  width: 500px;
   position: fixed;
-  margin: auto;
-  width: 400px; /* Adjust width as needed */
-  height: 100%;
-  right: 0;
+  transition: transform 0.3s;
+  transform: translateX(100%); 
   top: 0;
-  transform: translateX(100%); /* Initially hidden */
-  transition: transform 0.3s ease-in-out;
+  right: 0;
+  overflow: auto;
+  height: 100vh;
+  padding: 31px;
+  z-index: 9999;
 }
 
-.modal.right.show .modal-dialog {
-  transform: translateX(0); /* Slide in effect */
+.content-box.active {
+  
+  transform: translateX(0);
 }
-
-.modal-content {
-  height: 100%;
+.content-box input.form-control {
   border-radius: 0;
+  font-size: 16px;
+  height: 50px;
+}
+.contact-info svg {
+  color: #f58539;
+  font-size: 18px;
+  margin-right: 4px;
+}
+.contact-info p {
+  margin-bottom: 16px ;
+  font-weight: 600;
+  font-size: 14px;
+}
+.content-box .crose {
+  position: absolute;
+  right: 8px;
+  top: 24px;
+  background: #000;
+  color: #fff;
+  border-radius: 35px;
+  border: none;
+  padding: 4px 10px 8px;
+  cursor: pointer;
+}
+.content-box .widget-social li a i{
+  background-color: #FF9800;
+  color: #fff;
+  border: none;
+}
+.msg-btn {
+  position: fixed;
+  right: 0;
+  top: 231px;
+  background: #f58539;
+  border: none;
+  padding: 5px 14px 11px;
+  color: #fff;
+  font-size: 25px;
 }
