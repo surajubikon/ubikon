@@ -10,12 +10,37 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import WhatsApp from '../pages/WhatsApp';
-// import PhoneCallButton from '../pages/PhoneCallButton';
+
+import AnimatedCursor from "react-animated-cursor"// import PhoneCallButton from '../pages/PhoneCallButton';
 const Footer  = () => {
   
     const [sidebarmenu, setActive] = useState(false); // State for Toggle
   return (
     <>
+    
+    <AnimatedCursor
+            innerSize={8}
+            outerSize={8}
+            color="245, 133, 57"
+            outerAlpha={0.2}
+            innerScale={0.7}
+            outerScale={5}
+            zIndex={9999}
+            clickables={[
+              
+              'a',
+              'input[type="text"]',
+              'input[type="email"]',
+              'input[type="number"]',
+              'input[type="submit"]',
+              'input[type="image"]',
+              'label[for]',
+              'select',
+              'textarea',
+              'button',
+              '.link'
+            ]}
+          />
       <footer className="bg-black text-white">
         <div className="container">
           <div class="footer-shape-1">

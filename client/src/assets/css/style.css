@@ -22,7 +22,7 @@ padding: 0;
 
 .fixed-top {
   background-color: #000 !important;
-  z-index: 999;
+  z-index: 999 !important;
 }
 .navbar {
   font-family: 'TenorSans';
@@ -80,10 +80,14 @@ padding: 0;
 .mega-menu-dropdown.nav-item:hover .mega-menu {
   display: block; /* Show menu on hover */
 }
-.mega-menu .dropdown-item {
-  padding: 15px 18px;
-  background: #fff;
-  margin: 7px 0px;
+.mega-menu-dropdown.nav-item .mega-menu a {
+  font-size: 18px;
+  color: #FF9800 ;
+}
+.mega-menu-dropdown.nav-item .mega-menu p {
+  font-size: 14px;
+  color: #fff ;
+  margin-bottom: 3px;
 }
 
 .mega-menu-dropdown .mega-menu .container {
