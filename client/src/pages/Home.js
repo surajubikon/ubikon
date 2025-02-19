@@ -6,10 +6,11 @@ import slidesshape1 from '../assets/img/slides-shape-1.png'
 import slidesandroid1 from '../assets/img/slides-android1.png'
 import slidesshape3 from '../assets/img/slides-shape-3.png'
 import slidesshape4 from '../assets/img/slides-shape-4.png'
+import { Helmet } from 'react-helmet';
 
 import Wsimg from '../assets/img/ws-img.webp';
 import slides1 from '../assets/img/slides-1.webp';
-import slides2 from '../assets/img/slides-2.webp';
+// import slides2 from '../assets/img/slides-2.webp';
 import slidesbg from '../assets/img/slidesbg.webp';
 import FB from '../assets/img/fb.png';
 import IN from '../assets/img/insta.png';
@@ -23,43 +24,71 @@ import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
 
  
+ 
 
 const Home = () => {
   const navigate = useNavigate();
-  
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Mobile App Development",
+    "provider": {
+      "@type": "Organization",
+      "name": "Ubikon Technologies",
+      "logo": "http://localhost:8000/path/to/logo.jpg",
+      "url": "http://localhost:8000",
+      "sameAs": [
+        "https://www.facebook.com/UBIKON/",
+        "https://www.linkedin.com/company/ubikontechnologies/"
+      ]
+    },
+    "description": "Ubikon Technologies offers outstanding mobile app development services tailored to meet your business needs.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1800"
+    },
+    "additionalType": "https://schema.org/SoftwareApplication"
+  };
+
   return (
-    <div className='col-sm-12'>
+    <div className='col-sm-12' atl="Ubikon technologies and mobile app and website development company in Indore, Madhya Pradesh.">
+      <Helmet>
+        <meta name="description" content="Ubikon Technologies offers top-notch mobile app development services." />
+        <script type="application/ld+json">{JSON.stringify(schemaMarkup)}</script>
+      </Helmet>
+
       <Navbar />
 
-      <div className='main-slides-area bg-bectangle-bottom'>
+      <div className='main-slides-area bg-bectangle-bottom' atl="Ubikon - Leading mobile app and website development company in Indore, Madhya Pradesh.">
         <div className='container'>
           <div class="main-slides-shape-1">
             <img src={slidesshape1} alt="image" />
           </div>
           <div className='main-slides-shape-2' >
-            <img src={slidesandroid1} />
+            <img src={slidesandroid1} alt='' />
           </div>
           <div className='main-slides-shape-3' >
-            <img src={slidesshape3} />
+            <img src={slidesshape3}  alt=''/>
           </div>
           <div className='main-slides-shape-4' >
-            <img src={slidesshape4} />
+            <img src={slidesshape4} alt=''/>
           </div>
 
           <div className='row'>
             <div className='col-12 col-xs-12 col-md-7'>
               <div className='main-slides-content'>
-                <span data-aos="fade-right" class="aos-init aos-animate">Trusted by Leading Brands Worldwide</span>
+                <span data-aos="fade-right" class="aos-init aos-animate" alt="Ubikon - Leading mobile app and website development company in Indore, Madhya Pradesh">Trusted by Leading Brands Worldwide</span>
                 <h1 data-aos="fade-right" class="aos-init aos-animate">Expert Mobile App & Website Development in Indore<span class="overlay" ></span></h1>
                 <p data-aos="fade-right" class="aos-init aos-animate">Elevate your brand with Ubikon Technologies. We specialize in custom mobile app development and responsive web solutions that drive growth and engagement. Discover the difference our expert team can make</p>
-                <a href="contact.html" class="default-btn mt-5">Get Started Today!</a>
+                <a href="contact" class="default-btn mt-5">Get Started Today!</a>
               </div>
             </div>
             <div className='col-md-5'>
               <div className='main-slides-bg position-relative'>
-                <img width="100%" src={slidesbg} />
+                <img width="100%" src={slidesbg} alt='' />
                 <div className='main-slides-image'>
-                  <img className='slides1' src={slides1} />
+                  <img className='slides1' src={slides1} alt='' />
                  
                 </div>
               </div>
@@ -67,11 +96,11 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='wt-we-do'>
+      <div className='wt-we-do' atl="Ubikon - Leading mobile app and website development company in Indore, Madhya Pradesh.">
         <div className='container'>
           <div className='row'>
             <div className='col-md-6'>
-              <div className='wt-we-do-conten'>
+              <div className='wt-we-do-conten' alt="Innovative mobile app and website development services by Ubikon, Indore, Madhya Pradesh.">
                 <span class="">About Us</span>
                 <h1 class="">Who We Are: Your Digital Transformation Partners</h1>
                 <p>At Ubikon Technologies, we blend cutting-edge technology with innovative design to deliver exceptional mobile app and website development services. With over 8 years of experience, our talented team is dedicated to helping your business outshine the competition. Based in Indore, Madhya Pradesh, and serving clients globally, we are committed to driving digital transformation for your business.</p>
@@ -84,7 +113,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='services bg-bectangle-top bg-bectangle-bottom'>
+      <div className='services bg-bectangle-top bg-bectangle-bottom' atl="Dedicated team of mobile app and website developers at Ubikon in Indore">
         <div className='container'>
           <div className='row'>
             <div className='col-md-4'>
@@ -106,7 +135,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='who-we-are'>
+      <div className='who-we-are' atl='Expert mobile app development services provided by Ubikon.'>
         <div className='container'>
           <div className='row'>
             <div className='col-md-6'>
@@ -127,8 +156,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='testimonials bg-bectangle-top bg-bectangle-bottom'>
-        <div className='container'>
+      <div className='testimonials bg-bectangle-top bg-bectangle-bottom' atl="Case study: Successful mobile app project developed by Ubikon for an e-commerce client">
+        <div className='container' atl="Website development project success story by Ubikon enhancing online business presence.">
           <div className='row'>
             <div className='col-md-6'>
               <div className='testimonials-conten'>
@@ -164,8 +193,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='blog-section' id="blog-section">
-        <div className='container'>
+      <div className='blog-section' id="blog-section" atl="Client testimonial from local business about Ubikon’s mobile app development services.">
+        <div className='container' atl='Happy clients sharing feedback on web development services provided by Ubikon.'>
           <div className='blog-heading'>
             <span>ARTICLE</span>
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
@@ -177,8 +206,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div class="social-section">
-        <div class="container">
+      <div class="social-section" atl="Latest insights in technology from Ubikon's blog on mobile app development trends">
+        <div class="container" atl="Exploring the future of website development in India - Ubikon blog post featured image">
           <div class="blog-heading">
             <span>Social Media</span>
             <h2>Let’s Grow Together<br/> on Social <b>Media</b></h2>
@@ -217,7 +246,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='project-client-conten'>
+      <div className='project-client-conten' atl="Happy clients sharing feedback on web development services provided by Ubikon">
         <div className='container'>
              <div className='card p-4 bg-black text-white text-center'>
                 <div className='card-body'>

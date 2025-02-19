@@ -33,13 +33,13 @@ function App() {
       <Helmet>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Top Mobile App & Website Development in Indore - Ubikon Technologies</title>
+      
         <meta
           name="description"
           content="Transform your business with Ubikon Technologies. Specializing in mobile app development, website design, and e-commerce solutions in Indore. Elevate your online presence today!"
         />
         <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
-        <link rel="canonical" href="https://www.ubikon.in/" />
+        <link rel="canonical" href="http://localhost:8000/" />
         <meta name="author" content="Ubikon Technologies" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSXNG8NJ1S"></script>
            <script>
@@ -66,11 +66,7 @@ function App() {
           <Route path="/service-list/:slug" element={<ServicesPageList />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
-
-
-
-
-          <Route path='/register' element={<Register />} />
+            <Route path='/register' element={<Register />} />
           {/* admin pages */}
           {/* <Route path="dashboard" element={<Dashboard />} /> 
               */}
