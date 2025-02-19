@@ -1,6 +1,6 @@
 // export const baseURL = "http://localhost:8000";
 export const baseURL = "http://localhost:8000";
-
+// export const baseURL = "http://localhost:8000/api/admin/register";
 const api = {
     register: {
         url: '/api/admin/register',

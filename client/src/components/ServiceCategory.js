@@ -59,10 +59,10 @@ function ServiceCategory() {
       <div className={`dropdown-menu mega-menu ${showDropdown ? "show" : ""}`}>
         <div className="container">
           <div className="row">
-            {/* 🟢 Loop through grouped categories */}
+           
             {Object.entries(groupedCategories).map(([category, subServices], index) => (
               <div className="col-md-3" key={index}>
-                {/* 🟠 Title (Category) */}
+               
                 <h6>
                   <Link to={`/service-list/${subServices[0].serviceId?.slug || subServices[0].slug}`}>
                     {category}

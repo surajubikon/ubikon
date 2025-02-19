@@ -4,6 +4,7 @@ import './ServicePage.css'; // Import external CSS file
 
 function ServicePage() {
   const [services, setServices] = useState([]);
+  const [thumbnail, setThumbnail] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -11,7 +12,7 @@ function ServicePage() {
     thumbnail: "",
     ckeditor: "",
     coverImage: "",
-    seometa:"",
+    seometa: "",
     previewImage: "", // New field for preview image
     thumbnailFile: null,
     coverImageFile: null,
@@ -62,7 +63,7 @@ function ServicePage() {
         title: "",
         slug: "",
         description: "",
-        seometa:"",
+        seometa: "",
         thumbnail: "",
         ckeditor: "",
         coverImage: "",
@@ -110,9 +111,9 @@ function ServicePage() {
 
   // Handle file change for thumbnail
   const handleThumbnailChange = (e) => {
-    setFormData({ ...formData, thumbnailFile: e.target.files[0] });
+    setFormData({ ...formData, thumbnailFile: e.target.files[0].name || "" });
   };
-
+ 
   // Handle file change for cover image
   const handleCoverImageChange = (e) => {
     setFormData({ ...formData, coverImageFile: e.target.files[0] });
@@ -178,7 +179,10 @@ function ServicePage() {
               <input type="text" placeholder="Enter Service Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required className="form-input" />
               <textarea placeholder="Enter Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required className="form-textarea" />
               <textarea placeholder="Enter SEO Meta" value={formData.seometa} onChange={(e) => setFormData({ ...formData, seometa: e.target.value })} required className="form-textarea" />
+              <label>Thumbnail:</label>
               <input type="file" onChange={handleThumbnailChange} className="form-file" />
+              {thumbnail && <p>Selected Thumbnail: {thumbnail}</p>}
+
               <input type="file" onChange={handleCoverImageChange} className="form-file" />
               <input type="file" onChange={handlePreviewImageChange} className="form-file" /> {/* Add file input for preview image */}
               <button type="submit" className="submit-btn">{editServiceId ? "✅ Update Service" : "✅ Save Service"}</button>

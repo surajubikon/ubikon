@@ -66,7 +66,7 @@ const Contact = () => {
           <meta name="description" content="Contact Ubikon Technologies for expert mobile app and website development services in Indore, Madhya Pradesh. Get a free consultation!" />
         </Helmet>
 
-        <div className="contact-details-section bg-bectangle-bottom">
+        <div className="contact-details-section bg-bectangle-bottom" atl="Contact Ubikon for expert mobile app and website development services in Indore, Madhya Pradesh">
           <div className="container">
             <div className="text-center cnt-heading"><h3>Contact Us</h3></div>
             <div className="row">
