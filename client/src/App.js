@@ -25,6 +25,7 @@ import ServicePage from './pages/admin/ServicePage.js';
 import NotFound from './pages/NotFound/NotFound.js';
 import SubService from './pages/admin/SubService.js';
 import ServiceDetails from './pages/ServiceDetails.js';
+import ServicesPageList from './pages/ServicePageList.js';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
        
           <Route path="/services" element={<Services />} />
           <Route path="/services-details/:slug" element={<ServiceDetails />} />
+          <Route path="/service-list/:slug" element={<ServicesPageList />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
 

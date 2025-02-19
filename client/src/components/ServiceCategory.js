@@ -5,30 +5,31 @@ import { Link } from "react-router-dom";
 
 function ServiceCategory() {
   const [services, setServices] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();  // Hook to navigate programmatically
 
   useEffect(() => {
     // Fetch data from the API
     axios.get('http://localhost:8000/api/sub-services/all')
       .then(response => {
+        // console.log("API Response:", response.data);
         setServices(response.data); // Assuming the API returns an array of services
       })
       .catch(error => {
         console.error('Error fetching services:', error);
       });
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setShowDropdown(false);
-        }
-        
-       };
-      
-       document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
-        };
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleClick = (slug) => {
@@ -47,25 +48,27 @@ function ServiceCategory() {
   }, {});
 
   return (
-    <li 
-              className="nav-item mega-menu-dropdown dropdown position-static" 
-              ref={dropdownRef} 
-              onMouseEnter={() => setShowDropdown(true)} 
-              onMouseLeave={() => setShowDropdown(false)}
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
-       <a className="nav-link dropdown-toggle" role="button">Services</a>
-       <div className={`dropdown-menu mega-menu ${showDropdown ? 'show' : ''}`}>
+    <li
+      className="nav-item mega-menu-dropdown dropdown position-static"
+      ref={dropdownRef}
+      onMouseEnter={() => setShowDropdown(true)}
+      onMouseLeave={() => setShowDropdown(false)}
+      onClick={() => setShowDropdown(!showDropdown)}
+    >
+      <a className="nav-link dropdown-toggle" role="button">Services</a>
+      <div className={`dropdown-menu mega-menu ${showDropdown ? 'show' : ''}`}>
         <div className="container">
           <div className="row">
             {/* Map over each service */}
             {services.map((service, index) => (
               <div className="col-md-3" key={index}>
                 {/* <h6>{service.serviceId?.title || 'Unknown Category'}</h6> */}
-                <Link to= {`/service-list/${service.serviceId?.title}`}>
-                                            {service.serviceId?.title || "No Title"}
-                                        </Link>
-                 {/* Display the title of the service */}
+                <Link to={`/service-list/${service.serviceId?.slug || service.slug}`}>
+                  {service.serviceId?.title || service.title || "No Title"}
+                </Link>
+
+
+                {/* Display the title of the service */}
                 <p
                   onClick={() => handleClick(service.slug)} // Handle click to redirect using slug
                   style={{ cursor: 'pointer' }}

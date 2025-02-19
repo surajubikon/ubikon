@@ -61,8 +61,9 @@ export const createSubService = async (req, res) => {
 export const getSubService = async (req, res) => {
   try {
     const services = await SubServiceSchema.find()
-    .populate('serviceId' , "title")
+    .populate('serviceId', 'title slug') // ✅ Ye sahi hai
     .sort({ createdAt: -1 });
+
     res.json(services);
   } catch (error) {
     res.status(500).json({ message: error.message });
