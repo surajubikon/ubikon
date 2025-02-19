@@ -4,11 +4,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { LuMapPin } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import Logo from '../assets/img/logo.png';
-import api, { baseURL } from '../API/api.url';
 import Chatbot from '../pages/Chatbot';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -17,59 +13,15 @@ import WhatsApp from '../pages/WhatsApp';
 
 import AnimatedCursor from "react-animated-cursor"// import PhoneCallButton from '../pages/PhoneCallButton';
 const Footer  = () => {
-
-  // api calling from backend by axios
-  const [sidebarmenu, setActive] = useState(false);
-const [formData, setFormData] = useState({
-    yourName: '',
-    email: '',
-    contactNumber: '',
-    subject: '',
-    textMessage: '',
-
-    // agree: false,
-  });
-  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`${baseURL}${api.contact.createContact.url}`, formData);
-      toast.success(response?.data?.message || 'Message sent successfully!', {
-        autoClose: 3000,
-        style: { background: '#d0f0ff', color: '#000' },
-      });
-      setFormData({
-        yourName: '',
-        email: '',
-        contactNumber: '',
-        subject: '',
-        textMessage: '',
-        // agree: false,
-      });
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to submit contact form', {
-        autoClose: 3000,
-        style: { background: '#ffcccc', color: '#000' },
-      });
-    }
-  };
-
-
+  
+    const [sidebarmenu, setActive] = useState(false); // State for Toggle
   return (
     <>
     
     <AnimatedCursor
             innerSize={8}
             outerSize={8}
-            color="245, 133, 57"
+            color='#f58539'
             outerAlpha={0.2}
             innerScale={0.7}
             outerScale={5}
@@ -233,31 +185,19 @@ const [formData, setFormData] = useState({
                     </li>
                   </ul>
                 </div>
-                {/* Form page */}
-                <form className="mt-5" onSubmit={handleSubmit}>
+                <form className="mt-5">
                   <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
                   <div class="mb-3">
-                    <input type="text" name="yourName" class="form-control" placeholder="Your name"  value={formData.yourName} onChange={handleChange} required />
+                    <input type="text" name="name" class="form-control" required="" data-error="Please enter your name" placeholder="Your name" />
                   </div>
                   <div class="mb-3">
-                    <input type="email" name="email" class="form-control" data-error="Please enter your email" placeholder="Your email address" value={formData.email} onChange={handleChange} required/>
+                    <input type="email" name="email" class="form-control" required="" data-error="Please enter your email" placeholder="Your email address" />
                   </div>
                   <div class="mb-3">
-                    <input type="text" name="contactNumber" class="form-control" data-error="Please enter your phone number" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
+                    <input type="text" name="phone_number" class="form-control" required="" data-error="Please enter your phone number" placeholder="Your phone number" />
                   </div>
                   <div class="mb-3">
-                  {/* <span className="icon"><i className="fa-solid fa-info"></i></span> */}
-                   
-                    <select name="subject" value={formData.subject} onChange={handleChange} required>
-                      <option value="">Select Services</option>
-                      {subjects.map((subj, index) => (
-                        <option key={index} value={subj}>{subj}</option>
-                      ))}
-                    </select>
-
-                  </div>
-                  <div class="mb-3">
-                    <textarea name="textMessage" class="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..."  value={formData.textMessage} onChange={handleChange} required></textarea>
+                    <textarea name="message" class="form-control" cols="30" rows="6" required="" data-error="Please enter your message" placeholder="Write your message..."></textarea>
                   </div>
                   <button className="default-btn mt-5">Send Message</button>
                 </form>

@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 0px;
     right: -6px;
-    z-index: 1000; /* Ensure the chatbot is always above other content */
+    z-index: 556; /* Ensure the chatbot is always above other content */
   }
   
   /* Floating chat button */

@@ -22,7 +22,7 @@ padding: 0;
 
 .fixed-top {
   background-color: #000 !important;
-  z-index: 999 !important;
+  z-index: 555 !important;
 }
 .navbar {
   font-family: 'TenorSans';
@@ -1068,7 +1068,7 @@ opacity: 1;
   overflow: auto;
   height: 100vh;
   padding: 31px;
-  z-index: 9999;
+  z-index: 666;
 }
 
 .content-box.active {
