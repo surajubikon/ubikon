@@ -5,6 +5,9 @@ import './ServicePage.css'; // Import external CSS file
 function ServicePage() {
   const [services, setServices] = useState([]);
   const [thumbnail, setThumbnail] = useState("");
+   const [coverImage, setCoverImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
+
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -116,12 +119,12 @@ function ServicePage() {
  
   // Handle file change for cover image
   const handleCoverImageChange = (e) => {
-    setFormData({ ...formData, coverImageFile: e.target.files[0] });
+    setFormData({ ...formData, coverImageFile: e.target.files[0].name || ""});
   };
 
   // Handle file change for preview image
   const handlePreviewImageChange = (e) => {
-    setFormData({ ...formData, previewImageFile: e.target.files[0] });
+    setFormData({ ...formData, previewImageFile: e.target.files[0].name || ""});
   };
 
   return (
@@ -182,9 +185,12 @@ function ServicePage() {
               <label>Thumbnail:</label>
               <input type="file" onChange={handleThumbnailChange} className="form-file" />
               {thumbnail && <p>Selected Thumbnail: {thumbnail}</p>}
-
+              <label>Cover Image:</label>
               <input type="file" onChange={handleCoverImageChange} className="form-file" />
-              <input type="file" onChange={handlePreviewImageChange} className="form-file" /> {/* Add file input for preview image */}
+              {coverImage && <p>Selected Cover Image: {coverImage}</p>}
+              <label>Preview Image:</label>
+              <input type="file" onChange={handlePreviewImageChange} className="form-file" />
+              {previewImage && <p>Selected Preview Image: {previewImage}</p>}
               <button type="submit" className="submit-btn">{editServiceId ? "✅ Update Service" : "✅ Save Service"}</button>
               <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">❌ Cancel</button>
             </form>

@@ -15,11 +15,11 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import WhatsApp from '../pages/WhatsApp';
 // import PhoneCallButton from '../pages/PhoneCallButton';
-const Footer  = () => {
+const Footer = () => {
 
   // api calling from backend by axios
   const [sidebarmenu, setActive] = useState(false);
-const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     yourName: '',
     email: '',
     contactNumber: '',
@@ -28,7 +28,7 @@ const [formData, setFormData] = useState({
 
     // agree: false,
   });
-  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
+  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing", "Search Engine Optimization (SEO)"];
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -165,7 +165,7 @@ const [formData, setFormData] = useState({
             <WhatsApp />
             <Chatbot />
             <button className="msg-btn" onClick={() => setActive(!sidebarmenu)}>
-             <MdOutlineMailOutline /> 
+              <MdOutlineMailOutline />
             </button>
             {/* <PhoneCallButton/> */}
             <p>© Ubikon Technologies PVT. LTD. All Rights Reserved.</p>
@@ -173,73 +173,90 @@ const [formData, setFormData] = useState({
         </div>
       </footer>
 
-       <div>
-         
-         {/* Section Jisme Class Add/Remove Hogi */}
-            <section className={`content-box ${sidebarmenu ? "active" : ""}`}>
-            <button className="crose" onClick={() => setActive(!sidebarmenu)}><RxCross2 /> </button>
-              <h4 className="fw-bold mb-3">About Us</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <button className="default-btn mt-4">Let’s Talk</button>
-              <div className="contact-info mt-5">
-                <h5 className="fw-bold mb-4">Contact Information</h5>
-                <p className=""> <IoCallOutline /> +91 6264818989</p>
-                <p className=""><MdOutlineMailOutline /> contact@ubikon.in</p>
-                <p className=""><LuMapPin /> C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore</p>
-                <div className='d-flex mt-3'>
-                  <ul class="nav widget-social">
-                    <li class="nav-item">
-                      <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
-                        <i class="fa-brands fa-facebook-f"></i>
-                      </a>
-                    </li>
-      
-                    <li class="nav-item">
-                      <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                {/* Form page */}
-                <form className="mt-5" onSubmit={handleSubmit}>
-                  <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
-                  <div class="mb-3">
-                    <input type="text" name="yourName" class="form-control" placeholder="Your name"  value={formData.yourName} onChange={handleChange} required />
-                  </div>
-                  <div class="mb-3">
-                    <input type="email" name="email" class="form-control" data-error="Please enter your email" placeholder="Your email address" value={formData.email} onChange={handleChange} required/>
-                  </div>
-                  <div class="mb-3">
-                    <input type="text" name="contactNumber" class="form-control" data-error="Please enter your phone number" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
-                  </div>
-                  <div class="mb-3">
-                  {/* <span className="icon"><i className="fa-solid fa-info"></i></span> */}
-                   
-                    <select name="subject" value={formData.subject} onChange={handleChange} required>
-                      <option value="">Select Services</option>
-                      {subjects.map((subj, index) => (
-                        <option key={index} value={subj}>{subj}</option>
-                      ))}
-                    </select>
+      <div>
 
-                  </div>
-                  <div class="mb-3">
-                    <textarea name="textMessage" class="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..."  value={formData.textMessage} onChange={handleChange} required></textarea>
-                  </div>
-                  <button className="default-btn mt-5">Send Message</button>
-                </form>
-      
+        {/* Section Jisme Class Add/Remove Hogi */}
+        <section className={`content-box ${sidebarmenu ? "active" : ""}`}>
+          <button className="crose" onClick={() => setActive(!sidebarmenu)}><RxCross2 /> </button>
+          <h4 className="fw-bold mb-3">About Us</h4>
+          <p>Ubikon is a trusted and renowned service provider, offering top-notch digital solutions and business services. Our expertise helps businesses reach new heights with innovative and reliable solutions.</p>
+          <button className="default-btn mt-4">Let’s Talk With Ubikon AI</button>
+          <div className="contact-info mt-5">
+            <h5 className="fw-bold mb-4">Contact Information</h5>
+            <p>
+              <a href="tel:+916264818989" className="flex items-center text-blue-600 hover:underline">
+                <IoCallOutline className="mr-2" /> +91 6264818989
+              </a>
+            </p>
+            <p>
+              <a href="mailto:contact@ubikon.in" className="flex items-center text-blue-600 hover:underline">
+                <MdOutlineMailOutline className="mr-2" /> contact@ubikon.in
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=C21+Mall,+Scheme+54+PU4+Vijay+Nagar,+Indore"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center text-blue-600 hover:underline"
+              >
+                <LuMapPin className="mr-2" /> C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore
+              </a>
+            </p>
+            <div className='d-flex mt-3'>
+              <ul class="nav widget-social">
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
+                    <i class="fa-brands fa-facebook-f"></i>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/* Form page */}
+            <form className="mt-5" onSubmit={handleSubmit}>
+              <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
+              <div class="mb-3">
+                <input type="text" name="yourName" class="form-control" placeholder="Your name" value={formData.yourName} onChange={handleChange} required />
               </div>
-            </section>
+              <div class="mb-3">
+                <input type="email" name="email" class="form-control" data-error="Please enter your email" placeholder="Your email address" value={formData.email} onChange={handleChange} required />
+              </div>
+              <div class="mb-3">
+                <input type="text" name="contactNumber" class="form-control" data-error="Please enter your phone number" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
+              </div>
+              <div class="mb-3">
+                {/* <span className="icon"><i className="fa-solid fa-info"></i></span> */}
+
+                <select name="subject" value={formData.subject} onChange={handleChange} required>
+                  <option value="">Select Services</option>
+                  {subjects.map((subj, index) => (
+                    <option key={index} value={subj}>{subj}</option>
+                  ))}
+                </select>
+
+              </div>
+              <div class="mb-3">
+                <textarea name="textMessage" class="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..." value={formData.textMessage} onChange={handleChange} required></textarea>
+              </div>
+              <button className="default-btn mt-5">Send Message</button>
+            </form>
+
           </div>
+        </section>
+      </div>
     </>
   )
 }
