@@ -1,45 +1,43 @@
-import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function ServiceCategory() {
   const [services, setServices] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate();  // Hook to navigate programmatically
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch data from the API
-    axios.get('http://localhost:8000/api/sub-services/all')
-      .then(response => {
-        // console.log("API Response:", response.data);
-        setServices(response.data); // Assuming the API returns an array of services
+    axios
+      .get("http://localhost:8000/api/sub-services/all")
+      .then((response) => {
+        setServices(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching services:', error);
+      .catch((error) => {
+        console.error("Error fetching services:", error);
       });
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
-
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const handleClick = (slug) => {
-    // Navigate to the service details page with the slug
     navigate(`/services-details/${slug}`);
   };
 
-  // Group services by their title (assuming title is the category)
+  // 🟢 Group services by title
   const groupedCategories = services.reduce((acc, service) => {
-    const category = service.title; // Use title as the category
+    const category = service.serviceId?.title || service.title || "Unknown Category"; // Title as category
     if (!acc[category]) {
       acc[category] = [];
     }
@@ -55,26 +53,32 @@ function ServiceCategory() {
       onMouseLeave={() => setShowDropdown(false)}
       onClick={() => setShowDropdown(!showDropdown)}
     >
-      <a className="nav-link dropdown-toggle" role="button">Services</a>
-      <div className={`dropdown-menu mega-menu ${showDropdown ? 'show' : ''}`}>
+      <a className="nav-link dropdown-toggle" role="button">
+        Services
+      </a>
+      <div className={`dropdown-menu mega-menu ${showDropdown ? "show" : ""}`}>
         <div className="container">
           <div className="row">
-            {/* Map over each service */}
-            {services.map((service, index) => (
+            {/* 🟢 Loop through grouped categories */}
+            {Object.entries(groupedCategories).map(([category, subServices], index) => (
               <div className="col-md-3" key={index}>
-                {/* <h6>{service.serviceId?.title || 'Unknown Category'}</h6> */}
-                <Link to={`/service-list/${service.serviceId?.slug || service.slug}`}>
-                  {service.serviceId?.title || service.title || "No Title"}
-                </Link>
+                {/* 🟠 Title (Category) */}
+                <h6>
+                  <Link to={`/service-list/${subServices[0].serviceId?.slug || subServices[0].slug}`}>
+                    {category}
+                  </Link>
+                </h6>
 
-
-                {/* Display the title of the service */}
-                <p
-                  onClick={() => handleClick(service.slug)} // Handle click to redirect using slug
-                  style={{ cursor: 'pointer' }}
-                >
-                  {service.title}
-                </p>
+                {/* 🔵 Sub-titles (Sub-services under this title) */}
+                {subServices.map((subService, subIndex) => (
+                  <p
+                    key={subIndex}
+                    onClick={() => handleClick(subService.slug)}
+                    style={{ cursor: "pointer", marginLeft: "10px" }} // Indented for better UI
+                  >
+                    {subService.title || "No Sub-title"}
+                  </p>
+                ))}
               </div>
             ))}
           </div>
