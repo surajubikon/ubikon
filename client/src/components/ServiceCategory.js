@@ -61,9 +61,9 @@ function ServiceCategory() {
           <div className="row">
            
             {Object.entries(groupedCategories).map(([category, subServices], index) => (
-              <div className="col-md-3" key={index}>
-               
-                <h6>
+              <div className="col-md-3 mb-4" key={index}>
+                {/* 🟠 Title (Category) */}
+                <h6 className="mb-3">
                   <Link to={`/service-list/${subServices[0].serviceId?.slug || subServices[0].slug}`}>
                     {category}
                   </Link>
@@ -74,7 +74,6 @@ function ServiceCategory() {
                   <p
                     key={subIndex}
                     onClick={() => handleClick(subService.slug)}
-                    style={{ cursor: "pointer", marginLeft: "10px" }} // Indented for better UI
                   >
                     {subService.title || "No Sub-title"}
                   </p>
