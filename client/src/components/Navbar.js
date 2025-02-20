@@ -69,12 +69,11 @@ const Navbar = () => {
 
             <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("blog-section")?.scrollIntoView({ behavior: "smooth" });
-              }}>
-                Blog
+              {/* <a className="nav-link" href="//blog-all-list" onClick={(e) => { e.preventDefault(); navigate("/blog-all-list"); }}> */}
+              <a className="nav-link" href="//blog-all-list" onClick={(e) => { e.preventDefault(); navigate("/blog-all-list"); }}>
+               Blog
               </a>
+          
             </li>
             <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li>
             <li className="nav-item">

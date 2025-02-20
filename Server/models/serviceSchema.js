@@ -17,6 +17,12 @@ const ServiceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    dynamicFields: [
+      {
+        heading: { type: String }, 
+        value: { type: String },   
+      }
+    ],
     thumbnail: {
       type: String,
     },

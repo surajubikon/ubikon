@@ -1,10 +1,11 @@
+
 import serviceSchema from "../models/serviceSchema.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 import sharp from 'sharp';
 
 export const createService = async (req, res) => {
-  const { title, ckeditor, description, seometa, publishedAt } = req.body;
+  const { title, ckeditor, description, seometa, publishedAt , dynamicFields } = req.body;
 
   try {
     if (!title || !description) {
@@ -61,7 +62,11 @@ export const createService = async (req, res) => {
       const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
       previewImageUrl = previewImageUpload.secure_url;
     }
-
+  // Convert dynamicFields to array (if it's not already)
+  let parsedDynamicFields = [];
+  if (dynamicFields) {
+    parsedDynamicFields = JSON.parse(dynamicFields); // Frontend se string aaye to JSON parse karega
+  }
     // Create service with image URLs
     const service = await serviceSchema.create({
       title,
@@ -73,6 +78,7 @@ export const createService = async (req, res) => {
       thumbnail: thumbnailUrl,
       coverImage: coverImageUrl,
       previewImage: previewImageUrl, // Add preview image URL
+      dynamicFields: parsedDynamicFields, // Store dynamic fields in DB
     });
 
     res.status(201).json(service);
@@ -109,7 +115,7 @@ export const getServiceById = async (req, res) => {
 // Update a service
 export const updateService = async (req, res) => {
   const { id } = req.params;
-  const { title, ckeditor, description, seometa, publishedAt } = req.body;
+  const { title, ckeditor, description, seometa, publishedAt, dynamicFields  } = req.body;
   const updates = req.body;
 
   try {
@@ -158,7 +164,10 @@ export const updateService = async (req, res) => {
       const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
       updatedFields.previewImage = previewImageUpload.secure_url;
     }
-
+    // Handle dynamic fields (parse JSON string if coming from FormData)
+    if (dynamicFields) {
+      updatedFields.dynamicFields = typeof dynamicFields === "string" ? JSON.parse(dynamicFields) : dynamicFields;
+    }
     // Update the service with the updated fields
     const updatedService = await serviceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 

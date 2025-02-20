@@ -45,7 +45,20 @@ const ServicesPageList = () => {
           alt={service.title}
           style={{ width: "100%", borderRadius: "5px" }}
         />
+         {/* Dynamic Fields Rendering */}
+         {service.dynamicFields && service.dynamicFields.length > 0 && (
+          <div>
+            <h3>Additional Details</h3>
+            {service.dynamicFields.map((field) => (
+              <div key={field._id}>
+                <h4>{field.heading}</h4>
+                <p>{field.value}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div dangerouslySetInnerHTML={{ __html: service.ckeditor }}></div>
+
         <small>Published on: {new Date(service.publishedAt).toDateString()}</small>
       </div>
     </div>
