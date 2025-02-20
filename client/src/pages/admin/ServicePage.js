@@ -5,7 +5,7 @@ import './ServicePage.css'; // Import external CSS file
 function ServicePage() {
   const [services, setServices] = useState([]);
   const [thumbnail, setThumbnail] = useState("");
-   const [coverImage, setCoverImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
   const [formData, setFormData] = useState({
@@ -21,6 +21,7 @@ function ServicePage() {
     coverImageFile: null,
     previewImageFile: null, // New state for preview image file
   });
+  const [dynamicFields, setDynamicFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editServiceId, setEditServiceId] = useState(null);
 
@@ -31,7 +32,20 @@ function ServicePage() {
       .then((res) => setServices(res.data))
       .catch((err) => console.error("Error fetching services:", err));
   }, []);
-
+  // Handle Add Dynamic Field
+  const addDynamicField = () => {
+    setDynamicFields([...dynamicFields, { heading: "", value: "" }]);
+  };
+  // Handle Change in Dynamic Fields
+  const handleDynamicFieldChange = (index, field, value) => {
+    const updatedFields = [...dynamicFields];
+    updatedFields[index][field] = value;
+    setDynamicFields(updatedFields);
+  };
+  // Handle Remove Dynamic Field
+  const removeDynamicField = (index) => {
+    setDynamicFields(dynamicFields.filter((_, i) => i !== index));
+  };
   // Handle Add or Edit Service
   const handleAddOrEditService = async (e) => {
     e.preventDefault();
@@ -46,6 +60,7 @@ function ServicePage() {
     form.append("thumbnail", formData.thumbnailFile);
     form.append("coverImage", formData.coverImageFile);
     form.append("previewImage", formData.previewImageFile); // Add preview image to form data
+    form.append("dynamicFields", JSON.stringify(dynamicFields));
 
     try {
       if (editServiceId) {
@@ -75,6 +90,7 @@ function ServicePage() {
         coverImageFile: null,
         previewImageFile: null, // Reset preview image file
       });
+      setDynamicFields([]);
       setEditServiceId(null);
       alert(editServiceId ? "Service updated successfully!" : "Service added successfully!");
     } catch (error) {
@@ -114,23 +130,23 @@ function ServicePage() {
 
   // Handle file change for thumbnail
   const handleThumbnailChange = (e) => {
-    setFormData({ ...formData, thumbnailFile: e.target.files[0].name || "" });
+    setFormData({ ...formData, thumbnailFile: e.target.files[0]});
   };
- 
+
   // Handle file change for cover image
   const handleCoverImageChange = (e) => {
-    setFormData({ ...formData, coverImageFile: e.target.files[0].name || ""});
+    setFormData({ ...formData, coverImageFile: e.target.files[0] });
   };
 
   // Handle file change for preview image
   const handlePreviewImageChange = (e) => {
-    setFormData({ ...formData, previewImageFile: e.target.files[0].name || ""});
+    setFormData({ ...formData, previewImageFile: e.target.files[0]});
   };
 
   return (
     <div className="servicepage-container">
       <button onClick={() => setShowModal(true)} className="add-service-btn">
-        ➕ Add Category
+        ➕ Add Categorya
       </button>
 
       {services.length === 0 ? (
@@ -182,6 +198,17 @@ function ServicePage() {
               <input type="text" placeholder="Enter Service Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required className="form-input" />
               <textarea placeholder="Enter Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required className="form-textarea" />
               <textarea placeholder="Enter SEO Meta" value={formData.seometa} onChange={(e) => setFormData({ ...formData, seometa: e.target.value })} required className="form-textarea" />
+              {/* Dynamic Fields */}
+              <h6>Add more</h6>
+              {dynamicFields.map((field, index) => (
+                <div key={index}>
+                  <input type="text" placeholder="Heading" value={field.heading} onChange={(e) => handleDynamicFieldChange(index, "heading", e.target.value)} />
+                  <input type="text" placeholder="Value" value={field.value} onChange={(e) => handleDynamicFieldChange(index, "value", e.target.value)} />
+                  <button type="button" onClick={() => removeDynamicField(index)}>❌ Remove</button>
+                </div>
+              ))}
+              <button type="button" onClick={addDynamicField}>➕Add more</button>
+              <br /><br/>
               <label>Thumbnail:</label>
               <input type="file" onChange={handleThumbnailChange} className="form-file" />
               {thumbnail && <p>Selected Thumbnail: {thumbnail}</p>}
