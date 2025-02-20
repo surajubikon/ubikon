@@ -200,9 +200,7 @@ const Home = () => {
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-
-            <Project />
-
+             <Project />
           </div>
         </div>
       </div>

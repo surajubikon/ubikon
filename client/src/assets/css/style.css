@@ -119,9 +119,9 @@ background-image: url(../img/ft-bg.svg);
 content: "";
 position: absolute;
 top: -73px;
-    width: 100%;
-    height: 75px;
-    background-size: 100%;
+width: 100%;
+height: 75px;
+background-size: 100%;
 }
 .footer-shape-1 {
 position: absolute;
@@ -815,13 +815,12 @@ color: #000;
 }
 
 .blog-card .blog-content .blog-btn {
-background: radial-gradient(circle,#feb302,#f8c600,#eed900,#e0ec00,#cdff05);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+color: #000;
 font-weight: 700;
 transition: .6s;
 position: relative;
 margin-top: 20px;
+font-size: 15px;
 }
 .contact-details-section {
 background-color: #000;
