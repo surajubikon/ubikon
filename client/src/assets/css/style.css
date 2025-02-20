@@ -118,14 +118,15 @@ footer:before {
 background-image: url(../img/ft-bg.svg);
 content: "";
 position: absolute;
-top: -75px;
-width: 100%;
-height: 76px;
+top: -73px;
+    width: 100%;
+    height: 75px;
+    background-size: 100%;
 }
 .footer-shape-1 {
 position: absolute;
 right: 24px;
-top: -52px;
+top: -2px;
 z-index: 0;
 }
 .footer-shape-1 img {
@@ -275,6 +276,8 @@ position: absolute;
 top: -75px;
 width: 100%;
 height: 76px;
+background-repeat: no-repeat;
+background-size: 100%;
 }
 
 .bg-bectangle-bottom {
@@ -285,16 +288,30 @@ position: relative;
 background-image: url(../img/bg-bectangle-bottom.svg);
 content: "";
 position: absolute;
-bottom: -146px;
+bottom: -242px;
 width: 100%;
-height: 147px;
+height: 242px;
 left: 0;
+background-repeat: no-repeat;
+background-size: 100%;
 }
 
 .main-slides-area {
   background: #000;
   padding: 159px 0 0 0;
+  position: relative;
 }
+.main-slides-area::after {
+  background-image: url(../img/slides-bg.svg);
+  content: "";
+  position: absolute;
+  bottom: -187px;
+  width: 100%;
+  height: 187px;
+  left: 0;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  }
 .main-slides-content {
 padding-right: 50px;
 margin-top: 70px;
@@ -483,7 +500,7 @@ opacity: 1;
 
 
 .wt-we-do {
-padding: 180px 0;
+  padding: 195px 0 79px;
 }
 .wt-we-do-conten span{
 font-size: 14px;
@@ -726,7 +743,7 @@ color: #fff;
 overflow: hidden;
 position: relative;
 z-index: 1;
-padding-top: 160px;
+padding-top: 193px;
 padding-bottom: 75px;
 }
 .blog-heading {
