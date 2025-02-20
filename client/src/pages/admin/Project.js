@@ -5,6 +5,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa6";
+import { motion } from "framer-motion";
+
 
 const Project = () => {
     const [posts, setPosts] = useState([]);
@@ -85,9 +88,15 @@ const Project = () => {
                                                 : "No Description"}
                                         </p>
 
-                                        <p><strong>Published on:</strong> {new Date(post.createdAt).toLocaleDateString()}</p>
+                                        <p className="small"><strong>Published on:</strong> {new Date(post.createdAt).toLocaleDateString()}</p>
                                         <a href={`/blog/${post.slug}`} className="blog-btn">
-                                            View More
+                                            View More <motion.div className="d-inline-block ms-2"
+      initial={{ x: -5, opacity: 1 }}
+      animate={{ x: 5, opacity: 1 }}
+      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+    >
+      <FaArrowRight size={18} />
+    </motion.div>
                                         </a>
                                     </div>
                                 </div>

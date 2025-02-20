@@ -60,7 +60,7 @@ const Home = () => {
 
       <Navbar />
 
-      <div className='main-slides-area bg-bectangle-bottom' atl="Ubikon - Leading mobile app and website development company in Indore, Madhya Pradesh.">
+      <div className='main-slides-area' atl="Ubikon - Leading mobile app and website development company in Indore, Madhya Pradesh.">
         <div className='container'>
           <div class="main-slides-shape-1">
             <img src={slidesshape1} alt="image" />
@@ -113,7 +113,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='services bg-bectangle-top bg-bectangle-bottom' atl="Dedicated team of mobile app and website developers at Ubikon in Indore">
+      <div className='services bg-bectangle-bottom' atl="Dedicated team of mobile app and website developers at Ubikon in Indore">
         <div className='container'>
           <div className='row'>
             <div className='col-md-4'>
@@ -200,9 +200,7 @@ const Home = () => {
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-
-            <Project />
-
+             <Project />
           </div>
         </div>
       </div>

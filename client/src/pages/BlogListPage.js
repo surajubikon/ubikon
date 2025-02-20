@@ -4,6 +4,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import blogBG from '../assets/img/service-img.webp'
+import { FaArrowRight } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 function BlogListPage() {
     const [posts, setPosts] = useState([]);
@@ -25,6 +28,12 @@ function BlogListPage() {
     return (
       <>
    <Navbar/>
+   <div class="blog-banner position-relative mb-5">
+    <div class="text-center blog-banner-title">
+        <h2>Blog</h2><p>Stay Updated with the Latest Tech Insights</p>
+    </div>
+        <img class="w-100 blogcoverimage" src={blogBG} alt="Creating a Realistic Budget for Your Startup: Best Practices" />
+    </div>
         <div className="container">
 
           <div className="row">
@@ -54,7 +63,10 @@ function BlogListPage() {
 
                                         <p><strong>Published on:</strong> {new Date(post.createdAt).toLocaleDateString()}</p>
                                         <a href={`/blog/${post.slug}`} className="blog-btn">
-                                            View More
+                                            View More <motion.div className="d-inline-block ms-2" initial={{ x: -5, opacity: 1 }} animate={{ x: 5, opacity: 1 }} transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}>
+                                                        <FaArrowRight size={18} />
+      
+                                                      </motion.div>
                                         </a>
                                     </div>
                                 </div>
@@ -64,7 +76,7 @@ function BlogListPage() {
                     ))}
               </div>
         </div>
-        <Footer/>
+    <Footer/>
            </>
     );
 };
