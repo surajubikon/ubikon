@@ -152,15 +152,15 @@ function BlogPage() {
             </tr>
           </thead>
           <tbody>
-          {console.log(blogs)}
+          
             {blogs.map((blog) => (
              
               <tr key={blog._id}>
                 <td>{blog.title}</td>
                 <td>{blog.slug}</td>
-                <td dangerouslySetInnerHTML={{ __html: blog.content }}></td>
+                {/* <td dangerouslySetInnerHTML={{ __html: blog.content }}></td> */}
 
-                <td dangerouslySetInnerHTML={{ __html: blog.description }} />
+                <td dangerouslySetInnerHTML={{ __html: blog.description }}/>
                 <td>{blog.seometa}</td>
                 <td>
                   <img src={blog.thumbnail} alt="Thumbnail" className="blog-thumbnail" />

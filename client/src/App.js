@@ -29,6 +29,8 @@ import SubService from './pages/admin/SubService.js';
 import ServiceDetails from './pages/ServiceDetails.js';
 import ServicesPageList from './pages/ServicePageList.js';
 import BlogListPage from './pages/BlogListPage.js';
+import JobCategory from './pages/admin/JobCategory.js';
+import JobCollection from './pages/admin/JobCollection.js';
 function App() {
   useEffect(() => {
     initGA();
@@ -68,6 +70,8 @@ function App() {
           {/* <Route path="/ck" element={} */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog-all-list" element={<BlogListPage />} />
+          <Route path="/job-category" element={<JobCategory />} />
+          <Route path="/job-collection" element={<JobCollection />} />
 
           <Route path="/services" element={<Services />} />
           <Route path="/services-details/:slug" element={<ServiceDetails />} />
