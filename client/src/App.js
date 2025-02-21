@@ -19,7 +19,7 @@ import Services from './pages/Services';
 import Demo from './pages/Demo';
 import Dashboard from "./pages/admin/Dashboard";
 import Login from "./pages/admin/Login";
-import UserDetails from './pages/admin/userDetails';
+import Enquiry from './pages/admin/Enquiry.js';
 import Blogpage from './pages/admin/BlogPage.js';
 import BlogDetails from './pages/admin/BlogDeatails.js';
 import Register from './pages/admin/Register.js';
@@ -31,6 +31,7 @@ import ServicesPageList from './pages/ServicePageList.js';
 import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
 import JobCollection from './pages/admin/JobCollection.js';
+import PortFolio from './pages/admin/PortFolio.js';
 function App() {
   useEffect(() => {
     initGA();
@@ -47,7 +48,7 @@ function App() {
           content="Transform your business with Ubikon Technologies. Specializing in mobile app development, website design, and e-commerce solutions in Indore. Elevate your online presence today!"
         />
         <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
-        <link rel="canonical" href="http://localhost:8000/" />
+        <link rel="canonical" href="https://ubikon.in/" />
         <meta name="author" content="Ubikon Technologies" />
         {/* Google Analytics Tracking */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSXNG8NJ1S"></script>
@@ -104,13 +105,17 @@ function App() {
               <SubService />
             </PrivateRoute>
           } />
-
+ <Route path="/portfolio" element={
+            <PrivateRoute>
+              <PortFolio />
+            </PrivateRoute>
+          } />
           <Route path="admin" element={<Login />} />
           {/* Protected admin routes */}
 
-          <Route path="/users" element={
+          <Route path="/enquiry" element={
             <PrivateRoute>
-              <UserDetails />
+              <Enquiry />
             </PrivateRoute>
           } />
 

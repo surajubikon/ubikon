@@ -19,10 +19,13 @@ const Sidebar = () => {
         </li>
 
         <li>
-          <Link to="/users"><FaUser /> Users</Link>
+          <Link to="/enquiry"><FaUser /> Enquiry mails </Link>
         </li>
         <li>
-          <Link to="/blog-list"><FaUser /> BLOG</Link>
+          <Link to="/blog-list"><FaUser /> Blogs </Link>
+        </li>
+        <li>
+          <Link to="/portfolio"><FaUser /> Portfolio Uploads </Link>
         </li>
 
         {/* Service Dropdown */}

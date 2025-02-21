@@ -31,7 +31,8 @@ const Footer  = () => {
 
     // agree: false,
   });
-  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing", "Search Engine Optimization (SEO)"];
+   const [loading, setLoading] = useState(false);
+    const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing", "Search Engine Optimization (SEO)"];
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -42,6 +43,7 @@ const Footer  = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${baseURL}${api.contact.createContact.url}`, formData);
       toast.success(response?.data?.message || 'Message sent successfully!', {
@@ -62,6 +64,7 @@ const Footer  = () => {
         style: { background: '#ffcccc', color: '#000' },
       });
     }
+    setLoading(false);
   };
 
 
@@ -278,7 +281,7 @@ const Footer  = () => {
               <div class="mb-3">
                 <textarea name="textMessage" class="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..." value={formData.textMessage} onChange={handleChange} required></textarea>
               </div>
-              <button className="default-btn mt-5">Send Message</button>
+              <button type="submit" className="default-btn mt-5" disabled={loading}>  {loading ?  "Submitting..." :"Send Message"}</button>
             </form>
 
           </div>
