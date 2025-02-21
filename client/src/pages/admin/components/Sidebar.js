@@ -4,9 +4,11 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Sidebar = () => {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
+  const [isJobOpen, setIsJobOpen] = useState(false);
 
   // Toggle dropdown visibility for Service
   const toggleServiceDropdown = () => setIsServiceOpen(!isServiceOpen);
+  const toggleJobDropdown = () => setIsJobOpen(!isJobOpen);
 
   return (
     <div className="sidebar">
@@ -17,10 +19,13 @@ const Sidebar = () => {
         </li>
 
         <li>
-          <Link to="/users"><FaUser /> Users</Link>
+          <Link to="/enquiry"><FaUser /> Enquiry mails </Link>
         </li>
         <li>
-          <Link to="/blog-list"><FaUser /> BLOG</Link>
+          <Link to="/blog-list"><FaUser /> Blogs </Link>
+        </li>
+        <li>
+          <Link to="/portfolio"><FaUser /> Portfolio Uploads </Link>
         </li>
 
         {/* Service Dropdown */}
@@ -33,13 +38,30 @@ const Sidebar = () => {
           {isServiceOpen && (
             <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
               <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
-                  <li><Link to="/category-list">Category</Link></li>
-                  <li><Link to="/sub-category-list">Sub Category</Link></li>
-                  {/* <li><Link to="">Subcategory 2</Link></li> */}
-                </ul>
-              
-             
+                <li><Link to="/category-list">Category</Link></li>
+                <li><Link to="/sub-category-list">Sub Category</Link></li>
+                {/* <li><Link to="">Subcategory 2</Link></li> */}
+              </ul>
+
+
             </ul>
+          )}
+        </li>
+        {/* Job Dropdown */}
+           <li>
+          <div onClick={toggleJobDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <FaUser /> Jobs <FaCaretDown />
+          </div>
+
+          {/* Job content */}
+          {isJobOpen && (
+            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
+              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
+                <li><Link to="/job-category">Job Category</Link></li>
+                <li><Link to="/job-collection">Job Collections</Link></li>
+                
+              </ul>
+              </ul>  
           )}
         </li>
 

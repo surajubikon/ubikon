@@ -11,7 +11,9 @@ import aiChatRoutes from "./routes/aiChatRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import subServiceRoutes from "./routes/subServiceRoutes.js";
 import { trackEvent } from "./utils/analytics.js";
-
+import jobCategoryRoutes from "./routes/jobCategoryRoutes.js";
+import jobCollectionRoutes from "./routes/jobCollectionRoutes.js";
+import portpolioRoute from "./routes/portpolioRoute.js";
 dotenv.config();
 connectDB();
 
@@ -35,6 +37,11 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/sub-services", subServiceRoutes);
 app.use("/api/aichat", aiChatRoutes);
+app.use("/api/jobCategory", jobCategoryRoutes)
+app.use("/api/jobCollection", jobCollectionRoutes)
+app.use("/api/portfolio" ,portpolioRoute )
+
+
 
 app.use((err, req, res, next) => {
     console.error("Error:", err.message);

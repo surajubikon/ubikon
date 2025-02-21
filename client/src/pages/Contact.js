@@ -22,7 +22,8 @@ const Contact = () => {
 
     // agree: false,
   });
-  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing","Search Engine Optimization (SEO)"];
+  const [loading, setLoading] = useState(false);
+  const subjects = ["Mobile App Development", "Web Development", "UI/UX Design", "Digital Marketing", "Search Engine Optimization (SEO)"];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -34,6 +35,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${baseURL}${api.contact.createContact.url}`, formData);
       toast.success(response?.data?.message || 'Message sent successfully!', {
@@ -54,6 +56,7 @@ const Contact = () => {
         style: { background: '#ffcccc', color: '#000' },
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -169,11 +172,10 @@ const Contact = () => {
                   <span className='icon'><i className="fas fa-pencil-alt"></i></span>
                   <textarea name="textMessage" placeholder="How can we help you? Feel free to get in touch!" value={formData.textMessage} onChange={handleChange} required></textarea>
                 </div>
-                {/* <label>
-                  <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange} required />
-                  I agree that my data is collected and stored.
-                </label> */}
-                <button type="submit" className='default-btn mt-5'>Get In Touch</button>
+
+                <button type="submit" className='default-btn mt-5' disabled={loading}>
+                  {loading ? "Submitting..." : "Get In Touch"}
+                </button>
               </form>
             </div>
           </div>

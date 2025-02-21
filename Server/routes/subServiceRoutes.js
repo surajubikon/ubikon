@@ -2,8 +2,7 @@ import express from 'express';
 import upload from "../middleware/multer.js";
 import { 
   createSubService, 
-  getSubService, 
-  getSubServiceById, 
+  getSubService,
   getSubServiceBySlug,
   updateSubService, 
   deleteSubService 
@@ -13,7 +12,6 @@ const router = express.Router();
 
 router.post('/create', upload.fields([{ name: 'thumbnail' }]), createSubService);
 router.get('/all', getSubService);       
-// router.get('/:id', getSubServiceById);
 router.get('/:slug', getSubServiceBySlug);  // Changed from :id to :slug
 
 router.put('/update/:id', upload.fields ([{ name: 'thumbnail' }]),  updateSubService); // ✅ Update blog post

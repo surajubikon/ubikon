@@ -14,7 +14,7 @@ const Dashboard = () => {
       try {
         const response = await axios.get(`${baseURL}${api.contact.getContacts.url}`);
         setTotalUsers(response.data.length);
-         console.log("user",response)
+        
       } catch (err) {
         setError("Failed to fetch user count");
       } finally {

@@ -10,7 +10,7 @@ const ServicesPageList = () => {
 
   useEffect(() => {
     axios
-    .get(`http://localhost:8000/api/services/slug/${slug}`)
+    .get(`https://ubikon.in/api/services/slug/${slug}`)
     .then((response) => {
       setService(response.data); // findOne() ek object deta hai
       setLoading(false);

@@ -24,13 +24,13 @@ function SubService() {
   // Fetch Subservices
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/sub-services/all")
+      .get("https://ubikon.in/api/sub-services/all")
       .then((res) => setSubservices(res.data))
       .catch((err) => console.error("Error fetching subservices:", err));
 
     // Fetch Services for Dropdown
     axios
-      .get("http://localhost:8000/api/services/all")
+      .get("https://ubikon.in/api/services/all")
       .then((res) => setServices(res.data))
       .catch((err) => console.error("Error fetching services:", err));
   }, []);
@@ -50,7 +50,7 @@ function SubService() {
     try {
       if (editSubserviceId) {
         const res = await axios.put(
-          `http://localhost:8000/api/sub-services/update/${editSubserviceId}`,
+          `https://ubikon.in/api/sub-services/update/${editSubserviceId}`,
           form,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -61,7 +61,7 @@ function SubService() {
         );
       } else {
         const res = await axios.post(
-          "http://localhost:8000/api/sub-services/create",
+          "https://ubikon.in/api/sub-services/create",
           form,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -94,7 +94,7 @@ function SubService() {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/sub-services/delete/${id}`);
+      await axios.delete(`https://ubikon.in/api/sub-services/delete/${id}`);
       setSubservices(subservices.filter((subservice) => subservice._id !== id));
       alert("Subservice deleted successfully!");
     } catch (error) {

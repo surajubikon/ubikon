@@ -70,19 +70,7 @@ export const getSubService = async (req, res) => {
   }
 };
 
-export const getSubServiceById = async (req, res) => {
-  const { id } = req.params;
 
-  try {
-    const service = await SubServiceSchema.findById({ slug : id});
-    if (!service) {
-      return res.status(404).json({ message: "Service not found" });
-    }
-    res.json(service);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 // Update a service
 export const updateSubService = async (req, res) => {

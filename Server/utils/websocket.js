@@ -16,7 +16,7 @@ const speechAudio = await textToSpeech(botText);
     });
 
     ws.on("close", () => {
-      console.log("❌ Client Disconnected");
+     
     });
   });
 
