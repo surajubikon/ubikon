@@ -33,6 +33,7 @@ const Home = () => {
     centerMode: true,
     centerPadding: "60px",
     slidesToShow: 3,
+    // infinite: false,
     responsive: [
       {
         breakpoint: 768,
@@ -260,34 +261,50 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <div className=''>
+      <div className='mb-5'>
         <div className='container'>
-        <div className="w-3/4 mx-auto mt-10">
+        <div class="blog-heading">
+            <span>Testimonial</span>
+            <h2>See Why Clients Love Working With Us</h2>
+          </div>
+        <div className="mx-auto mt-10">
             <Slider {...testimonial}>
-              <div className="slide-item">
-                <h3>Testimonial 1</h3>
-                <p>"Great service, highly recommend!"</p>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
               </div>
-              <div className="slide-item">
-                <h3>Testimonial 2</h3>
-                <p>"Amazing experience, will come again!"</p>
               </div>
-              <div className="slide-item">
-                <h3>Testimonial 3</h3>
-                <p>"Best customer support ever!"</p>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
               </div>
-              <div className="slide-item">
-                <h3>Testimonial 4</h3>
-                <p>"High quality and professional work!"</p>
               </div>
-              <div className="slide-item">
-                <h3>Testimonial 5</h3>
-                <p>"Five stars, would recommend!"</p>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
+              </div>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
               </div>
             </Slider>
           </div>
         </div>  
-      </div> */}
+      </div> 
 
       <div class="social-section" atl="Latest insights in technology from Ubikon's blog on mobile app development trends">
         <div class="container" atl="Exploring the future of website development in India - Ubikon blog post featured image">
