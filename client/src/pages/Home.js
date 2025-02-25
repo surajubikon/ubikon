@@ -2,10 +2,12 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Slider from "react-slick";
 import slidesshape1 from '../assets/img/slides-shape-1.png'
 import slidesandroid1 from '../assets/img/slides-android1.png'
 import slidesshape3 from '../assets/img/slides-shape-3.png'
 import slidesshape4 from '../assets/img/slides-shape-4.png'
+import TM1 from '../assets/img/tm-1.png'
 import { Helmet } from 'react-helmet';
 
 import Wsimg from '../assets/img/ws-img.webp';
@@ -27,6 +29,33 @@ import Footer from '../components/Footer';
  
 
 const Home = () => {
+  const testimonial = {
+    centerMode: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    // infinite: false,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: "40px",
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: "40px",
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   const navigate = useNavigate();
   const schemaMarkup = {
     "@context": "https://schema.org",
@@ -204,6 +233,79 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
+      <div className='project-client-conten' atl="Happy clients sharing feedback on web development services provided by Ubikon">
+        <div className='container'>
+             <div className='card p-4 bg-black text-white text-center'>
+                <div className='card-body'>
+                  <div className='row'>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 18+  </h3>
+                          <h5> Year of <br/> Experience</h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 110+  </h3>
+                          <h5> Project <br/> delivered  </h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 120+  </h3>
+                          <h5> Satisfied <br/> Customers</h5>
+                      </div>
+                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                          <h3 className='fw-bold'> 10+  </h3>
+                          <h5>  Cities <br/> Worldwide</h5>
+                      </div>
+                  </div>
+                </div>  
+             </div> 
+        </div>
+      </div>
+
+      <div className='mb-5'>
+        <div className='container'>
+        <div class="blog-heading">
+            <span>Testimonial</span>
+            <h2>See Why Clients Love Working With Us</h2>
+          </div>
+        <div className="mx-auto mt-10">
+            <Slider {...testimonial}>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
+              </div>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
+              </div>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
+              </div>
+              <div><div className="slide-item">
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+                 <img className='d-inline-block' src={TM1} />
+                <h5 className='mt-2'>Testimonial 1</h5>
+                <p className='small'>Founder of Awesomeux Technology</p>
+              </div>
+              </div>
+            </Slider>
+          </div>
+        </div>  
+      </div> 
+
       <div class="social-section" atl="Latest insights in technology from Ubikon's blog on mobile app development trends">
         <div class="container" atl="Exploring the future of website development in India - Ubikon blog post featured image">
           <div class="blog-heading">
@@ -244,33 +346,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='project-client-conten' atl="Happy clients sharing feedback on web development services provided by Ubikon">
-        <div className='container'>
-             <div className='card p-4 bg-black text-white text-center'>
-                <div className='card-body'>
-                  <div className='row'>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 18+  </h3>
-                          <h5> Year of <br/> Experience</h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 110+  </h3>
-                          <h5> Project <br/> delivered  </h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 120+  </h3>
-                          <h5> Satisfied <br/> Customers</h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 10+  </h3>
-                          <h5>  Cities <br/> Worldwide</h5>
-                      </div>
-                  </div>
-                </div>  
-             </div> 
-        </div>
-      </div>
-      
       <Footer />
     </div>
   );

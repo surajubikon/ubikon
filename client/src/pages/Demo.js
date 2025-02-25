@@ -1,102 +1,138 @@
-import React, { useState } from "react";
-import { IoCallOutline } from "react-icons/io5";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { LuMapPin } from "react-icons/lu";
-import { RxCross2 } from "react-icons/rx";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useAnimation, useTransform } from "framer-motion";
 
 
-import AnimatedCursor from "react-animated-cursor"
+const IMGS = [
+  "https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1495103033382-fe343886b671?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1506781961370-37a89d6b3095?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1599576838688-8a6c11263108?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1494094892896-7f14a4433b7a?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://plus.unsplash.com/premium_photo-1664910706524-e783eed89e71?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1503788311183-fa3bf9c4bc32?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1585970480901-90d6bb2a48b5?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+];
 
+const RollingGallery = ({ autoplay = false, pauseOnHover = false, images = [] }) => {
+  images = IMGS;
+  const [isScreenSizeSm, setIsScreenSizeSm] = useState(window.innerWidth <= 640);
 
+  const cylinderWidth = isScreenSizeSm ? 1100 : 1800;
+  const faceCount = images.length;
+  const faceWidth = (cylinderWidth / faceCount) * 2; // Increased width for items
+  const dragFactor = 0.05;
+  const radius = cylinderWidth / (2 * Math.PI);
 
+  const rotation = useMotionValue(0);
+  const controls = useAnimation();
+  const autoplayRef = useRef();
 
-const ToggleSection = () => {
-  const [sidebarmenu, setActive] = useState(false); // State for Toggle
+  const handleDrag = (_, info) => {
+    rotation.set(rotation.get() + info.offset.x * dragFactor);
+  };
+
+  const handleDragEnd = (_, info) => {
+    controls.start({
+      rotateY: rotation.get() + info.velocity.x * dragFactor,
+      transition: { type: "spring", stiffness: 60, damping: 20, mass: 0.1, ease: "easeOut" },
+    });
+  };
+
+  const transform = useTransform(rotation, (value) => {
+    return `rotate3d(0, 1, 0, ${value}deg)`;
+  });
+
+  // Autoplay effect with adjusted timing
+  useEffect(() => {
+    if (autoplay) {
+      autoplayRef.current = setInterval(() => {
+        controls.start({
+          rotateY: rotation.get() - (360 / faceCount),
+          transition: { duration: 2, ease: "linear" },
+        });
+        rotation.set(rotation.get() - (360 / faceCount));
+      }, 2000);
+
+      return () => clearInterval(autoplayRef.current);
+    }
+  }, [autoplay, rotation, controls, faceCount]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSizeSm(window.innerWidth <= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Pause on hover with smooth transition
+  const handleMouseEnter = () => {
+    if (autoplay && pauseOnHover) {
+      clearInterval(autoplayRef.current);
+      controls.stop(); // Stop the animation smoothly
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (autoplay && pauseOnHover) {
+      controls.start({
+        rotateY: rotation.get() - (360 / faceCount),
+        transition: { duration: 2, ease: "linear" },
+      });
+      rotation.set(rotation.get() - (360 / faceCount));
+
+      autoplayRef.current = setInterval(() => {
+        controls.start({
+          rotateY: rotation.get() - (360 / faceCount),
+          transition: { duration: 2, ease: "linear" },
+        });
+        rotation.set(rotation.get() - (360 / faceCount));
+      }, 2000);
+    }
+  };
 
   return (
-    <div>
-      
-      <AnimatedCursor
-      innerSize={8}
-      outerSize={8}
-      color='193, 11, 111'
-      outerAlpha={0.2}
-      innerScale={0.7}
-      outerScale={5}
-      clickables={[
-        'a',
-        'input[type="text"]',
-        'input[type="email"]',
-        'input[type="number"]',
-        'input[type="submit"]',
-        'input[type="image"]',
-        'label[for]',
-        'select',
-        'textarea',
-        'button',
-        '.link'
-      ]}
-    />
-      {/* Button to Toggle Class */}
-      <button className="btn btn-primary" onClick={() => setActive(!sidebarmenu)}>
-        add
-      </button>
-
-      {/* Section Jisme Class Add/Remove Hogi */}
-      <section className={`content-box ${sidebarmenu ? "active" : ""}`}>
-      <button className="crose" onClick={() => setActive(!sidebarmenu)}><RxCross2 /> </button>
-        <h4 className="fw-bold mb-3">About Us</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <button className="default-btn mt-4">Let’s Talk</button>
-        <div className="contact-info mt-5">
-          <h5 className="fw-bold mb-4">Contact Information</h5>
-          <p className=""> <IoCallOutline /> +91 6264818989</p>
-          <p className=""><MdOutlineMailOutline /> contact@ubikon.in</p>
-          <p className=""><LuMapPin /> C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore</p>
-          <div className='d-flex mt-3'>
-            <ul class="nav widget-social">
-              <li class="nav-item">
-                <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <form className="mt-5">
-            <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
-            <div class="mb-3">
-              <input type="text" name="name" class="form-control" required="" data-error="Please enter your name" placeholder="Your name" />
+    <div className="gallery-container">
+      <div className="gallery-gradient gallery-gradient-left"></div>
+      <div className="gallery-gradient gallery-gradient-right"></div>
+      <div className="gallery-content">
+        <motion.div
+          drag="x"
+          className="gallery-track"
+          onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+          style={{
+            transform: transform,
+            rotateY: rotation,
+            width: cylinderWidth,
+            transformStyle: "preserve-3d",
+          }}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
+          animate={controls}
+        >
+          {images.map((url, i) => (
+            <div
+              key={i}
+              className="gallery-item"
+              style={{
+                width: `${faceWidth}px`,
+                transform: `rotateY(${i * (360 / faceCount)}deg) translateZ(${radius}px)`,
+              }}
+            >
+              <img src={url} alt="gallery" className="gallery-img" />
+              {/* <div className="gallery-img"> <div className="gm-1">  dsddd</div></div>
+              <div className="gallery-img"> <div className="gm-1">  dsddd2</div></div>
+              <div className="gallery-img"> <div className="gm-1">  dsddd3</div></div>
+              <div className="gallery-img"> <div className="gm-1">  dsddd4</div></div> */}
             </div>
-            <div class="mb-3">
-              <input type="email" name="email" class="form-control" required="" data-error="Please enter your email" placeholder="Your email address" />
-            </div>
-            <div class="mb-3">
-              <input type="text" name="phone_number" class="form-control" required="" data-error="Please enter your phone number" placeholder="Your phone number" />
-            </div>
-            <div class="mb-3">
-              <textarea name="message" class="form-control" cols="30" rows="6" required="" data-error="Please enter your message" placeholder="Write your message..."></textarea>
-            </div>
-            <button className="default-btn mt-5">Send Message</button>
-          </form>
-
-        </div>
-      </section>
+          ))}
+        </motion.div>
+      </div>
     </div>
-
   );
 };
 
-export default ToggleSection;
+export default RollingGallery;
