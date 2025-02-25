@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaCaretDown } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaQuoteLeft, FaCaretDown } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Sidebar = () => {
@@ -26,6 +26,11 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/portfolio"><FaUser /> Portfolio Uploads </Link>
+        </li>
+        <li>
+          <Link to="/testimonials">
+          <FaQuoteLeft /> Testimonials
+           </Link>
         </li>
 
         {/* Service Dropdown */}

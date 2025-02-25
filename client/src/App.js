@@ -32,6 +32,7 @@ import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
 import JobCollection from './pages/admin/JobCollection.js';
 import PortFolio from './pages/admin/PortFolio.js';
+import TestimonialPage from './pages/admin/TestimonialPage.js';
 function App() {
   useEffect(() => {
     initGA();
@@ -48,7 +49,7 @@ function App() {
           content="Transform your business with Ubikon Technologies. Specializing in mobile app development, website design, and e-commerce solutions in Indore. Elevate your online presence today!"
         />
         <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
-        <link rel="canonical" href="https://ubikon.in/" />
+        <link rel="canonical" href="http://localhost:8000/" />
         <meta name="author" content="Ubikon Technologies" />
         {/* Google Analytics Tracking */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSXNG8NJ1S"></script>
@@ -105,9 +106,14 @@ function App() {
               <SubService />
             </PrivateRoute>
           } />
- <Route path="/portfolio" element={
+          <Route path="/portfolio" element={
             <PrivateRoute>
               <PortFolio />
+            </PrivateRoute>
+          } />
+          <Route path="/testimonials" element={
+            <PrivateRoute>
+              <TestimonialPage />
             </PrivateRoute>
           } />
           <Route path="admin" element={<Login />} />

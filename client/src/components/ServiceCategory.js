@@ -11,7 +11,7 @@ function ServiceCategory() {
 
   useEffect(() => {
     axios
-      .get("https://ubikon.in/api/sub-services/all")
+      .get("http://localhost:8000/api/sub-services/all")
       .then((response) => {
         setServices(response.data);
       })
