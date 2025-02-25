@@ -30,31 +30,33 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const testimonial = {
-    centerMode: true,
-    centerPadding: "60px",
-    slidesToShow: 3,
-    // infinite: false,
+  
+    dots: false,              // Hide navigation dots
+    infinite: true,           // Enable infinite scrolling
+    speed: 500,               // Transition speed in ms
+    slidesToShow: 3,          // Default slides to show (Desktop)
+    slidesToScroll: 1,        // Number of slides to scroll
+    autoplay: true,           // Enable autoplay
+    autoplaySpeed: 3000,      // Delay between transitions
+    arrows: false, 
+
     responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: "40px",
-          slidesToShow: 3,
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 2, // Tablet pe 2 slides
+                centerPadding: "20px"
+            }
         },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: "40px",
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 1, // Mobile pe 1 slide
+                centerPadding: "10px"
+            }
+        }
+    ]
+};
 
   const navigate = useNavigate();
   const schemaMarkup = {
@@ -261,7 +263,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='mb-5'>
+      <div className='mb-5 testimonial'>
         <div className='container'>
         <div class="blog-heading">
             <span>Testimonial</span>
@@ -269,37 +271,33 @@ const Home = () => {
           </div>
         <div className="mx-auto mt-10">
             <Slider {...testimonial}>
-              <div><div className="slide-item">
+              
+              <div className=''>
+                <div className="slide-item">
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
                  <img className='d-inline-block' src={TM1} />
                 <h5 className='mt-2'>Testimonial 1</h5>
                 <p className='small'>Founder of Awesomeux Technology</p>
+                </div>
               </div>
-              </div>
-              <div><div className="slide-item">
+              <div>
+                <div className="slide-item">
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
                  <img className='d-inline-block' src={TM1} />
                 <h5 className='mt-2'>Testimonial 1</h5>
                 <p className='small'>Founder of Awesomeux Technology</p>
+                </div>
               </div>
-              </div>
-              <div><div className="slide-item">
+              <div>
+                <div className="slide-item">
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
                  <img className='d-inline-block' src={TM1} />
                 <h5 className='mt-2'>Testimonial 1</h5>
                 <p className='small'>Founder of Awesomeux Technology</p>
-              </div>
-              </div>
-              <div><div className="slide-item">
-                
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
-                 <img className='d-inline-block' src={TM1} />
-                <h5 className='mt-2'>Testimonial 1</h5>
-                <p className='small'>Founder of Awesomeux Technology</p>
-              </div>
+                </div>
               </div>
             </Slider>
           </div>
