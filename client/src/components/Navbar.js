@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { IoCallOutline } from "react-icons/io5";
 import Logo from '../assets/img/logo.png';
 import ServiceCategory from './ServiceCategory';
@@ -7,7 +7,7 @@ import ServiceCategory from './ServiceCategory';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,10 +15,10 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    
+
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -39,8 +39,11 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
-            <li className="nav-item"><a className="nav-link" href="#">About</a></li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">About</Link></li>
             <ServiceCategory />
 
             {/* Services Dropdown */}
@@ -69,13 +72,11 @@ const Navbar = () => {
 
             <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
             <li className="nav-item">
-              {/* <a className="nav-link" href="//blog-all-list" onClick={(e) => { e.preventDefault(); navigate("/blog-all-list"); }}> */}
-              <a className="nav-link" href="//blog-all-list" onClick={(e) => { e.preventDefault(); navigate("/blog-all-list"); }}>
-               Blog
-              </a>
-          
-            </li>
-            <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li>
+              <Link className="nav-link" to="/blog-all-list">Blog</Link>
+              </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/contact">Contact Us</Link>
+              </li>
             <li className="nav-item">
               <a className="nav-link" style={{ color: "#F58539" }} href="tel:+916264818989">
                 <IoCallOutline /> <span>+91 6264818989</span>
