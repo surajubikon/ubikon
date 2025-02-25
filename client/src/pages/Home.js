@@ -24,13 +24,12 @@ import Project from "../pages/admin/Project";
 import Service from '../pages/Service.js';
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
-
- 
- 
+// import Testimonials from './testimonials.js';
+import Testimonials from './Testimonials.js';
 
 const Home = () => {
   const testimonial = {
-  
+
     dots: false,              // Hide navigation dots
     infinite: true,           // Enable infinite scrolling
     speed: 500,               // Transition speed in ms
@@ -38,25 +37,25 @@ const Home = () => {
     slidesToScroll: 1,        // Number of slides to scroll
     autoplay: true,           // Enable autoplay
     autoplaySpeed: 3000,      // Delay between transitions
-    arrows: false, 
+    arrows: false,
 
     responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 2, // Tablet pe 2 slides
-                centerPadding: "20px"
-            }
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 1, // Mobile pe 1 slide
-                centerPadding: "10px"
-            }
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2, // Tablet pe 2 slides
+          centerPadding: "20px"
         }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1, // Mobile pe 1 slide
+          centerPadding: "10px"
+        }
+      }
     ]
-};
+  };
 
   const navigate = useNavigate();
   const schemaMarkup = {
@@ -100,10 +99,10 @@ const Home = () => {
             <img src={slidesandroid1} alt='' />
           </div>
           <div className='main-slides-shape-3' >
-            <img src={slidesshape3}  alt=''/>
+            <img src={slidesshape3} alt='' />
           </div>
           <div className='main-slides-shape-4' >
-            <img src={slidesshape4} alt=''/>
+            <img src={slidesshape4} alt='' />
           </div>
 
           <div className='row'>
@@ -120,7 +119,7 @@ const Home = () => {
                 <img width="100%" src={slidesbg} alt='' />
                 <div className='main-slides-image'>
                   <img className='slides1' src={slides1} alt='' />
-                 
+
                 </div>
               </div>
             </div>
@@ -231,116 +230,88 @@ const Home = () => {
             <h2>Read Our Blog for the Latest Insights in <b>Technology</b></h2>
           </div>
           <div className='blog-slides'>
-             <Project />
+            <Project />
           </div>
-        </div>
-      </div>
-      
-      <div className='project-client-conten' atl="Happy clients sharing feedback on web development services provided by Ubikon">
-        <div className='container'>
-             <div className='card p-4 bg-black text-white text-center'>
-                <div className='card-body'>
-                  <div className='row'>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 18+  </h3>
-                          <h5> Year of <br/> Experience</h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 110+  </h3>
-                          <h5> Project <br/> delivered  </h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 120+  </h3>
-                          <h5> Satisfied <br/> Customers</h5>
-                      </div>
-                      <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
-                          <h3 className='fw-bold'> 10+  </h3>
-                          <h5>  Cities <br/> Worldwide</h5>
-                      </div>
-                  </div>
-                </div>  
-             </div> 
         </div>
       </div>
 
-      <div className='mb-5 testimonial'>
+      <div className='project-client-conten' atl="Happy clients sharing feedback on web development services provided by Ubikon">
         <div className='container'>
-        <div class="blog-heading">
-            <span>Testimonial</span>
-            <h2>See Why Clients Love Working With Us</h2>
+          <div className='card p-4 bg-black text-white text-center'>
+            <div className='card-body'>
+              <div className='row'>
+                <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                  <h3 className='fw-bold'> 18+  </h3>
+                  <h5> Year of <br /> Experience</h5>
+                </div>
+                <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                  <h3 className='fw-bold'> 110+  </h3>
+                  <h5> Project <br /> delivered  </h5>
+                </div>
+                <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                  <h3 className='fw-bold'> 120+  </h3>
+                  <h5> Satisfied <br /> Customers</h5>
+                </div>
+                <div className='col-md-3 box mb-3 pb-3 mb-md-0 pb-md-0'>
+                  <h3 className='fw-bold'> 10+  </h3>
+                  <h5>  Cities <br /> Worldwide</h5>
+                </div>
+              </div>
+            </div>
           </div>
-        <div className="mx-auto mt-10">
-            <Slider {...testimonial}>
-              
-              <div className=''>
-                <div className="slide-item">
-                
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
-                 <img className='d-inline-block' src={TM1} />
-                <h5 className='mt-2'>Testimonial 1</h5>
-                <p className='small'>Founder of Awesomeux Technology</p>
-                </div>
-              </div>
-              <div>
-                <div className="slide-item">
-                
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
-                 <img className='d-inline-block' src={TM1} />
-                <h5 className='mt-2'>Testimonial 1</h5>
-                <p className='small'>Founder of Awesomeux Technology</p>
-                </div>
-              </div>
-              <div>
-                <div className="slide-item">
-                
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
-                 <img className='d-inline-block' src={TM1} />
-                <h5 className='mt-2'>Testimonial 1</h5>
-                <p className='small'>Founder of Awesomeux Technology</p>
-                </div>
-              </div>
-            </Slider>
-          </div>
-        </div>  
-      </div> 
+        </div>
+      </div>
+      <Testimonials />
 
       <div class="social-section" atl="Latest insights in technology from Ubikon's blog on mobile app development trends">
         <div class="container" atl="Exploring the future of website development in India - Ubikon blog post featured image">
           <div class="blog-heading">
             <span>Social Media</span>
-            <h2>Let’s Grow Together<br/> on Social <b>Media</b></h2>
+            <h2>Let’s Grow Together<br /> on Social <b>Media</b></h2>
           </div>
           <div className='row row-cols-1  row-cols-md-5'>
-              <div className='col'>
-                  <div className='social-icon text-center'>
-                      <img className='mb-3' src={FB} />
-                      <p className='fw-bold' >20K+ Followers</p>
-                  </div>
+            <div className='col'>
+              <div className='social-icon text-center'>
+              <a href="https://www.facebook.com/UBIKON" target="_blank" rel="noopener noreferrer">
+                <img className='mb-3' src={FB} />
+                </a>
+                <p className='fw-bold' >20K+ Followers</p>
               </div>
-              <div className='col'>
-                  <div className='social-icon text-center'>
-                      <img className='mb-3' src={IN} />
-                      <p className='fw-bold' >20K+ Followers</p>
-                  </div>
+            </div>
+            <div className='col'>
+              <div className='social-icon text-center'>
+                <a href="https://www.instagram.com/ubikontechnologies/" target="_blank" rel="noopener noreferrer">
+                  <img className='mb-3' src={IN} alt="Instagram ubikon" />
+                </a>
+                <p className='fw-bold'>20K+ Followers</p>
               </div>
-              <div className='col'>
-                  <div className='social-icon text-center'>
-                      <img className='mb-3' src={Link} />
-                      <p className='fw-bold' >200K+ Connections</p>
-                  </div>
+            </div>
+
+            <div className='col'>
+              <div className='social-icon text-center'>
+              <a href="https://in.linkedin.com/company/ubikontechnologies" target="_blank" rel="noopener noreferrer">
+                <img className='mb-3' src={Link} atl="linkedin ubikon " />
+                </a>
+                <p className='fw-bold' >200K+ Connections</p>
               </div>
-              <div className='col'>
-                  <div className='social-icon text-center'>
-                      <img className='mb-3' src={JD} />
-                      <p className='fw-bold' >5 Star Rating</p>
-                  </div>
+            </div>
+            <div className='col'>
+              <div className='social-icon text-center'>
+              <a href="https://www.justdial.com/jdmart/Indore/Ubikon-Technologies-Pvt-Ltd-Above-Table-World-Vijay-Nagar/0731PX731-X731-190526210513-K8M4_BZDET/catalogue" target="_blank" rel="noopener noreferrer">
+                <img className='mb-3' src={JD} />
+                </a>
+                <p className='fw-bold' >5 Star Rating</p>
               </div>
-              <div className='col'>
-                  <div className='social-icon text-center'>
-                      <img className='mb-3' src={MAP} />
-                      <p className='fw-bold' >800+ client visits</p>
-                  </div>
+            </div>
+            <div className='col'>
+          
+              <div className='social-icon text-center'>
+              <a href='https://maps.app.goo.gl/cM4A7dkfQEC4wsVV9'>
+                <img className='mb-3' src={MAP} atl="ubikon map , ubikon technologies" />
+                </a>
+                <p className='fw-bold' >800+ client visits</p>
               </div>
+            </div>
           </div>
         </div>
       </div>

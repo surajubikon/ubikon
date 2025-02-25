@@ -1,5 +1,5 @@
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect , React} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, React } from 'react';
 import PrivateRoute from './API/PrivateRoute';  // Make sure the path is correct
 import { Helmet } from 'react-helmet';
 import logo from './logo.svg';
@@ -32,7 +32,7 @@ import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
 import JobCollection from './pages/admin/JobCollection.js';
 import PortFolio from './pages/admin/PortFolio.js';
-import TestimonialPage from './pages/admin/TestimonialPage.js';
+import TestimonialPage from './pages/admin/Testimonial/TestimonialPage.js';
 function App() {
   useEffect(() => {
     initGA();
@@ -72,22 +72,22 @@ function App() {
           {/* <Route path="/ck" element={} */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog-all-list" element={<BlogListPage />} />
-          <Route path="/job-category" element={<JobCategory />} />
-          <Route path="/job-collection" element={<JobCollection />} />
-
           <Route path="/services" element={<Services />} />
           <Route path="/services-details/:slug" element={<ServiceDetails />} />
           <Route path="/service-list/:slug" element={<ServicesPageList />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
           <Route path='/register' element={<Register />} />
+          <Route path="admin" element={<Login />} />
           {/* admin pages */}
-          {/* <Route path="dashboard" element={<Dashboard />} /> 
-              */}
-
           <Route path="/dashboard" element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          } />
+          <Route path="/enquiry" element={
+            <PrivateRoute>
+              <Enquiry />
             </PrivateRoute>
           } />
           <Route path="/blog-list" element={
@@ -95,33 +95,26 @@ function App() {
               <Blogpage />
             </PrivateRoute>
           } />
-
-          <Route path="/category-list" element={
-            <PrivateRoute>
-              <ServicePage />
-            </PrivateRoute>
-          } />
-          <Route path="/sub-category-list" element={
-            <PrivateRoute>
-              <SubService />
-            </PrivateRoute>
-          } />
           <Route path="/portfolio" element={
             <PrivateRoute>
               <PortFolio />
             </PrivateRoute>
           } />
+          
           <Route path="/testimonials" element={
             <PrivateRoute>
               <TestimonialPage />
             </PrivateRoute>
           } />
-          <Route path="admin" element={<Login />} />
-          {/* Protected admin routes */}
-
-          <Route path="/enquiry" element={
+         
+          <Route path="/job-category" element={
             <PrivateRoute>
-              <Enquiry />
+              <JobCategory />
+            </PrivateRoute>
+          } />
+          <Route path="/job-collection" element={
+            <PrivateRoute>
+              <JobCollection />
             </PrivateRoute>
           } />
 
@@ -129,6 +122,16 @@ function App() {
           <Route path="/dashboard" element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          } />
+           <Route path="/sub-category-list" element={
+            <PrivateRoute>
+              <SubService />
+            </PrivateRoute>
+          } />
+           <Route path="/category-list" element={
+            <PrivateRoute>
+              <ServicePage />
             </PrivateRoute>
           } />
           <Route path="*" element={<NotFound />} />
