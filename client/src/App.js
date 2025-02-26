@@ -27,6 +27,7 @@ import ServicePage from './pages/admin/ServicePage.js';
 import NotFound from './pages/NotFound/NotFound.js';
 import SubService from './pages/admin/SubService.js';
 import ServiceDetails from './pages/ServiceDetails.js';
+import CareerDetails from './pages/CareerDetails.js';
 import ServicesPageList from './pages/ServicePageList.js';
 import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
@@ -76,6 +77,7 @@ function App() {
           <Route path="/blog-all-list" element={<BlogListPage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services-details/:slug" element={<ServiceDetails />} />
+          <Route path="/careerdetails" element={<CareerDetails />} />
           <Route path="/service-list/:slug" element={<ServicesPageList />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
