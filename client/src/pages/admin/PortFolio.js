@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Modal, Button, Form, Table } from "react-bootstrap";
+import { Modal, Button, Form, Table ,Image } from "react-bootstrap";
 
 const Portfolio = () => {
     const [portfolios, setPortfolios] = useState([]); // API se data store karne ke liye
@@ -11,6 +11,7 @@ const Portfolio = () => {
         title: "",
         description: "",
         image: null,
+        imagePreview: null,
         technologies: "",
         publishedAt: "",
     });
@@ -44,7 +45,14 @@ const Portfolio = () => {
 
     // ✅ File change handler
     const handleFileChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        const file = e.target.files[0]; // File select ki
+        if (file) {
+            setFormData({
+                ...formData,
+                image: file,
+                imagePreview: URL.createObjectURL(file), // Preview URL create kiya
+            });
+        }
     };
 
     // ✅ Edit Portfolio
@@ -56,6 +64,7 @@ const Portfolio = () => {
             description: portfolio.description,
             technologies: portfolio.technologies.join(", "),
             publishedAt: portfolio.publishedAt.split("T")[0], // Format date for input
+            imagePreview: portfolio.image,
         });
         setShow(true);
     };
@@ -74,17 +83,17 @@ const Portfolio = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         const formDataToSend = new FormData();
         formDataToSend.append("title", formData.title);
         formDataToSend.append("description", formData.description);
         formDataToSend.append("technologies", formData.technologies);
         formDataToSend.append("publishedAt", formData.publishedAt);
         if (formData.image) formDataToSend.append("image", formData.image);
-    
+
         try {
             const config = { headers: { "Content-Type": "multipart/form-data" } };
-    
+
             if (editing) {
                 // ✅ Agar editing true hai, to update API call karo
                 await axios.put(`http://localhost:8000/api/portfolio/update/${selectedId}`, formDataToSend, config);
@@ -92,16 +101,16 @@ const Portfolio = () => {
                 // ✅ Agar naya record hai, to create API call karo
                 await axios.post("http://localhost:8000/api/portfolio/create", formDataToSend, config);
             }
-    
+
             fetchPortfolios(); // ✅ List refresh karo
             handleClose();
         } catch (error) {
             console.error("Error saving portfolio:", error.response?.data || error.message);
         }
     };
-    
-    
-    
+
+
+
     return (
         <div className="container mt-4">
             <h2>Portfolio Management</h2>
@@ -126,11 +135,22 @@ const Portfolio = () => {
                             <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} required />
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control type="file" name="image" onChange={handleFileChange} />
-                        </Form.Group>
+                        <div>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Image</Form.Label>
+                                <Form.Control type="file" name="image" onChange={handleFileChange} />
+                            </Form.Group>
 
+                            {/* Image Preview */}
+                            {formData.imagePreview && (
+                                <Image
+                                    src={formData.imagePreview}
+                                    alt="Preview"
+                                    thumbnail
+                                    style={{ width: "150px", marginTop: "10px" }}
+                                />
+                            )}
+                        </div>
                         <Form.Group className="mb-3">
                             <Form.Label>Technologies (comma separated)</Form.Label>
                             <Form.Control type="text" name="technologies" value={formData.technologies} onChange={handleChange} required />
@@ -168,8 +188,8 @@ const Portfolio = () => {
                                 <td>{index + 1}</td>
                                 <td>{portfolio.title}</td>
                                 <td>{portfolio.description}</td>
-                                <td><img src={portfolio.image} alt={portfolio.title} style={{ width: "50px"}}/></td>
-                               <td>{portfolio.technologies.join(", ")}</td>
+                                <td><img src={portfolio.image} alt={portfolio.title} style={{ width: "50px" }} /></td>
+                                <td>{portfolio.technologies.join(", ")}</td>
                                 <td>{new Date(portfolio.publishedAt).toDateString()}</td>
                                 <td>
                                     <Button variant="warning" className="btn btn-warning btn-sm me-2" onClick={() => handleEdit(portfolio)}>
