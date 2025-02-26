@@ -32,6 +32,8 @@ import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
 import JobCollection from './pages/admin/JobCollection.js';
 import PortFolio from './pages/admin/PortFolio.js';
+import LeadList from './pages/admin/LeadManagement/LeadList.js';
+
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage.js';
 function App() {
   useEffect(() => {
@@ -95,6 +97,17 @@ function App() {
               <Blogpage />
             </PrivateRoute>
           } />
+
+          <Route path="/category-list" element={
+            <PrivateRoute>
+              <ServicePage />
+            </PrivateRoute>
+          } />
+          <Route path="/sub-category-list" element={
+            <PrivateRoute>
+              <SubService />
+            </PrivateRoute>
+          } />
           <Route path="/portfolio" element={
             <PrivateRoute>
               <PortFolio />
@@ -124,6 +137,13 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           } />
+
+          <Route path="/lead-list" element={
+            <PrivateRoute>
+              <LeadList />
+            </PrivateRoute>
+          } />
+
            <Route path="/sub-category-list" element={
             <PrivateRoute>
               <SubService />

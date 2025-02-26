@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [isJobOpen, setIsJobOpen] = useState(false);
+  const [leadManagement, setLeadManagement] = useState(false);
+
+
+  // Toggle dropdown visibility for Service
+  const toggleServiceDropdown = () => setIsServiceOpen(!isServiceOpen);
+  const toggleJobDropdown = () => setIsJobOpen(!isJobOpen);
+  const toggleLeadDropdown = () => setLeadManagement(!leadManagement);
+
 
   return (
     <div className="sidebar">
@@ -40,7 +48,12 @@ const Sidebar = () => {
             </ul>
           )}
         </li>
-
+        {/* Job Dropdown */}
+        <li>
+          <div onClick={toggleJobDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <FaUser /> Jobs <FaCaretDown />
+          </div>
+        </li>
         {/* Job Dropdown */}
         <li>
           <div onClick={() => setIsJobOpen(!isJobOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -48,9 +61,27 @@ const Sidebar = () => {
             <FaCaretDown />
           </div>
           {isJobOpen && (
-            <ul style={{ listStyleType: 'none', paddingLeft: '15px' }}>
-              <li><Link to="/job-category">Job Category</Link></li>
-              <li><Link to="/job-collection">Job Collections</Link></li>
+            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
+              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
+                <li><Link to="/job-category">Job Category</Link></li>
+                <li><Link to="/job-collection">Job Collections</Link></li>
+
+              </ul>
+            </ul>
+          )}
+        </li>
+
+        <li>
+          <div onClick={toggleLeadDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <FaChartLine />Lead Management <FaCaretDown />
+          </div>
+
+          {leadManagement && (
+            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
+              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
+                <li><FaClipboardList /><Link to="/lead-list">Lead</Link></li>
+                {/* <li><Link to="/job-collection">Job Collections</Link></li> */}
+              </ul>
             </ul>
           )}
         </li>
