@@ -192,7 +192,7 @@ const Career = () => {
                 </div>
 
                 {/* Right Section - Job Listings */}
-                <div className="col-md-9">
+        <div className="col-md-9">
       <div className="row g-3">
         {jobListings.length > 0 ? (
           jobListings.map((job, index) => (

@@ -51,7 +51,6 @@ const Sidebar = () => {
             </ul>
           )}
         </li>
-        {/* Job Dropdown */}
         <li>
           <div onClick={() => setIsJobOpen(!isJobOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span><FaBriefcase /> Jobs</span>
