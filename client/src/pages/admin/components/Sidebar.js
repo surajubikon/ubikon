@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaCaretDown } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaCaretDown, FaChartLine, FaClipboardList } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Sidebar = () => {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [isJobOpen, setIsJobOpen] = useState(false);
+  const [leadManagement, setLeadManagement] = useState(false);
+
 
   // Toggle dropdown visibility for Service
   const toggleServiceDropdown = () => setIsServiceOpen(!isServiceOpen);
   const toggleJobDropdown = () => setIsJobOpen(!isJobOpen);
+  const toggleLeadDropdown = () => setLeadManagement(!leadManagement);
+
 
   return (
     <div className="sidebar">
@@ -48,7 +52,7 @@ const Sidebar = () => {
           )}
         </li>
         {/* Job Dropdown */}
-           <li>
+        <li>
           <div onClick={toggleJobDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
             <FaUser /> Jobs <FaCaretDown />
           </div>
@@ -59,9 +63,24 @@ const Sidebar = () => {
               <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
                 <li><Link to="/job-category">Job Category</Link></li>
                 <li><Link to="/job-collection">Job Collections</Link></li>
-                
+
               </ul>
-              </ul>  
+            </ul>
+          )}
+        </li>
+
+        <li>
+          <div onClick={toggleLeadDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <FaChartLine />Lead Management <FaCaretDown />
+          </div>
+
+          {leadManagement && (
+            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
+              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
+                <li><FaClipboardList /><Link to="/lead-list">Lead</Link></li>
+                {/* <li><Link to="/job-collection">Job Collections</Link></li> */}
+              </ul>
+            </ul>
           )}
         </li>
 

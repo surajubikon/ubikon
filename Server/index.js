@@ -14,6 +14,7 @@ import { trackEvent } from "./utils/analytics.js";
 import jobCategoryRoutes from "./routes/jobCategoryRoutes.js";
 import jobCollectionRoutes from "./routes/jobCollectionRoutes.js";
 import portpolioRoute from "./routes/portpolioRoute.js";
+import leadRoutes from "./routes/leadRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -40,7 +41,7 @@ app.use("/api/aichat", aiChatRoutes);
 app.use("/api/jobCategory", jobCategoryRoutes)
 app.use("/api/jobCollection", jobCollectionRoutes)
 app.use("/api/portfolio" ,portpolioRoute )
-
+app.use("/api/leads", leadRoutes);
 
 
 app.use((err, req, res, next) => {

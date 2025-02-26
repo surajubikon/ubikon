@@ -1,5 +1,5 @@
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect , React} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, React } from 'react';
 import PrivateRoute from './API/PrivateRoute';  // Make sure the path is correct
 import { Helmet } from 'react-helmet';
 import logo from './logo.svg';
@@ -32,6 +32,8 @@ import BlogListPage from './pages/BlogListPage.js';
 import JobCategory from './pages/admin/JobCategory.js';
 import JobCollection from './pages/admin/JobCollection.js';
 import PortFolio from './pages/admin/PortFolio.js';
+import LeadList from './pages/admin/LeadManagement/LeadList.js';
+
 function App() {
   useEffect(() => {
     initGA();
@@ -105,7 +107,7 @@ function App() {
               <SubService />
             </PrivateRoute>
           } />
- <Route path="/portfolio" element={
+          <Route path="/portfolio" element={
             <PrivateRoute>
               <PortFolio />
             </PrivateRoute>
@@ -125,6 +127,13 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           } />
+
+          <Route path="/lead-list" element={
+            <PrivateRoute>
+              <LeadList />
+            </PrivateRoute>
+          } />
+
           <Route path="*" element={<NotFound />} />
 
         </Routes>
