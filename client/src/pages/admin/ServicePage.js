@@ -28,7 +28,7 @@ function ServicePage() {
   // Fetch Services
   useEffect(() => {
     axios
-      .get("https://ubikon.in/api/services/all")
+      .get("http://localhost:8000/api/services/all")
       .then((res) => setServices(res.data))
       .catch((err) => console.error("Error fetching services:", err));
   }, []);
@@ -65,13 +65,13 @@ function ServicePage() {
     try {
       if (editServiceId) {
         // Editing an existing service
-        const res = await axios.put(`https://ubikon.in/api/services/update/${editServiceId}`, form, {
+        const res = await axios.put(`http://localhost:8000/api/services/update/${editServiceId}`, form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setServices(services.map(service => (service._id === editServiceId ? res.data : service)));
       } else {
         // Adding a new service
-        const res = await axios.post("https://ubikon.in/api/services/create", form, {
+        const res = await axios.post("http://localhost:8000/api/services/create", form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         setServices([...services, res.data]);
@@ -97,7 +97,7 @@ function ServicePage() {
       console.error("Error saving service:", error.response?.data || error);
     }
   };
-
+  
   // Handle Edit
   const handleEdit = (service) => {
     setEditServiceId(service._id);
@@ -111,8 +111,11 @@ function ServicePage() {
       coverImage: service.coverImage,
       previewImage: service.previewImage, // Set preview image URL when editing
       thumbnailFile: null,
-      coverImageFile: null,
-      previewImageFile: null, // Reset file state on edit
+        thumbnailPreview: null,
+        coverImageFile: null,
+        thumbnailPreview: service.thumbnail,  // ✅ Set existing image URL as preview
+        coverImagePreview: service.coverImage,  // ✅ Set existing image URL as preview
+        previewImagePreview: service.previewImage,  // ✅ Set existing image URL as preview
     });
     setShowModal(true);
   };
@@ -120,7 +123,7 @@ function ServicePage() {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ubikon.in/api/services/delete/${id}`);
+      await axios.delete(`http://localhost:8000/api/services/delete/${id}`);
       setServices(services.filter(service => service._id !== id));
       alert("Service deleted successfully!");
     } catch (error) {
@@ -128,20 +131,40 @@ function ServicePage() {
     }
   };
 
-  // Handle file change for thumbnail
   const handleThumbnailChange = (e) => {
-    setFormData({ ...formData, thumbnailFile: e.target.files[0]});
-  };
+    const file = e.target.files[0];
+    if (file) {
+        setFormData({
+            ...formData,
+            thumbnailFile: file,
+            thumbnailPreview: URL.createObjectURL(file), // ✅ Preview URL
+        });
+    }
+};
 
-  // Handle file change for cover image
-  const handleCoverImageChange = (e) => {
-    setFormData({ ...formData, coverImageFile: e.target.files[0] });
-  };
+// ✅ Handle file change for Cover Image
+const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        setFormData({
+            ...formData,
+            coverImageFile: file,
+            coverImagePreview: URL.createObjectURL(file), // ✅ Preview URL
+        });
+    }
+};
 
-  // Handle file change for preview image
-  const handlePreviewImageChange = (e) => {
-    setFormData({ ...formData, previewImageFile: e.target.files[0]});
-  };
+// ✅ Handle file change for Preview Image
+const handlePreviewImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        setFormData({
+            ...formData,
+            previewImageFile: file,
+            previewImagePreview: URL.createObjectURL(file), // ✅ Preview URL
+        });
+    }
+};
 
   return (
     <div className="servicepage-container">
@@ -191,39 +214,82 @@ function ServicePage() {
 
       {/* Add/Edit Service Modal */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>{editServiceId ? "Edit Service" : "Add Service"}</h2>
-            <form onSubmit={handleAddOrEditService}>
-              <input type="text" placeholder="Enter Service Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required className="form-input" />
-              <textarea placeholder="Enter Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required className="form-textarea" />
-              <textarea placeholder="Enter SEO Meta" value={formData.seometa} onChange={(e) => setFormData({ ...formData, seometa: e.target.value })} required className="form-textarea" />
-              {/* Dynamic Fields */}
-              <h6>Add more</h6>
-              {dynamicFields.map((field, index) => (
-                <div key={index}>
-                  <input type="text" placeholder="Heading" value={field.heading} onChange={(e) => handleDynamicFieldChange(index, "heading", e.target.value)} />
-                  <input type="text" placeholder="Value" value={field.value} onChange={(e) => handleDynamicFieldChange(index, "value", e.target.value)} />
-                  <button type="button" onClick={() => removeDynamicField(index)}>❌ Remove</button>
-                </div>
-              ))}
-              <button type="button" onClick={addDynamicField}>➕Add more</button>
-              <br /><br/>
-              <label>Thumbnail:</label>
-              <input type="file" onChange={handleThumbnailChange} className="form-file" />
-              {thumbnail && <p>Selected Thumbnail: {thumbnail}</p>}
-              <label>Cover Image:</label>
-              <input type="file" onChange={handleCoverImageChange} className="form-file" />
-              {coverImage && <p>Selected Cover Image: {coverImage}</p>}
-              <label>Preview Image:</label>
-              <input type="file" onChange={handlePreviewImageChange} className="form-file" />
-              {previewImage && <p>Selected Preview Image: {previewImage}</p>}
-              <button type="submit" className="submit-btn">{editServiceId ? "✅ Update Service" : "✅ Save Service"}</button>
-              <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">❌ Cancel</button>
-            </form>
-          </div>
+  <div className="modal-overlay d-flex justify-content-center align-items-center">
+    <div className="modal-content p-4 bg-white rounded shadow-lg position-relative" style={{ width: "500px" }}>
+      
+      {/* Close Button at Top Right */}
+      <button 
+        type="button" 
+        className="btn-close position-absolute top-0 end-0 m-3" 
+        onClick={() => setShowModal(false)}
+        aria-label="Close"
+      ></button>
+      
+      <h2 className="text-center mb-4">{editServiceId ? "Edit Service" : "Add Service"}</h2>
+      
+      <form onSubmit={handleAddOrEditService} className="needs-validation">
+        <div className="mb-3">
+          <input type="text" placeholder="Enter Service Title" value={formData.title} 
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            required className="form-control" />
         </div>
-      )}
+        
+        <div className="mb-3">
+          <textarea placeholder="Enter Description" value={formData.description} 
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            required className="form-control"></textarea>
+        </div>
+        
+        <div className="mb-3">
+          <textarea placeholder="Enter SEO Meta" value={formData.seometa} 
+            onChange={(e) => setFormData({ ...formData, seometa: e.target.value })}
+            required className="form-control"></textarea>
+        </div>
+
+        {/* Dynamic Fields */}
+        <h6>Add More</h6>
+        {dynamicFields.map((field, index) => (
+          <div key={index} className="mb-3 d-flex gap-2">
+            <input type="text" placeholder="Heading" value={field.heading}
+              onChange={(e) => handleDynamicFieldChange(index, "heading", e.target.value)}
+              className="form-control" />
+            <input type="text" placeholder="Value" value={field.value}
+              onChange={(e) => handleDynamicFieldChange(index, "value", e.target.value)}
+              className="form-control" />
+            <button type="button" className="btn btn-danger btn-sm" onClick={() => removeDynamicField(index)}>❌</button>
+          </div>
+        ))}
+        <button type="button" className="btn btn-primary btn-sm mb-3" onClick={addDynamicField}>➕ Add More</button>
+
+        {/* File Inputs with Previews */}
+        <div className="mb-3">
+          <label className="form-label">Thumbnail:</label>
+          <input type="file" onChange={handleThumbnailChange} className="form-control" />
+          {formData.thumbnailPreview && <img src={formData.thumbnailPreview} alt="Thumbnail Preview" className="img-thumbnail mt-2" style={{ width: "150px" }} />}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Cover Image:</label>
+          <input type="file" onChange={handleCoverImageChange} className="form-control" />
+          {formData.coverImagePreview && <img src={formData.coverImagePreview} alt="Cover Preview" className="img-thumbnail mt-2" style={{ width: "150px" }} />}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Preview Image:</label>
+          <input type="file" onChange={handlePreviewImageChange} className="form-control" />
+          {formData.previewImagePreview && <img src={formData.previewImagePreview} alt="Preview Image" className="img-thumbnail mt-2" style={{ width: "150px" }} />}
+        </div>
+
+        {/* Buttons */}
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-success">{editServiceId ? "✅ Update Service" : "✅ Save Service"}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 }

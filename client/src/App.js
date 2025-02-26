@@ -34,6 +34,7 @@ import JobCollection from './pages/admin/JobCollection.js';
 import PortFolio from './pages/admin/PortFolio.js';
 import LeadList from './pages/admin/LeadManagement/LeadList.js';
 
+import TestimonialPage from './pages/admin/Testimonial/TestimonialPage.js';
 function App() {
   useEffect(() => {
     initGA();
@@ -50,7 +51,7 @@ function App() {
           content="Transform your business with Ubikon Technologies. Specializing in mobile app development, website design, and e-commerce solutions in Indore. Elevate your online presence today!"
         />
         <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
-        <link rel="canonical" href="https://ubikon.in/" />
+        <link rel="canonical" href="http://localhost:8000/" />
         <meta name="author" content="Ubikon Technologies" />
         {/* Google Analytics Tracking */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSXNG8NJ1S"></script>
@@ -73,22 +74,22 @@ function App() {
           {/* <Route path="/ck" element={} */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog-all-list" element={<BlogListPage />} />
-          <Route path="/job-category" element={<JobCategory />} />
-          <Route path="/job-collection" element={<JobCollection />} />
-
           <Route path="/services" element={<Services />} />
           <Route path="/services-details/:slug" element={<ServiceDetails />} />
           <Route path="/service-list/:slug" element={<ServicesPageList />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
           <Route path='/register' element={<Register />} />
+          <Route path="admin" element={<Login />} />
           {/* admin pages */}
-          {/* <Route path="dashboard" element={<Dashboard />} /> 
-              */}
-
           <Route path="/dashboard" element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          } />
+          <Route path="/enquiry" element={
+            <PrivateRoute>
+              <Enquiry />
             </PrivateRoute>
           } />
           <Route path="/blog-list" element={
@@ -112,12 +113,21 @@ function App() {
               <PortFolio />
             </PrivateRoute>
           } />
-          <Route path="admin" element={<Login />} />
-          {/* Protected admin routes */}
-
-          <Route path="/enquiry" element={
+          
+          <Route path="/testimonials" element={
             <PrivateRoute>
-              <Enquiry />
+              <TestimonialPage />
+            </PrivateRoute>
+          } />
+         
+          <Route path="/job-category" element={
+            <PrivateRoute>
+              <JobCategory />
+            </PrivateRoute>
+          } />
+          <Route path="/job-collection" element={
+            <PrivateRoute>
+              <JobCollection />
             </PrivateRoute>
           } />
 
@@ -134,6 +144,16 @@ function App() {
             </PrivateRoute>
           } />
 
+           <Route path="/sub-category-list" element={
+            <PrivateRoute>
+              <SubService />
+            </PrivateRoute>
+          } />
+           <Route path="/category-list" element={
+            <PrivateRoute>
+              <ServicePage />
+            </PrivateRoute>
+          } />
           <Route path="*" element={<NotFound />} />
 
         </Routes>

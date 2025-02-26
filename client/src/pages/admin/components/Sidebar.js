@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaCaretDown, FaChartLine, FaClipboardList } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
@@ -23,31 +23,28 @@ const Sidebar = () => {
         </li>
 
         <li>
-          <Link to="/enquiry"><FaUser /> Enquiry mails </Link>
+          <Link to="/enquiry"><FaClipboardList /> Enquiry Mails</Link>
         </li>
         <li>
-          <Link to="/blog-list"><FaUser /> Blogs </Link>
+          <Link to="/blog-list"><FaUser /> Blogs</Link>
         </li>
         <li>
-          <Link to="/portfolio"><FaUser /> Portfolio Uploads </Link>
+          <Link to="/portfolio"><FaBriefcase /> Portfolio Uploads</Link>
+        </li>
+        <li>
+          <Link to="/testimonials"><FaQuoteLeft /> Testimonials</Link>
         </li>
 
         {/* Service Dropdown */}
         <li>
-          <div onClick={toggleServiceDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <FaUser /> Service <FaCaretDown />
+          <div onClick={() => setIsServiceOpen(!isServiceOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span><FaCogs /> Service</span>
+            <FaCaretDown />
           </div>
-
-          {/* Dropdown content */}
           {isServiceOpen && (
-            <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
-              <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
-                <li><Link to="/category-list">Category</Link></li>
-                <li><Link to="/sub-category-list">Sub Category</Link></li>
-                {/* <li><Link to="">Subcategory 2</Link></li> */}
-              </ul>
-
-
+            <ul style={{ listStyleType: 'none', paddingLeft: '15px' }}>
+              <li><Link to="/category-list">Category</Link></li>
+              <li><Link to="/sub-category-list">Sub Category</Link></li>
             </ul>
           )}
         </li>
@@ -56,8 +53,13 @@ const Sidebar = () => {
           <div onClick={toggleJobDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
             <FaUser /> Jobs <FaCaretDown />
           </div>
-
-          {/* Job content */}
+        </li>
+        {/* Job Dropdown */}
+        <li>
+          <div onClick={() => setIsJobOpen(!isJobOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span><FaBriefcase /> Jobs</span>
+            <FaCaretDown />
+          </div>
           {isJobOpen && (
             <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
               <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
@@ -89,6 +91,9 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/reports"><FaChartBar /> Reports</Link>
+        </li>
+        <li>
+          <Link to="/logout"><FaSignOutAlt /> Logout</Link>
         </li>
       </ul>
     </div>
