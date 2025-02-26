@@ -19,7 +19,9 @@ padding: 0;
   font-weight: normal;
   font-style: normal;
 } 
-
+.cursor-pointer {
+  cursor: pointer;
+}
 .fixed-top {
   background-color: #000 !important;
   z-index: 555 !important;
@@ -1279,4 +1281,25 @@ opacity: 1;
 .testimonial .slick-track {
   display: flex !important;
   align-items: center;
+}
+
+/****/
+.benefit-img-wrapper {    
+  display: inline-block;
+  padding: 11px;
+}
+.benefit-img-wrapper .img-fluid {
+    width:33px;
+}
+.benefit-img-wrapper.benefit-1 {
+  background-color: #E7F2FF;
+}
+.benefit-img-wrapper.benefit-2 {
+  background-color: #F1F7E8;
+}
+.benefit-img-wrapper.benefit-3 {
+  background-color: #EFF2F5;
+}
+.benefit-img-wrapper.benefit-4 {
+  background-color: #FFEEED;
 }
