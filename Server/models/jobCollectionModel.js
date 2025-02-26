@@ -24,6 +24,19 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    dynamicFields: [
+      {
+        heading: { type: String }, 
+        value: { type: String },   
+      }
+    ],
+    thumbnail: {
+      type: String,
+    },
+    previewImage: {
+      type: String,
+    },
+    content: { type: String }, 
     status: {
       type: String,
       enum: ["Active", "Expired"],
