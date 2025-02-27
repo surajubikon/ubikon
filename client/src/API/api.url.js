@@ -72,6 +72,17 @@ const api = {
             method: 'get',
         },
     },
+    //job application routes
+    jobApplication: {
+        createJobApplication: {
+            url: '/api/jobApplicationForm/create',
+            method: 'post',
+        },
+        getJobApplications: {
+            url: '/api/jobApplicationForm/get',
+            method: 'get',
+        },
+    },
     // AI Chat Routes
     aiChat: {
         sendMessage: {

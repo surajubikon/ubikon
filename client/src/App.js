@@ -13,6 +13,8 @@ import './assets/css/admin/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // ✅ Pages (Frontend)
 import Home from './pages/Home';
@@ -23,7 +25,8 @@ import BlogListPage from './pages/BlogListPage';
 import ServiceDetails from './pages/ServiceDetails';
 import CareerDetails from './pages/CareerDetails.js';
 import ServicesPageList from './pages/ServicePageList';
-
+import JobApplicationPage from './pages/JobApplicationPage.js';
+import JobRequirement from './pages/JobRequirement.js';
 
 // ✅ Admin Pages
 import PrivateRoute from './API/PrivateRoute';  
@@ -41,6 +44,7 @@ import PortFolio from './pages/admin/PortFolio';
 import LeadList from './pages/admin/LeadManagement/LeadList.js';
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
+import ActivityUbikon from './pages/admin/Activity-ubikon/Activity.js';
 import NotFound from './pages/NotFound/NotFound';
 
 function App() {
@@ -63,6 +67,7 @@ function App() {
       <LoaderProvider>
         <Router>
           <Routes>
+        
             {/* Frontend Pages */}
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
@@ -74,12 +79,15 @@ function App() {
             <Route path="/demo" element={<Demo />} />
             <Route path="/blog/:slug" element={<BlogDetails />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/jobapp-form' element={<JobApplicationPage />} />
+            <Route path='/job-req' element={<JobRequirement />} />
 
             {/* Admin Pages */}
             <Route path="admin" element={<Login />} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/enquiry" element={<PrivateRoute><Enquiry /></PrivateRoute>} />
             <Route path="/jobapplication" element={<PrivateRoute><JobApplication /></PrivateRoute>} />
+            <Route path="/activity-ubi" element={<PrivateRoute><ActivityUbikon /></PrivateRoute>} />
             <Route path="/blog-list" element={<PrivateRoute><Blogpage /></PrivateRoute>} />
             <Route path="/portfolio" element={<PrivateRoute><PortFolio /></PrivateRoute>} />
             <Route path="/lead-list" element={<PrivateRoute> <LeadList /></PrivateRoute>}/>
@@ -91,8 +99,11 @@ function App() {
 
             {/* 404 Page */}
             <Route path="*" element={<NotFound />} />
+           
           </Routes>
+
         </Router>
+        <ToastContainer position="top-right" autoClose={3000} />
       </LoaderProvider> 
     </>
   );

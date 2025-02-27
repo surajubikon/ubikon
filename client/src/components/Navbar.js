@@ -45,37 +45,15 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link></li>
             <ServiceCategory />
-
-            {/* Services Dropdown */}
-            {/* <li 
-              className="nav-item mega-menu-dropdown dropdown position-static" 
-              ref={dropdownRef} 
-              onMouseEnter={() => setShowDropdown(true)} 
-              onMouseLeave={() => setShowDropdown(false)}
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
-              <a className="nav-link dropdown-toggle" role="button">Services</a>
-              <div className={`dropdown-menu mega-menu ${showDropdown ? 'show' : ''}`}>
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-3"><a className="dropdown-item" href="#">Mobile App Development</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">Website Development</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">E-Commerce Solutions</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">Custom Software Solutions</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">Digital Design Services</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">UI/UX Design Services</a></div>
-                    <div className="col-md-3"><a className="dropdown-item" href="#">Digital Marketing Solutions</a></div>
-                  </div>
-                </div>
-              </div>
-            </li> */}
-
-            <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
+          <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
             <li className="nav-item">
               <Link className="nav-link" to="/blog-all-list">Blog</Link>
               </li>
             <li className="nav-item">
               <Link className="nav-link" to="/contact">Contact Us</Link>
+              </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/careerdetails">Careers</Link>
               </li>
             <li className="nav-item">
               <a className="nav-link" style={{ color: "#F58539" }} href="tel:+916264818989">
