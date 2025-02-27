@@ -18,7 +18,8 @@ padding: 0;
   src: url('../fonts/TenorSans-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-} 
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1302,4 +1303,11 @@ opacity: 1;
 }
 .benefit-img-wrapper.benefit-4 {
   background-color: #FFEEED;
+}
+.product-designer-dt {
+  margin-top: 48px;
+}
+.product-designer-dt .card {
+  border-radius: 10px !important;
+  background-color: #f4f4f4 !important;
 }
