@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks ,FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -27,6 +27,9 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/jobapplication"><FaClipboardList />Received Job Application Form</Link>
+        </li>
+        <li>
+          <Link to="/activity-ubi"><FaTasks  />Activity</Link>
         </li>
         <li>
           <Link to="/blog-list"><FaUser /> Blogs</Link>
