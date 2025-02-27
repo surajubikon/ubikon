@@ -23,7 +23,7 @@ const ServicePage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/services/all");
+        const response = await axios.get("https://ubikon.in/api/services/all");
        
         setServices(response.data);
       } catch (error) {

@@ -11,7 +11,7 @@ function ServiceDetails() {
   useEffect(() => {
     // Fetch service details based on slug
     axios
-      .get(`http://localhost:8000/api/sub-services/${slug}`)
+      .get(`https://ubikon.in/api/sub-services/${slug}`)
       .then((response) => {
         setServiceDetails(response.data); // ✅ Use response.data (not response.data[0])
         setLoading(false);

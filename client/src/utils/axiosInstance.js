@@ -3,7 +3,7 @@ import { store } from "../context/LoaderContext"; // ✅ Global Loader Context k
 
 // ✅ Base Axios Instance
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api/", // Apni API ka base URL yaha set karo
+  baseURL: "https://ubikon.in/api/", // Apni API ka base URL yaha set karo
   headers: { "Content-Type": "application/json" },
 });
 

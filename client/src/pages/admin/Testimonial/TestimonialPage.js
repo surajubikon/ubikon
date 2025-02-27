@@ -22,7 +22,7 @@ function TestimonialPage() {
 
   const fetchTestimonials = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/testimonials/all");
+      const res = await axios.get("https://ubikon.in/api/testimonials/all");
       setTestimonials(res.data);
     } catch (error) {
       console.error("Error fetching testimonials", error);
@@ -47,11 +47,11 @@ function TestimonialPage() {
     });
     try {
       if (editingId) {
-        await axios.put(`http://localhost:8000/api/testimonials/update/${editingId}`, formDataObj, {
+        await axios.put(`https://ubikon.in/api/testimonials/update/${editingId}`, formDataObj, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
-        await axios.post("http://localhost:8000/api/testimonials/create-testimonial", formDataObj, {
+        await axios.post("https://ubikon.in/api/testimonials/create-testimonial", formDataObj, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       }
@@ -78,7 +78,7 @@ function TestimonialPage() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/testimonials/delete/${id}`);
+      await axios.delete(`https://ubikon.in/api/testimonials/delete/${id}`);
       fetchTestimonials();
     } catch (error) {
       console.error("Error deleting testimonial", error);

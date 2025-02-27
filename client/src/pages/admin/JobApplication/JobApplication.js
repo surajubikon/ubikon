@@ -9,7 +9,7 @@ function JobApplication() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/jobApplicationForm/get")
+            .get("https://ubikon.in/api/jobApplicationForm/get")
             .then((response) => {
                 // Sort by latest createdAt (descending order)
                 const sortedData = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -24,7 +24,7 @@ function JobApplication() {
 
     const handleStatusChange = (id, newStatus) => {
         axios
-            .put(`http://localhost:8000/api/jobApplicationForm/update/${id}`, { status: newStatus })
+            .put(`https://ubikon.in/api/jobApplicationForm/update/${id}`, { status: newStatus })
             .then((response) => {
                 setApplications((prevApps) =>
                     prevApps.map((app) => (app._id === id ? { ...app, status: newStatus } : app))

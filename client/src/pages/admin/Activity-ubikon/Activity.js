@@ -30,7 +30,7 @@ const Activity = () => {
 
   const fetchActivities = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/activity/get");
+      const response = await axios.get("https://ubikon.in/api/activity/get");
       setActivities(response.data);
       setLoading(false);
     } catch (err) {
@@ -48,12 +48,12 @@ const Activity = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:8000/api/activity/${editId}`, formData, {
+        await axios.put(`https://ubikon.in/api/activity/${editId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Activity updated successfully!");
       } else {
-        await axios.post("http://localhost:8000/api/activity/create", formData, {
+        await axios.post("https://ubikon.in/api/activity/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Activity added successfully!");
@@ -81,7 +81,7 @@ const Activity = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/activity/${id}`);
+      await axios.delete(`https://ubikon.in/api/activity/${id}`);
       toast.success("Activity deleted successfully!");
       fetchActivities();
     } catch (error) {
