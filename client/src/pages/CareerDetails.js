@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import { React, useState,useEffect } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import careerBg from "../assets/img/career-bg.jpg"; // Local image import
 
@@ -30,6 +31,8 @@ import team2 from "../assets/img/team2.png";
 import team3 from "../assets/img/team3.png";
 import team4 from "../assets/img/team4.png";
 
+
+
 const tabData = [
   {
     title: "Culture",
@@ -48,13 +51,36 @@ const tabData = [
     images: [team1, team2, team3, team4],
   },
 ];
-
 const Career = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [jobCategories, setJobCategories] = useState([]);
+  const [jobListings, setJobListings] = useState([]);
+
+  useEffect(() => {
+    const fetchJobCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/jobCategory/get-job");
+        setJobCategories(response.data); // API response ke according adjust karna hoga
+      } catch (error) {
+        console.error("Error fetching job categories:", error);
+      }
+    };
+  
+      const fetchJobListings = async () => {
+        try {
+          const response = await axios.get("http://localhost:8000/api/jobCollection/get");
+          setJobListings(response.data); // API response format ke according adjust karna hoga
+        } catch (error) {
+          console.error("Error fetching job listings:", error);
+        }
+      };
+      fetchJobListings();
+    fetchJobCategories();
+  }, []);
 
   return (
-  <>
-    <Navbar />
+    <>
+      <Navbar />
       <div className="career-section">
         {/* Banner Section */}
         <div
@@ -153,46 +179,49 @@ const Career = () => {
                 {/* Left Section - Job Categories */}
                 <div className="col-md-3">
                   <ul className="list-group border-0 bg-transparent">
-                    <li className="list-group-item border-0 bg-transparent">HT & Admin</li>
-                    <li className="list-group-item border-0 bg-transparent">Engineering (20)</li>
-                    <li className="list-group-item border-0 bg-transparent">Support</li>
-                    <li className="list-group-item border-0 bg-transparent">Design</li>
-                    <li className="list-group-item border-0 bg-transparent">Digital Marketing</li>
+                    {jobCategories.length > 0 ? (
+                      jobCategories.map((category, index) => (
+                        <li key={index} className="list-group-item border-0 bg-transparent">
+                          {category.name} {category.count ? `(${category.count})` : ""}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="list-group-item border-0 bg-transparent">Loading...</li>
+                    )}
                   </ul>
                 </div>
 
                 {/* Right Section - Job Listings */}
-                <div className="col-md-9">
-                  <div className="row g-3">
-                    {/* Job Cards */}
-                    {[
-                      { title: "Wordpress Developer", Experience: "Experience", Year: "2 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Product Designer", Experience: "Experience", Year: "3 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Marketing Manager", Experience: "Experience", Year: "5 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Customer Support Specialist", Experience: "Experience", Year: "2 Years", Deadline: "Deadline", Date: "2021-05-08" }
-                    ].map((job, index) => (
-                      <div className="col-12" key={index}>
-                        <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
-                          <div className="col-md-5">
-                            <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
-                          </div>
-                          <div className="col">
-                            <p className="text-muted me-3 mb-0">{job.Experience}</p>
-                            <h6 className="fw-semibold me-3 mb-0">{job.Year}</h6>
-                          </div>
-                          <div className="col">
-                            <p className="text-muted me-3 mb-0">{job.Deadline}</p>
-                            <h6 className="fw-semibold me-3 mb-0">{job.Date}</h6>
-                          </div>
-                          <div className="col-md-1">
-                            <p className="text-muted mb-0"><GoArrowRight size={25} />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+        <div className="col-md-9">
+      <div className="row g-3">
+        {jobListings.length > 0 ? (
+          jobListings.map((job, index) => (
+            <div className="col-12" key={index}>
+              <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
+                <div className="col-md-5">
+                  <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
                 </div>
+                <div className="col">
+                  <p className="text-muted me-3 mb-0">Experience</p>
+                  <h6 className="fw-semibold me-3 mb-0">{job.experience} Years</h6>
+                </div>
+                <div className="col">
+                  <p className="text-muted me-3 mb-0">Deadline</p>
+                  <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
+                </div>
+                <div className="col-md-1">
+                  <p className="text-muted mb-0">
+                    <GoArrowRight size={25} />
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center">Loading jobs...</p>
+        )}
+      </div>
+    </div>
               </div>
             </div>
           </div>
@@ -242,8 +271,8 @@ const Career = () => {
           </div>
         </div>
       </div>
-    <Footer />  
-  </>  
+      <Footer />
+    </>
   );
 };
 

@@ -26,6 +26,9 @@ const Sidebar = () => {
           <Link to="/enquiry"><FaClipboardList /> Enquiry Mails</Link>
         </li>
         <li>
+          <Link to="/jobapplication"><FaClipboardList />Received Job Application Form</Link>
+        </li>
+        <li>
           <Link to="/blog-list"><FaUser /> Blogs</Link>
         </li>
         <li>
@@ -48,13 +51,6 @@ const Sidebar = () => {
             </ul>
           )}
         </li>
-        {/* Job Dropdown */}
-        <li>
-          <div onClick={toggleJobDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <FaUser /> Jobs <FaCaretDown />
-          </div>
-        </li>
-        {/* Job Dropdown */}
         <li>
           <div onClick={() => setIsJobOpen(!isJobOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span><FaBriefcase /> Jobs</span>

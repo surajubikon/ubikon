@@ -13,7 +13,7 @@ const api = {
     // Admin Routes
     admin: {
         createAdmin: {
-            url: '/api/admin/create', 
+            url: '/api/admin/create',
             method: 'post',
         },
         // Add other admin routes here as needed
@@ -31,7 +31,7 @@ const api = {
         updateBlogPost: {
             url: '/api/categories/update/:id',
             method: 'put',
-            },
+        },
         deleteBlogPost: {
             url: '/api/categories/delete/:id',
             method: 'delete',
@@ -82,7 +82,14 @@ const api = {
             url: '/api/aichat/get',
             method: 'get',
         },
-    }
+    },
+
+    lead: {
+        getLeads: {
+            url: '/api/leads',
+            method: 'get',
+        },
+    },
 };
 
 export default api;

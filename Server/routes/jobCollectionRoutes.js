@@ -1,5 +1,6 @@
 // routes/jobCollectionRoutes.js
 import express from "express";
+import upload from "../middleware/multer.js";
 import {
   createJob,
   getAllJobs,
@@ -10,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.post("/create", createJob);
+router.post("/create" , upload.fields([{ name: 'thumbnail' }, { name: 'previewImage' }]), createJob);
 router.get("/get", getAllJobs);
 router.get("/:id", getJobById);
 router.put("/:id", updateJob);
