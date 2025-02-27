@@ -15,7 +15,7 @@ function Testimonials() {
     useEffect(() => {
         const fetchTestimonials = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/testimonials/all');
+                const response = await axios.get('https://ubikon.in/api/testimonials/all');
                 setTestimonials(response.data);
             } catch (error) {
                 console.error('Error fetching testimonials:', error);

@@ -36,7 +36,7 @@ function BlogPage() {
   // Fetch Blogs
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/blogpost/all")
+      .get("https://ubikon.in/api/blogpost/all")
       .then((res) => setBlogs(res.data))
       .catch((err) => {
         console.error("Error fetching blogs:", err);
@@ -55,13 +55,13 @@ function BlogPage() {
     try {
       let res;
       if (editBlogId) {
-        res = await axios.put(`http://localhost:8000/api/blogpost/update/${editBlogId}`, form, {
+        res = await axios.put(`https://ubikon.in/api/blogpost/update/${editBlogId}`, form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setBlogs(blogs.map((blog) => (blog._id === editBlogId ? res.data : blog)));
         toast.success("Blog updated successfully!");
       } else {
-        res = await axios.post("http://localhost:8000/api/blogpost/create", form, {
+        res = await axios.post("https://ubikon.in/api/blogpost/create", form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setBlogs([...blogs, res.data]);
@@ -98,7 +98,7 @@ function BlogPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     try {
-      await axios.delete(`http://localhost:8000/api/blogpost/delete/${id}`);
+      await axios.delete(`https://ubikon.in/api/blogpost/delete/${id}`);
       setBlogs(blogs.filter((blog) => blog._id !== id));
       toast.success("Blog deleted successfully!");
     } catch (error) {

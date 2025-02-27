@@ -1,4 +1,4 @@
-import { React, useState,useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import careerBg from "../assets/img/career-bg.jpg"; // Local image import
@@ -11,6 +11,9 @@ import { GoArrowRight } from "react-icons/go";
 import { motion } from "framer-motion";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+
+
 import Navbar from '../components/Navbar';
 
 import Footer from '../components/Footer';
@@ -38,11 +41,12 @@ const Career = () => {
   const [jobCategories, setJobCategories] = useState([]);
   const [jobListings, setJobListings] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // ✅ useNavigate Hook
 
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/jobCategory/get-job");
+        const response = await axios.get("https://ubikon.in/api/jobCategory/get-job");
         setJobCategories(response.data);
 
         // 🔹 Check if there is a saved category in localStorage
@@ -64,7 +68,7 @@ const Career = () => {
   }, []);
   const fetchJobs = async (categoryId) => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
+      const response = await axios.get(`https://ubikon.in/api/jobCollection/get-jobcollection/${categoryId}`);
       setJobListings(response.data);
       setErrorMessage("");
     } catch (error) {
@@ -78,13 +82,31 @@ const Career = () => {
     }
   };
 
+  // 🟢 Category Change Handler
+  // const handleCategoryClick = (categoryId) => {
+  //     setSelectedCategory(categoryId);
+  //     localStorage.setItem("selectedCategory", categoryId);
+  //     fetchJobs(categoryId); // 🔥 Same function reuse ho raha hai
+  // };
+
+  // 🟢 Load Selected Category on First Render
+  useEffect(() => {
+    const storedCategory = localStorage.getItem("selectedCategory");
+    if (storedCategory) {
+      setSelectedCategory(storedCategory);
+      fetchJobs(storedCategory);
+    }
+  }, []);
+  const handleJobClick = (job) => {
+    navigate("/job-req", { state: { jobData: job } });
+  };
   const handleCategoryClick = async (categoryId) => {
     setSelectedCategory(categoryId);
     localStorage.setItem("selectedCategory", categoryId);
     setErrorMessage("");
 
     try {
-      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
+      const response = await axios.get(`https://ubikon.in/api/jobCollection/get-jobcollection/${categoryId}`);
       setJobListings(response.data);
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -184,79 +206,82 @@ const Career = () => {
         </div>
 
         <div className="careers-section py-5" style={{ backgroundColor: "#E7F7FF" }}>
-        <div className="container">
-          <div className="col-md-6 mx-auto mb-5">
-            <p className="text-center fw-semibold mb-3">Come join us</p>
-            <h2 className="fw-bold text-center">Career Openings</h2>
-            <p className="text-muted text-center">
-              We’re always looking for creative, talented self-starters. Check out our open roles below.
-            </p>
-          </div>
+          <div className="container">
+            <div className="col-md-6 mx-auto mb-5">
+              <p className="text-center fw-semibold mb-3">Come join us</p>
+              <h2 className="fw-bold text-center">Career Openings</h2>
+              <p className="text-muted text-center">
+                We’re always looking for creative, talented self-starters. Check out our open roles below.
+              </p>
+            </div>
 
-          <div className="col-md-10 mx-auto">
-            <div className="row mt-4">
-              <div className="col-md-3">
-                <ul className="list-group border-0 bg-transparent">
-                  {jobCategories.length > 0 ? (
-                    jobCategories.map((category) => (
-                      <li
-                        key={category._id}
-                        className={`list-group-item border-0 bg-transparent ${selectedCategory === category._id ? "fw-bold text-primary" : ""}`}
-                        onClick={() => handleCategoryClick(category._id)}
-                        style={{ cursor: "pointer" }}
-                      > 
-                        {category.name} {category.jobCount ? `(${category.jobCount})` : ""}
-                      </li>
-                    ))
-                  ) : (
-                    <li className="list-group-item border-0 bg-transparent">Loading...</li>
-                  )}
-                </ul>
-              </div>
-
-              <div className="col-md-9">
-                {errorMessage ? (
-                  <p className="text-center text-danger">{errorMessage}</p>
-                ) : (
-                  <div className="row g-3">
-                    {jobListings.length > 0 ? (
-                      jobListings.map((job) => (
-                        <div className="col-12" key={job._id}>
-                          <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
-                            <div className="col-md-5">
-                            <p className="text-muted me-3 mb-0">Position</p>
-                              <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
-                            </div>
-                            <div className="col">
-                              <p className="text-muted me-3 mb-0">Experience</p>
-                              <h6 className="fw-semibold me-3 mb-0">{job.experience}</h6>
-                            </div>
-                            <div className="col">
-                              <p className="text-muted me-3 mb-0">Deadline</p>
-                              <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
-                            </div>
-                            <div className="col-md-1">
-                              <p className="text-muted mb-0">
-                                <Link to={`/jobapp-form`} className="text-decoration-none">
-                                <GoArrowRight size={25} />
-                                </Link>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+            <div className="col-md-10 mx-auto">
+              <div className="row mt-4">
+                <div className="col-md-3">
+                  <ul className="list-group border-0 bg-transparent">
+                    {jobCategories.length > 0 ? (
+                      jobCategories.map((category) => (
+                        <li
+                          key={category._id}
+                          className={`list-group-item border-0 bg-transparent ${selectedCategory === category._id ? "fw-bold text-primary" : ""}`}
+                          onClick={() => handleCategoryClick(category._id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {category.name} {category.jobCount ? `(${category.jobCount})` : ""}
+                        </li>
                       ))
                     ) : (
-                      <p className="text-center">Job Not Available.</p>
+                      <li className="list-group-item border-0 bg-transparent">Loading...</li>
                     )}
-                  </div>
-                )}
+                  </ul>
+                </div>
+
+                <div className="col-md-9">
+                  {errorMessage ? (
+                    <p className="text-center text-danger">{errorMessage}</p>
+                  ) : (
+                    <div className="row g-3">
+                      {jobListings.length > 0 ? (
+                        jobListings.map((job) => (
+                          <div className="col-12" key={job._id}>
+                            <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
+                              <div className="col-md-5">
+                                <p className="text-muted me-3 mb-0">Position</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
+                              </div>
+                              <div className="col">
+                                <p className="text-muted me-3 mb-0">Experience</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.experience}</h6>
+                              </div>
+                              <div className="col">
+                                <p className="text-muted me-3 mb-0">Deadline</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
+                              </div>
+                              <div className="col-md-1">
+                                <p className="text-muted mb-0">
+                                  <button
+                                    onClick={() => handleJobClick(job)}
+                                    className="border-0 bg-transparent"
+                                  >
+                                    <GoArrowRight size={25} />
+                                  </button>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-center">Job Not Available.</p>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-        <ActivityPage/>
+        <ActivityPage />
       </div>
       <Footer />
     </>
