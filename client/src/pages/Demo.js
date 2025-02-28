@@ -1,197 +1,149 @@
 import React from "react";
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import careerBg from "../assets/img/career-bg.jpg"; // Local image import
-import newSectionImage from "../assets/img/new-section.png"; // New section image import
-import { FaMapMarkerAlt } from "react-icons/fa"; // Importing location icon
-import { GoDotFill } from "react-icons/go";
-import { PiBagSimpleFill } from "react-icons/pi";
-import { MdDateRange } from "react-icons/md";
-import { FaBookOpen } from "react-icons/fa";
-import { FaClock } from "react-icons/fa";
+import InvBG from '../assets/img/invoiceBG.jpg'
+import { FaCheckCircle } from "react-icons/fa";
 
-
-
-
-
-
-
-const Banner = () => {
+const InvoicePage = () => {
   return (
-    <> 
-      
-      <Navbar />
+  <>
+    <Navbar />
+   <div className="invoice-section">
+    <div className="container py-4">
+      {/* Banner with Image */}
+      <div className="position-relative w-100 rounded overflow-hidden">
+        <img src={InvBG} alt="Banner" className="img-fluid w-100" />
+      </div>
 
-      <div className="product-designer-dt">
-       
-        <div
-          className="d-flex flex-column align-items-center justify-content-center text-white text-center p-5 rounded shadow-lg"
-          style={{
-            backgroundImage: `url(${careerBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            height: "290px",
-          }}
-        >
-          <h1 className="fw-bold mb-2">Design the Future</h1>
-          <p className="lead mb-4">Create stunning products with intuitive design solutions.</p>
-          <button className="default-btn shadow" style={{ fontSize: "14px", borderRadius: "0" }}>
-            Get Started
-          </button>
-        </div>
-
-        <div className="container">
-          <div className="d-flex justify-content-center mt-5 col-md-8 m-auto">
-            <img src={newSectionImage} alt="New Section" style={{ width: "1110px", height: "400px" }} />
-          </div>
-        </div>
-
-        {/* Product Designer Section */}
-        <div className="container mt-5">
-          <div className="row">
-            {/* Left Side Content */}
-            <div className="col-md-8">
-              <h2 className="fw-bold mb-5">PRODUCT DESIGNER</h2>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Who Are We Looking For</h4>
-                <ul className="list-unstyled small">
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
-                </ul>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">What You Will Be Doing</h4>
-                <ul className="list-unstyled small">
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
-                </ul>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Bonus Points for Familiarity with</h4>
-                <ul className="list-unstyled small">
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
-                </ul>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Educational Requirement</h4>
-                <div className="small">
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going</p>
-                </div>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Salary</h4>
-                  <ul className="list-unstyled small">
-                    <li className="mb-2"><span className="me-3"><GoDotFill /></span> Salary:  18,000 to 35,000 BDT (Depends on Skill and Experience)</li>
-                    <li className="mb-2"><span className="me-3"><GoDotFill /></span> Salary Review: Yearly</li>
-                  </ul>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Working Hours</h4>
-                <ul className="list-unstyled small">
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> 8 AM – 5 PM</li>
-                </ul>
-              </div>
-              <div className="mt-3 mb-5">
-                <h4 className="fw-bold mb-4">Working Days</h4>
-                <ul className="list-unstyled small">
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Weekly: 5 days.</li>
-                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Weekend: Friday.Saturday</li>
-                </ul>
-              </div>
-            </div>
-            {/* Right Side Button */}
+      {/* Main Card Container */}
+      <div className="card border-0 shadow-lg mt-4 mx-auto bg-white">
+        <div className="card-body">
+          <div className="row g-3">
             <div className="col-md-4">
-              <div className="card m-0">
-                <div className="card-body">
-                  <div className="text-center">  <button className="default-btn mt-4">Apply Now</button> </div>
-
-                  <div className="mt-5">
-                    <h5 className="fw-bold mb-3">Job Summary</h5>
-                    {/* Location Section */}
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <FaMapMarkerAlt size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Location</p>
-                        <p className="mb-0 small">123 Main Street, New York, NY 10001</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <PiBagSimpleFill size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Job Type</p>
-                        <p className="mb-0 small">Full Time</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <MdDateRange  size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Date posted</p>
-                        <p className="mb-0 small">posted 1 month ago</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <FaClock  size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Experience</p>
-                        <p className="mb-0 secondary">Experience: 1-3 year</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <FaMapMarkerAlt size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Working Hours</p>
-                        <p className="mb-0 small">9 AM - 6 PM</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <FaMapMarkerAlt size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Working Days</p>
-                        <p className="mb-0 small">Weekly:5days</p>
-                        <p className="mb-0 small">Weekend: Saturday,Sunday</p>
-                      </div>
-                    </div>
-                    <div className="row mb-5">
-                      <div className="col-md-2 d-flex align-items-center">
-                        <FaMapMarkerAlt size={48} color="gray" />
-                      </div>
-                      <div className="col-md-10 ps-0">
-                        <p className="text-secondary mb-0">Vacancy</p>
-                        <p className="mb-0 small">Experience: 1-3 year</p>
-                      </div>
-                    </div>
-
-                    <div className=""><a href="" className="fw-bold border-bottom text-dark">View all job</a></div>
-                  </div>  
-                </div>  
-              </div>  
+              <p><FaCheckCircle color="#0084C3" size={20} className="me-2" />Bill To:</p>
+              <div className="card p-3">
+                <h3 className="fw-bold h5 mb-2">Mauro Sicard </h3>
+                <p className="mb-1">(612) 856 - 0989</p>
+                <p className="mb-1">contact@maurosicard.com</p>
+                <p className="mb-1">Pablo Alto, San Francisco, CA 92102, United States of America</p>
+              </div>
+            </div>
+            <div className="col-md-5">
+              <p><FaCheckCircle color="#0084C3" size={20} className="me-2" />Bill From:</p>
+              <div className="card p-3">
+                <h3 className="fw-bold h5 mb-2">Ubikon Technologies Pvt.Ltd</h3>
+                <p className="mb-1">+91 6264818989</p>
+                <p className="mb-1">Behind C21,Vijay Nagar Square, Scheme 54 PU4, Indore, Madhya Pradesh 452010</p>
+                <p className="mb-1">12345 6789 US0001</p>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <p><FaCheckCircle color="#0084C3" size={20} className="me-2" />Contact US</p>
+              <div className="card p-3">
+                <h3 className="fw-bold h5 mb-2">Contact us</h3>
+                <p className="mb-1">+91 6264818989</p>
+                <p className="mb-1">contact@ubikon.in</p>
+                <p className="mb-1">www.ubikon.in</p>
+              </div>
             </div>
           </div>
-
         </div>
-      </div>  
-    <Footer />      
-    </>
+      </div>
+      
+      {/* Invoice Table Section */}
+      <h2 className="fw-semibold mt-5 h4 mb-4">Project Overview</h2>
+      <div className="card shadow-lg rounded mx-auto bg-white">
+        <div className="card-body">
+          <div className="table-responsive">
+            <table className="table border-0">
+            <thead className="border-0" >
+                <tr>
+                  <th style={{ color: '#868DA6' }}>Description</th>
+                  <th style={{ color: '#868DA6' }}>Qty</th>
+                  <th style={{ color: '#868DA6' }}>Price</th>
+                  <th style={{ color: '#868DA6' }}>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-top border-bottom">
+                  <td>Web design</td>
+                  <td>1</td>
+                  <td>₹5,250.00</td>
+                  <td>₹5,250.00</td>
+                </tr>
+                <tr className="border-top border-bottom mt-3">
+                  <td colSpan="4" className="pt-3 pb-3">
+                    Our web design approach focuses on creating visually stunning, user-friendly, and responsive websites tailored to your brand. We blend creativity with functionality, ensuring seamless navigation and an engaging user experience.<br/>
+                    <strong>Technologies We Use:</strong><br/>
+                    Frontend: HTML, CSS, JavaScript, ReactJS, Next.js<br/>
+                    Backend: Node.js, Express.js, Django, Laravel<br/>
+                    Database: MySQL, MongoDB, PostgreSQL<br/>
+                    Design Tools: Figma, Adobe XD, Sketch<br/>
+                    CMS Platforms: WordPress, Shopify, Webflow
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan="4" className="text-end fw-bold">Total Amount:</td>
+                </tr>
+                <tr>
+                  <td colSpan="4" className="text-end fw-bold">₹19,570.00</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Card Container */}
+      <div className="card border-0 shadow-lg mt-4 mx-auto bg-white">
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-4">
+              <p>
+                <span className=" rounded-pill mx-2 mx-2" style={{ fontSize: "12px", padding: "6px 11px", backgroundColor:"#0084C3", color:"#fff" }}>
+                  1
+                </span>
+                First Payment</p>
+              <div className="card p-3 rounded-4">
+                <h3 className="fw-bold h5 mb-2">Advanced Payment </h3>
+                <p>30% </p>
+              </div>
+            </div>
+            <div className="col-md-5">
+              <p>
+                <span className=" rounded-pill mx-2" style={{ fontSize: "12px", padding: "6px 11px", backgroundColor:"#0084C3", color:"#fff" }}>
+                  2
+                </span>Second Payment</p>
+              <div className="card p-3 rounded-4">
+                <h3 className="fw-bold h5 mb-2">Design & Prototypes </h3>
+                <p className="mb-1">25%</p>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <p>
+                <span className=" rounded-pill mx-2" style={{ fontSize: "12px", padding: "6px 11px", backgroundColor:"#0084C3", color:"#fff" }}>
+                  3
+                </span>Third Payment</p>
+              <div className="card p-3 rounded-4">
+                <h3 className="fw-bold h5 mb-2">Development</h3>
+                <p className="mb-1">25%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       {/* Terms & Conditions Section */}
+       <div className="card-body mt-5">
+          <h6 className="fw-semibold mt-1">Terms & Conditions</h6>
+          <p>
+            Fees and payment terms will be established in the contract or agreement prior to the commencement of the project. An initial deposit will be required before any design work begins. We reserve the right to suspend or halt work in the event of non-payment. For more details, please visit <a href="www.ubikon.in/policy">www.ubikon.in/policy</a>.
+          </p>
+        </div>
+    </div>
+   </div> 
+  </>  
   );
 };
 
-export default Banner;
+export default InvoicePage;
