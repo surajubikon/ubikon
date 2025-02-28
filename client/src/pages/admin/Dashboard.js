@@ -44,7 +44,7 @@ const fetchTootalJobApplication = async () => {
       <div className="main-content">
         <Header />
         <div className="dashboard">
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <div className="card">
             <h3>Total Enquiry Mails</h3>
                 {loading ? (
@@ -56,7 +56,7 @@ const fetchTootalJobApplication = async () => {
                 )}
             </div>
           </div> 
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <div className="card">
             <h3>Total Job Application Form</h3>
                 {loading ? (

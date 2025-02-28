@@ -40,7 +40,7 @@ const JobRequirement = () => {
                     {/* Image Section */}
                     <div className="container">
                         <div className="d-flex justify-content-center mt-5 col-md-8 m-auto">
-                            <img src={newSectionImage} alt="New Section" style={{ width: "1110px", height: "400px" }} />
+                            <img src={job.thumbnail} alt="New Section" style={{ width: "1110px", height: "450px" }} />
                         </div>
                     </div>
 
@@ -82,7 +82,8 @@ const JobRequirement = () => {
                                                 <div className="col-md-2 d-flex align-items-center"><FaMapMarkerAlt size={32} color="gray" /></div>
                                                 <div className="col-md-10 ps-0">
                                                     <p className="text-secondary mb-0">Location</p>
-                                                    <p className="mb-0 small">{job.location || 'Not specified'}</p>
+                                                    <p className="mb-0 small">
+                                                    C21 Mall, Scheme 54 PU4 Vijay Nagar, Indore</p>
                                                 </div>
                                             </div>
 
@@ -91,7 +92,7 @@ const JobRequirement = () => {
                                                 <div className="col-md-2 d-flex align-items-center"><PiBagSimpleFill size={32} color="gray" /></div>
                                                 <div className="col-md-10 ps-0">
                                                     <p className="text-secondary mb-0">Job Type</p>
-                                                    <p className="mb-0 small">{job.jobType || 'Not specified'}</p>
+                                                    <p className="mb-0 small">{job.title || 'Not specified'}</p>
                                                 </div>
                                             </div>
 

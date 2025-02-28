@@ -1,7 +1,28 @@
-/* General container styling */
+/* Ensure vertical scrolling remains */
+.admin .user-details {
+  overflow-y: auto;
+  max-height: 90vh; /* Adjust height if needed */
+}
+/* Sidebar ke baad jo content area hai usko full width tak spread karo */
+.admin .main-content {
+  width: calc(100% - 250px); /* Sidebar width adjust */
+  margin-left: auto;
+  margin-right: 10px;
+  padding: 20px;
+}
+
+/* Table container ko full width tak extend karo */
 .admin .user-details .container {
-    margin-top: 50px;
-  }
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Horizontal scroll hata diya */
+}
+/* Table ko full width par set karo */
+.admin .user-details .container table {
+  width: 100%;
+  table-layout: auto; /* Columns ko auto adjust karne do */
+  white-space: normal; /* Text wrap hone do */
+}
   
   /* Table styling */
   .table {
@@ -9,11 +30,13 @@
     margin-top: 20px;
     border-collapse: collapse;
   }
-  
-  .table th, .table td {
-    padding: 12px;
-    text-align: left;
-  }
+/* Table cells ka padding aur overflow adjust karo */
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+  word-wrap: break-word; /* Text wrap ho */
+  overflow-wrap: break-word; /* Word wrap ensure ho */
+}
   
   .table-striped tbody tr:nth-child(odd) {
     background-color: #f9f9f9;
@@ -23,12 +46,12 @@
     background-color: #e0f7fa; /* Highlight new contacts */
   }
   
-  .message {
-    max-width: 300px;
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+ 
+/* Message column ke liye text wrap aur expand enable karo */
+.message {
+  max-width: none;
+  white-space: normal;
+}
   
   /* Button styling */
   .btn-link {
