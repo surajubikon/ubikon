@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Table, Container } from "react-bootstrap";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 function TestimonialPage() {
@@ -50,16 +51,21 @@ function TestimonialPage() {
         await axios.put(`http://localhost:8000/api/testimonials/update/${editingId}`, formDataObj, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+        toast.success("Testimonial updated successfully!");
+        
       } else {
         await axios.post("http://localhost:8000/api/testimonials/create-testimonial", formDataObj, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+         toast.success("Testimonial added successfully!");
+        
       }
       fetchTestimonials();
       setShowForm(false);
       setEditingId(null);
     } catch (error) {
-      console.error("Error saving testimonial", error);
+      toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
+    
     }
   };
 

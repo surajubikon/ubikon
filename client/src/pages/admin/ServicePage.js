@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './ServicePage.css'; // Import external CSS file
+import { toast } from "react-toastify";
+
 
 function ServicePage() {
   const [services, setServices] = useState([]);
@@ -68,12 +70,14 @@ function ServicePage() {
         const res = await axios.put(`http://localhost:8000/api/services/update/${editServiceId}`, form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
+           toast.success("Category updated successfully!");
         setServices(services.map(service => (service._id === editServiceId ? res.data : service)));
       } else {
         // Adding a new service
         const res = await axios.post("http://localhost:8000/api/services/create", form, {
           headers: { "Content-Type": "multipart/form-data" }
         });
+           toast.success("Category Craeted successfully!");
         setServices([...services, res.data]);
       }
       setShowModal(false);
@@ -92,9 +96,12 @@ function ServicePage() {
       });
       setDynamicFields([]);
       setEditServiceId(null);
-      alert(editServiceId ? "Service updated successfully!" : "Service added successfully!");
+      // alert(editServiceId ? "Service updated successfully!" : "Service added successfully!");
+      //  toast.success(editServiceId ? "Service updated successfully!": "Service added successfully!"  || "Something went wrong!");
+      
     } catch (error) {
-      console.error("Error saving service:", error.response?.data || error);
+         toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
+   
     }
   };
   
@@ -125,9 +132,11 @@ function ServicePage() {
     try {
       await axios.delete(`http://localhost:8000/api/services/delete/${id}`);
       setServices(services.filter(service => service._id !== id));
-      alert("Service deleted successfully!");
+    toast.success("Activity deleted successfully!");
+    
     } catch (error) {
-      console.error("Error deleting service:", error);
+      toast.error("Error deleting data: " + (error.response?.data?.message || "Something went wrong!"));
+
     }
   };
 
@@ -169,7 +178,7 @@ const handlePreviewImageChange = (e) => {
   return (
     <div className="servicepage-container">
       <button onClick={() => setShowModal(true)} className="add-service-btn">
-        ➕ Add Categorya
+        ➕ Add Category
       </button>
 
       {services.length === 0 ? (
@@ -197,9 +206,9 @@ const handlePreviewImageChange = (e) => {
                 <td>
                   <img src={service.thumbnail} alt="Thumbnail" className="service-thumbnail" />
                   <img src={service.coverImage} alt="Cover" className="service-cover-image" />
-                  {service.previewImage && (
+                  {/* {service.previewImage && (
                     <img src={service.previewImage} alt="Preview" className="service-preview-image" />
-                  )}
+                  )} */}
                 </td>
                 <td>{new Date(service.createdAt).toLocaleDateString()}</td>
                 <td>

@@ -6,7 +6,7 @@ import { uploadToCloudinary } from "../utils/cloudinary.js"; // Cloudinary uploa
 export const createJobApplication = async (req, res) => {
   try {
     console.log("8", createJobApplication)
-    const { first, last, email, phone, currentCTC, expectedCTC, noticePeriod, portfoliolink } = req.body;
+    const { position,first, last, email, phone, currentCTC, expectedCTC, noticePeriod, portfoliolink } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "Resume file is required" });
@@ -17,6 +17,7 @@ export const createJobApplication = async (req, res) => {
     const resumeUrl = resumeUpload.secure_url;
 
     const jobApplication = new JobApplication({
+      position,
       first,
       last,
       email,
@@ -26,6 +27,7 @@ export const createJobApplication = async (req, res) => {
       noticePeriod,
       resume: resumeUrl,
       portfoliolink,
+      
     });
 
     await jobApplication.save();
@@ -90,6 +92,37 @@ export const updateJobApplicationStatus = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+export const addRemarkApplication = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const { remark } = req.body;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        
+          return res.status(400).json({ error: "Invalid application ID" });
+      }
+
+      if (!remark || remark.trim() === "") {
+          return res.status(400).json({ message: "Remark cannot be empty" });
+      }
+
+      const updatedApplication = await JobApplication.findByIdAndUpdate(
+          id, 
+          { remark }, 
+          { new: true }
+      );
+
+      if (!updatedApplication) {
+          return res.status(404).json({ message: "Application not found" });
+      }
+
+      res.status(200).json(updatedApplication);
+  } catch (error) {
+      console.log("Error updating remark:", error);
+      res.status(500).json({ message: "Server Error", error });
+  }
+};
+
 
 // Delete Job Application
 export const deleteJobApplication = async (req, res) => {

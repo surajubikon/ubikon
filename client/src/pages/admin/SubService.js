@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import BundledEditor from './bundled'; // Import BundledEditor (TinyMCE)
+import { toast } from "react-toastify";
 
 function SubService() {
   const [subservices, setSubservices] = useState([]);
@@ -53,7 +54,8 @@ function SubService() {
           `http://localhost:8000/api/sub-services/update/${editSubserviceId}`,
           form,
           { headers: { "Content-Type": "multipart/form-data" } }
-        );
+      );
+       toast.success("Sub Category updated successfully!");
         setSubservices(
           subservices.map((subservice) =>
             subservice._id === editSubserviceId ? res.data : subservice
@@ -65,13 +67,15 @@ function SubService() {
           form,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
+        toast.success("Sub Category Created successfully!");
         setSubservices([...subservices, res.data]);
       }
       setIsFormPage(false);
       resetForm();
-      alert(editSubserviceId ? "Subservice updated successfully!" : "Subservice added successfully!");
+      // alert(editSubserviceId ? "Subservice updated successfully!" : "Subservice added successfully!");
     } catch (error) {
-      console.error("Error saving subservice:", error.response?.data || error);
+       toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
+      
     }
   };
 
@@ -96,9 +100,10 @@ function SubService() {
     try {
       await axios.delete(`http://localhost:8000/api/sub-services/delete/${id}`);
       setSubservices(subservices.filter((subservice) => subservice._id !== id));
-      alert("Subservice deleted successfully!");
+        toast.success("Sub Category deleted successfully!");
     } catch (error) {
-      console.error("Error deleting subservice:", error);
+         toast.error("Error deleting data: " + (error.response?.data?.message || "Something went wrong!"));
+   
     }
   };
 
