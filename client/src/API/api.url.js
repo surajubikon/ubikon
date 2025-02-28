@@ -89,6 +89,14 @@ const api = {
             url: '/api/leads',
             method: 'get',
         },
+        getStates: {
+            url: '/api/leads/states/IN',
+            method: 'get',
+        },
+        createLead: {
+            url: '/api/leads',
+            method: 'post',
+        },
     },
 };
 

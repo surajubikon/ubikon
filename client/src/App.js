@@ -39,6 +39,7 @@ import JobCategory from './pages/admin/JobCategory';
 import JobCollection from './pages/admin/JobCollection';
 import PortFolio from './pages/admin/PortFolio';
 import LeadList from './pages/admin/LeadManagement/LeadList.js';
+import LeadAdd from './pages/admin/LeadManagement/LeadAdd.js';
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
 import NotFound from './pages/NotFound/NotFound';
@@ -83,6 +84,7 @@ function App() {
             <Route path="/blog-list" element={<PrivateRoute><Blogpage /></PrivateRoute>} />
             <Route path="/portfolio" element={<PrivateRoute><PortFolio /></PrivateRoute>} />
             <Route path="/lead-list" element={<PrivateRoute> <LeadList /></PrivateRoute>}/>
+            <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>}/>
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
             <Route path="/job-category" element={<PrivateRoute><JobCategory /></PrivateRoute>} />
             <Route path="/job-collection" element={<PrivateRoute><JobCollection /></PrivateRoute>} />

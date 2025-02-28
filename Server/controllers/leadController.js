@@ -1,3 +1,4 @@
+import { State, City } from "country-state-city";
 import Lead from "../models/leadModel.js";
 
 export const createLead = async (req, res) => {
@@ -8,14 +9,11 @@ export const createLead = async (req, res) => {
             phone,
             company,
             address,
-            interest,
             source,
             projectName,
             projectType,
-            budget,
-            timeline,
-            requirements,
-            priority
+            projectBudget,
+            projectRequirements,
         } = req.body;
 
         const lead = new Lead({
@@ -24,14 +22,11 @@ export const createLead = async (req, res) => {
             phone,
             company,
             address,
-            interest,
             source,
             projectName,
             projectType,
-            budget,
-            timeline,
-            requirements,
-            priority
+            projectBudget,
+            projectRequirements,
         });
         await lead.save();
 
@@ -63,6 +58,26 @@ export const getLeads = async (req, res) => {
     }
 };
 
+export const getStates = async (req, res) => {
+    try {
+        const stateList = await (State.getStatesOfCountry(req.params.countryCode));
+
+        res.status(200).json({ success: true, message: "States Get Successfully", data: stateList });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const getCities = async (req, res) => {
+    try {
+        const cityList = await (City.getCitiesOfState(req.params.countryCode, req.params.stateCode));
+
+        res.status(200).json({ success: true, message: "Cities Get Successfully", data: cityList });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 export const updateLead = async (req, res) => {
     try {
         const { id } = req.params;
@@ -72,15 +87,12 @@ export const updateLead = async (req, res) => {
             phone,
             company,
             address,
-            interest,
             status,
             source,
             projectName,
             projectType,
-            budget,
-            timeline,
-            requirements,
-            priority
+            projectBudget,
+            projectRequirements,
         } = req.body;
 
         const lead = await Lead.findByIdAndUpdate(id, {
@@ -89,15 +101,12 @@ export const updateLead = async (req, res) => {
             phone,
             company,
             address,
-            interest,
             status,
             source,
             projectName,
             projectType,
-            budget,
-            timeline,
-            requirements,
-            priority
+            projectBudget,
+            projectRequirements,
         }, { new: true });
 
         if (!lead) {
