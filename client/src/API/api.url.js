@@ -1,6 +1,6 @@
-// export const baseURL = "https://ubikon.in";
-export const baseURL = "https://ubikon.in";
-// export const baseURL = "https://ubikon.in/api/admin/register";
+// export const baseURL = "http://localhost:8000";
+export const baseURL = "http://localhost:8000";
+// export const baseURL = "http://localhost:8000/api/admin/register";
 const api = {
     register: {
         url: '/api/admin/register',

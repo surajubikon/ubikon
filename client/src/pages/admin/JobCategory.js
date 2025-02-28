@@ -14,7 +14,7 @@ const JobCategory = () => {
   // Fetch categories from API
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("https://ubikon.in/api/jobCategory/get-job");
+      const res = await axios.get("http://localhost:8000/api/jobCategory/get-job");
       setCategories(res.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -25,9 +25,9 @@ const JobCategory = () => {
   const handleSubmit = async () => {
     try {
       if (editingCategory) {
-        await axios.put(`https://ubikon.in/api/jobCategory/${editingCategory._id}`, { name: newCategory });
+        await axios.put(`http://localhost:8000/api/jobCategory/${editingCategory._id}`, { name: newCategory });
       } else {
-        await axios.post("https://ubikon.in/api/jobCategory/create-job", { name: newCategory });
+        await axios.post("http://localhost:8000/api/jobCategory/create-job", { name: newCategory });
       }
       setNewCategory("");
       setEditingCategory(null);
@@ -41,7 +41,7 @@ const JobCategory = () => {
   // Delete Job Category
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ubikon.in/api/jobCategory/${id}`);
+      await axios.delete(`http://localhost:8000/api/jobCategory/${id}`);
       fetchCategories();
     } catch (error) {
       console.error("Error deleting category:", error);

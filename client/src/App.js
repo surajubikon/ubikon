@@ -60,7 +60,7 @@ function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Transform your business with Ubikon Technologies..." />
         <meta name="keywords" content="Mobile App Development Indore, Website Development Indore, E-Commerce Solutions Indore," />
-        <link rel="canonical" href="https://ubikon.in/" />
+        <link rel="canonical" href="http://localhost:8000/" />
         <meta name="author" content="Ubikon Technologies" />
       </Helmet>
 

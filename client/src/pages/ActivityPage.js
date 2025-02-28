@@ -15,7 +15,7 @@ function ActivityPage() {
 
   const fetchActivityData = async (subject) => {
     try {
-      const response = await axios.get(`https://ubikon.in/api/activity/get-activity/${subject}`);
+      const response = await axios.get(`http://localhost:8000/api/activity/get-activity/${subject}`);
       setTabData(response.data); // Subject wise images fetch kar raha hai
     } catch (error) {
       console.error("Error fetching data:", error);

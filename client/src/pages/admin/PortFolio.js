@@ -23,7 +23,7 @@ const Portfolio = () => {
 
     const fetchPortfolios = async () => {
         try {
-            const response = await axios.get("https://ubikon.in/api/portfolio/get-all");
+            const response = await axios.get("http://localhost:8000/api/portfolio/get-all");
             setPortfolios(response.data);
         } catch (error) {
             console.error("Error fetching portfolios:", error);
@@ -73,7 +73,7 @@ const Portfolio = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this portfolio?")) {
             try {
-                await axios.delete(`https://ubikon.in/api/portfolio/delete/${id}`);
+                await axios.delete(`http://localhost:8000/api/portfolio/delete/${id}`);
                 fetchPortfolios(); // Refresh list
             } catch (error) {
                 console.error("Error deleting portfolio:", error);
@@ -96,10 +96,10 @@ const Portfolio = () => {
 
             if (editing) {
                 // ✅ Agar editing true hai, to update API call karo
-                await axios.put(`https://ubikon.in/api/portfolio/update/${selectedId}`, formDataToSend, config);
+                await axios.put(`http://localhost:8000/api/portfolio/update/${selectedId}`, formDataToSend, config);
             } else {
                 // ✅ Agar naya record hai, to create API call karo
-                await axios.post("https://ubikon.in/api/portfolio/create", formDataToSend, config);
+                await axios.post("http://localhost:8000/api/portfolio/create", formDataToSend, config);
             }
 
             fetchPortfolios(); // ✅ List refresh karo

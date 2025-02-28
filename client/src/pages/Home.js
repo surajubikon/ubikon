@@ -65,8 +65,8 @@ const Home = () => {
     "provider": {
       "@type": "Organization",
       "name": "Ubikon Technologies",
-      "logo": "https://ubikon.in/path/to/logo.jpg",
-      "url": "https://ubikon.in",
+      "logo": "http://localhost:8000/path/to/logo.jpg",
+      "url": "http://localhost:8000",
       "sameAs": [
         "https://www.facebook.com/UBIKON/",
         "https://www.linkedin.com/company/ubikontechnologies/"

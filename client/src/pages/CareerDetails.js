@@ -46,7 +46,7 @@ const Career = () => {
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
-        const response = await axios.get("https://ubikon.in/api/jobCategory/get-job");
+        const response = await axios.get("http://localhost:8000/api/jobCategory/get-job");
         setJobCategories(response.data);
 
         // 🔹 Check if there is a saved category in localStorage
@@ -68,7 +68,7 @@ const Career = () => {
   }, []);
   const fetchJobs = async (categoryId) => {
     try {
-      const response = await axios.get(`https://ubikon.in/api/jobCollection/get-jobcollection/${categoryId}`);
+      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
       setJobListings(response.data);
       setErrorMessage("");
     } catch (error) {
@@ -106,7 +106,7 @@ const Career = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.get(`https://ubikon.in/api/jobCollection/get-jobcollection/${categoryId}`);
+      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
       setJobListings(response.data);
     } catch (error) {
       if (error.response && error.response.status === 404) {
