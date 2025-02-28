@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "../../utils/axiosInstance";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import
 import BundledEditor from './bundled'; // Import BundledEditor (TinyMCE)
+import { toast } from "react-toastify";
 
 const JobCollection = () => {
   const [jobs, setJobs] = useState([]);
@@ -68,10 +69,14 @@ const JobCollection = () => {
         await axios.put(`http://localhost:8000/api/jobCollection/${editingJob._id}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+                toast.success("Job Collection updated successfully!");
+        
       } else {
         await axios.post("http://localhost:8000/api/jobCollection/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+        toast.success("Job Collection Created successfully!");
+
       }
 
       setNewJob({
@@ -90,7 +95,8 @@ const JobCollection = () => {
       setShowForm(false);
       fetchJobs();
     } catch (error) {
-      console.error("Error saving job:", error);
+   toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
+     
     }
   };
 
@@ -102,8 +108,11 @@ const JobCollection = () => {
     try {
       await axios.delete(`http://localhost:8000/api/jobCollection/${id}`);
       fetchJobs();
+            toast.success("Job Collection deleted successfully!");
+      
     } catch (error) {
-      console.error("Error deleting job:", error);
+           toast.error("Error deleting data: " + (error.response?.data?.message || "Something went wrong!"));
+     
     }
   };
 

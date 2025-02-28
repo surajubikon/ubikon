@@ -33,7 +33,7 @@ import PrivateRoute from './API/PrivateRoute';
 import Dashboard from "./pages/admin/Dashboard";
 import Login from "./pages/admin/Login";
 import Enquiry from './pages/admin/Enquiry';
-import Blogpage from './pages/admin/BlogPage';
+import BlogPages from './pages/admin/BlogPages';
 import BlogDetails from './pages/admin/BlogDeatails';
 import Register from './pages/admin/Register';
 import ServicePage from './pages/admin/ServicePage';
@@ -42,6 +42,7 @@ import JobCategory from './pages/admin/JobCategory';
 import JobCollection from './pages/admin/JobCollection';
 import PortFolio from './pages/admin/PortFolio';
 import LeadList from './pages/admin/LeadManagement/LeadList.js';
+import LeadAdd from './pages/admin/LeadManagement/LeadAdd.js';
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
 import ActivityUbikon from './pages/admin/Activity-ubikon/Activity.js';
@@ -88,9 +89,10 @@ function App() {
             <Route path="/enquiry" element={<PrivateRoute><Enquiry /></PrivateRoute>} />
             <Route path="/jobapplication" element={<PrivateRoute><JobApplication /></PrivateRoute>} />
             <Route path="/activity-ubi" element={<PrivateRoute><ActivityUbikon /></PrivateRoute>} />
-            <Route path="/blog-list" element={<PrivateRoute><Blogpage /></PrivateRoute>} />
+            <Route path="/blog-list" element={<PrivateRoute><BlogPages/></PrivateRoute>} />
             <Route path="/portfolio" element={<PrivateRoute><PortFolio /></PrivateRoute>} />
             <Route path="/lead-list" element={<PrivateRoute> <LeadList /></PrivateRoute>}/>
+            <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>}/>
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
             <Route path="/job-category" element={<PrivateRoute><JobCategory /></PrivateRoute>} />
             <Route path="/job-collection" element={<PrivateRoute><JobCollection /></PrivateRoute>} />

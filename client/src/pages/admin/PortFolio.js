@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Modal, Button, Form, Table ,Image } from "react-bootstrap";
+import { Modal, Button, Form, Table, Image } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Portfolio = () => {
-    const [portfolios, setPortfolios] = useState([]); // API se data store karne ke liye
-    const [show, setShow] = useState(false); // Modal control
-    const [editing, setEditing] = useState(false); // Edit mode check
-    const [selectedId, setSelectedId] = useState(null); // Edit ke liye ID
+    const [portfolios, setPortfolios] = useState([]);
+    const [show, setShow] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -16,7 +18,6 @@ const Portfolio = () => {
         publishedAt: "",
     });
 
-    // ✅ API Call: Portfolio fetch karne ke liye
     useEffect(() => {
         fetchPortfolios();
     }, []);
@@ -27,10 +28,10 @@ const Portfolio = () => {
             setPortfolios(response.data);
         } catch (error) {
             console.error("Error fetching portfolios:", error);
+            toast.error("Failed to fetch portfolios!");
         }
     };
 
-    // ✅ Modal Handlers
     const handleShow = () => {
         setEditing(false);
         setFormData({ title: "", description: "", image: null, technologies: "", publishedAt: "" });
@@ -38,24 +39,21 @@ const Portfolio = () => {
     };
     const handleClose = () => setShow(false);
 
-    // ✅ Input change handler
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // ✅ File change handler
     const handleFileChange = (e) => {
-        const file = e.target.files[0]; // File select ki
+        const file = e.target.files[0];
         if (file) {
             setFormData({
                 ...formData,
                 image: file,
-                imagePreview: URL.createObjectURL(file), // Preview URL create kiya
+                imagePreview: URL.createObjectURL(file),
             });
         }
     };
 
-    // ✅ Edit Portfolio
     const handleEdit = (portfolio) => {
         setEditing(true);
         setSelectedId(portfolio._id);
@@ -63,20 +61,21 @@ const Portfolio = () => {
             title: portfolio.title,
             description: portfolio.description,
             technologies: portfolio.technologies.join(", "),
-            publishedAt: portfolio.publishedAt.split("T")[0], // Format date for input
+            publishedAt: portfolio.publishedAt.split("T")[0],
             imagePreview: portfolio.image,
         });
         setShow(true);
     };
 
-    // ✅ Delete Portfolio
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this portfolio?")) {
             try {
                 await axios.delete(`http://localhost:8000/api/portfolio/delete/${id}`);
-                fetchPortfolios(); // Refresh list
+                fetchPortfolios();
+                toast.success("Portfolio deleted successfully!");
             } catch (error) {
                 console.error("Error deleting portfolio:", error);
+                toast.error("Failed to delete portfolio!");
             }
         }
     };
@@ -95,24 +94,25 @@ const Portfolio = () => {
             const config = { headers: { "Content-Type": "multipart/form-data" } };
 
             if (editing) {
-                // ✅ Agar editing true hai, to update API call karo
                 await axios.put(`http://localhost:8000/api/portfolio/update/${selectedId}`, formDataToSend, config);
+                toast.success("Portfolio updated successfully!");
             } else {
-                // ✅ Agar naya record hai, to create API call karo
                 await axios.post("http://localhost:8000/api/portfolio/create", formDataToSend, config);
+                toast.success("Portfolio added successfully!");
             }
 
-            fetchPortfolios(); // ✅ List refresh karo
+            fetchPortfolios();
             handleClose();
         } catch (error) {
             console.error("Error saving portfolio:", error.response?.data || error.message);
+            toast.error("Failed to save portfolio!");
         }
     };
 
-
-
     return (
         <div className="container mt-4">
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+            
             <h2>Portfolio Management</h2>
             <Button variant="primary" onClick={handleShow} className="mb-3">
                 Add Portfolio
@@ -141,16 +141,11 @@ const Portfolio = () => {
                                 <Form.Control type="file" name="image" onChange={handleFileChange} />
                             </Form.Group>
 
-                            {/* Image Preview */}
                             {formData.imagePreview && (
-                                <Image
-                                    src={formData.imagePreview}
-                                    alt="Preview"
-                                    thumbnail
-                                    style={{ width: "150px", marginTop: "10px" }}
-                                />
+                                <Image src={formData.imagePreview} alt="Preview" thumbnail style={{ width: "150px", marginTop: "10px" }} />
                             )}
                         </div>
+
                         <Form.Group className="mb-3">
                             <Form.Label>Technologies (comma separated)</Form.Label>
                             <Form.Control type="text" name="technologies" value={formData.technologies} onChange={handleChange} required />
@@ -171,7 +166,7 @@ const Portfolio = () => {
             {/* ✅ Data Table with Edit & Delete */}
             <Table striped bordered hover>
                 <thead className="table-dark">
-                    <tr >
+                    <tr>
                         <th>#</th>
                         <th>Title</th>
                         <th>Description</th>
@@ -188,7 +183,9 @@ const Portfolio = () => {
                                 <td>{index + 1}</td>
                                 <td>{portfolio.title}</td>
                                 <td>{portfolio.description}</td>
-                                <td><img src={portfolio.image} alt={portfolio.title} style={{ width: "50px" }} /></td>
+                                <td>
+                                    <img src={portfolio.image} alt={portfolio.title} style={{ width: "50px" }} />
+                                </td>
                                 <td>{portfolio.technologies.join(", ")}</td>
                                 <td>{new Date(portfolio.publishedAt).toDateString()}</td>
                                 <td>
@@ -199,12 +196,11 @@ const Portfolio = () => {
                                         Delete
                                     </Button>
                                 </td>
-
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="6" className="text-center">No portfolios found.</td>
+                            <td colSpan="7" className="text-center">No portfolios found.</td>
                         </tr>
                     )}
                 </tbody>

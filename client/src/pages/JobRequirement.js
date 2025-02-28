@@ -8,13 +8,19 @@ import { PiBagSimpleFill } from "react-icons/pi";
 import { MdDateRange } from "react-icons/md";
 import { FaClock } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 
 const JobRequirement = () => {
+      const navigate = useNavigate(); // ✅ useNavigate Hook
     const location = useLocation();
     const job = location.state?.jobData; // Career Page se jo job data pass hoga use access kar raha hai
 
     if (!job) return <p className="text-center mt-5">Job data not available</p>;
-
+    const handleJobReqClick = (job) => {
+        localStorage.setItem("jobData", JSON.stringify(job)); // Local Storage me save karna
+        navigate("/jobapp-form", { state: { jobData: job } });
+      };
+      
     return (
         <> 
             <Navbar />
@@ -70,7 +76,8 @@ const JobRequirement = () => {
                                     <div className="card-body">
                                         <div className="text-center">  
                                             <Link to="/jobapp-form" className="text-decoration-none">
-                                                <button className="default-btn mt-4">Apply Now</button>
+                                                
+                                                <button onClick={() => handleJobReqClick(job)} className="default-btn mt-4">Apply Now</button>
                                             </Link>
                                         </div>
 
