@@ -1311,3 +1311,11 @@ opacity: 1;
   border-radius: 10px !important;
   background-color: #f4f4f4 !important;
 }
+.job-apply {
+  margin-top: 80px;
+  margin-bottom: 142px;
+}
+.job-apply .form-control {
+  border-radius: 0;
+  height: 40px;
+}
