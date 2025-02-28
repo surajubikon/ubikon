@@ -57,6 +57,23 @@ function Testimonials() {
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: false,
+        
+    responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2, // Tablet pe 2 slides
+            centerPadding: "20px"
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1, // Mobile pe 1 slide
+            centerPadding: "10px"
+          }
+        }
+      ]
     };
 
     return (

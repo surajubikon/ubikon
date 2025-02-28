@@ -70,7 +70,7 @@ const Contact = () => {
         </Helmet>
 
         <div className="contact-details-section bg-bectangle-bottom" atl="Contact Ubikon for expert mobile app and website development services in Indore, Madhya Pradesh">
-          <div className="container">
+          <div className="container pb-3">
             <div className="text-center cnt-heading"><h3>Contact Us</h3></div>
             <div className="row">
               <div className="col-sm-4 text-center">
@@ -115,6 +115,8 @@ const Contact = () => {
         </div>
         <div className="container">
           <div className="contact-section">
+          <div className='row'>
+           <div className='col-md-6 col-12'>
             <div className="contact-details">
               <h2>Have Questions? <br /> Get in Touch!</h2>
               <p>We are here to assist you with all your mobile app and website development needs. Let's start a conversation!</p>
@@ -138,8 +140,10 @@ const Contact = () => {
 
               </ul>
             </div>
+           </div> 
 
             {/* Contact Form */}
+           <div className='col-md-6 col-12'>
             <div className="contact-form" id="contact-form">
               <form onSubmit={handleSubmit}>
                 <div className="row">
@@ -178,17 +182,20 @@ const Contact = () => {
                 </button>
               </form>
             </div>
+          </div> 
+          </div>  
+
           </div>
         </div>
         {/* Partners */}
-        <div className="partners">
+        {/* <div className="partners">
           <h4>Our Partners</h4>
           <div className='partnerlg'><img src={clLogo} alt="Partner 1" /></div>
           <div className='partnerlg'><img src={clLogo} alt="Partner 2" /></div>
           <div className='partnerlg'><img src={clLogo} alt="Partner 3" /></div>
           <div className='partnerlg'><img src={clLogo} alt="Partner 4" /></div>
           <div className='partnerlg'><img src={clLogo} alt="Partner 5" /></div>
-        </div>
+        </div> */}
         {/* Footer */}
         <Footer />
         <ToastContainer />

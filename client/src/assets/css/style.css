@@ -125,6 +125,7 @@ top: -73px;
 width: 100%;
 height: 75px;
 background-size: 100%;
+background-repeat: no-repeat;
 }
 .footer-shape-1 {
 position: absolute;
@@ -291,9 +292,9 @@ position: relative;
 background-image: url(../img/bg-bectangle-bottom.svg);
 content: "";
 position: absolute;
-bottom: -242px;
+bottom: -141px;
 width: 100%;
-height: 242px;
+height: 143px;
 left: 0;
 background-repeat: no-repeat;
 background-size: 100%;
@@ -308,7 +309,7 @@ background-size: 100%;
   background-image: url(../img/slides-bg.svg);
   content: "";
   position: absolute;
-  bottom: -187px;
+  bottom: -186px;
   width: 100%;
   height: 187px;
   left: 0;
@@ -874,12 +875,9 @@ font-weight: 900;
 
 
 .contact-section {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 20px;
-background: #fff;
-border-radius: 12px;
-padding: 57px 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 57px 0;
 overflow: hidden;
 }
 
