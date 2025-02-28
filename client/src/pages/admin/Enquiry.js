@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './Enquiry.css';
 import api, { baseURL } from "../../API/api.url";
-
+import Sidebar from "../../pages/admin/components/Sidebar";
 function Enquiry() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,6 +74,9 @@ function Enquiry() {
 
   return (
     <div className="admin">
+      <div className="app">
+      <Sidebar />
+      <div className="main-content">
       <div className="user-details">
     <div className="container mt-5">
       <h2>Enquiry List</h2>
@@ -148,6 +151,8 @@ function Enquiry() {
           </div>
         </div>
       )}
+    </div>
+    </div>
     </div>
     </div>
     </div>

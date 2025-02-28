@@ -17,6 +17,8 @@ import portpolioRoute from "./routes/portpolioRoute.js";
 import leadRoutes from "./routes/leadRoutes.js";
 import testimonialRoutes from "./routes/testimonialRoutes.js"
 import jobApplicationFormRoutes from "./routes/jobApplicationFormRoutes.js";
+import ActivityRoutes from "./routes/activityRoutes.js";
+
 dotenv.config();
 connectDB();
 
@@ -46,6 +48,7 @@ app.use("/api/portfolio" ,portpolioRoute )
 app.use("/api/leads", leadRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/jobApplicationForm", jobApplicationFormRoutes);
+app.use("/api/activity",ActivityRoutes);
 
 
 

@@ -14,7 +14,24 @@
     padding: 20px;
     height: 100vh;
     position: fixed;
-    left: 0; }
+    left: 0;
+    overflow-y: auto; /* Enables vertical scrollbar */
+    max-height: 100vh; /* Ensures full height */
+  }
+  
+  /* Custom scrollbar styling */
+  .admin .sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .admin .sidebar::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .admin .sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
     .admin .sidebar h2 {
       text-align: center;
       margin-bottom: 20px; }

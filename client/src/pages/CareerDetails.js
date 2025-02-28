@@ -1,8 +1,8 @@
-import { React, useState,useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import careerBg from "../assets/img/career-bg.jpg"; // Local image import
-
+import { Link } from "react-router-dom";
 import benefit1 from "../assets/img/benefit1.png";
 import benefit2 from "../assets/img/benefit2.png";
 import benefit3 from "../assets/img/benefit3.png";
@@ -11,6 +11,9 @@ import { GoArrowRight } from "react-icons/go";
 import { motion } from "framer-motion";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+
+
 import Navbar from '../components/Navbar';
 
 import Footer from '../components/Footer';
@@ -30,53 +33,91 @@ import team1 from "../assets/img/team1.png";
 import team2 from "../assets/img/team2.png";
 import team3 from "../assets/img/team3.png";
 import team4 from "../assets/img/team4.png";
+import ActivityPage from "./ActivityPage";
 
-
-
-const tabData = [
-  {
-    title: "Culture",
-    images: [culture1, culture2, culture3, culture4],
-  },
-  {
-    title: "Work",
-    images: [work1, work2, work3, work4],
-  },
-  {
-    title: "Events",
-    images: [events1, events2, events3, events4],
-  },
-  {
-    title: "Team",
-    images: [team1, team2, team3, team4],
-  },
-];
 const Career = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState("defaultTab");
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [jobCategories, setJobCategories] = useState([]);
   const [jobListings, setJobListings] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // ✅ useNavigate Hook
 
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/jobCategory/get-job");
-        setJobCategories(response.data); // API response ke according adjust karna hoga
+        setJobCategories(response.data);
+
+        // 🔹 Check if there is a saved category in localStorage
+        const storedCategory = localStorage.getItem("selectedCategory");
+
+        if (storedCategory && response.data.some(cat => cat._id === storedCategory)) {
+          setSelectedCategory(storedCategory);
+          fetchJobs(storedCategory); // Fetch jobs for saved category
+        } else if (response.data.length > 0) {
+          setSelectedCategory(response.data[0]._id); // Select first category by default
+          fetchJobs(response.data[0]._id);
+        }
       } catch (error) {
         console.error("Error fetching job categories:", error);
       }
     };
-  
-      const fetchJobListings = async () => {
-        try {
-          const response = await axios.get("http://localhost:8000/api/jobCollection/get");
-          setJobListings(response.data); // API response format ke according adjust karna hoga
-        } catch (error) {
-          console.error("Error fetching job listings:", error);
-        }
-      };
-      fetchJobListings();
+
     fetchJobCategories();
   }, []);
+  const fetchJobs = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
+      setJobListings(response.data);
+      setErrorMessage("");
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("No jobs found for this category.");
+      } else {
+        console.error("Error fetching job listings:", error);
+        setErrorMessage("Something went wrong while fetching jobs.");
+      }
+      setJobListings([]);
+    }
+  };
+
+  // 🟢 Category Change Handler
+  // const handleCategoryClick = (categoryId) => {
+  //     setSelectedCategory(categoryId);
+  //     localStorage.setItem("selectedCategory", categoryId);
+  //     fetchJobs(categoryId); // 🔥 Same function reuse ho raha hai
+  // };
+
+  // 🟢 Load Selected Category on First Render
+  useEffect(() => {
+    const storedCategory = localStorage.getItem("selectedCategory");
+    if (storedCategory) {
+      setSelectedCategory(storedCategory);
+      fetchJobs(storedCategory);
+    }
+  }, []);
+  const handleJobClick = (job) => {
+    navigate("/job-req", { state: { jobData: job } });
+  };
+  const handleCategoryClick = async (categoryId) => {
+    setSelectedCategory(categoryId);
+    localStorage.setItem("selectedCategory", categoryId);
+    setErrorMessage("");
+
+    try {
+      const response = await axios.get(`http://localhost:8000/api/jobCollection/get-jobcollection/${categoryId}`);
+      setJobListings(response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("No jobs found for this category.");
+      } else {
+        console.error("Error fetching job listings:", error);
+        setErrorMessage("Something went wrong while fetching jobs.");
+      }
+      setJobListings([]);
+    }
+  };
 
   return (
     <>
@@ -166,23 +207,27 @@ const Career = () => {
 
         <div className="careers-section py-5" style={{ backgroundColor: "#E7F7FF" }}>
           <div className="container">
-            {/* Heading */}
             <div className="col-md-6 mx-auto mb-5">
               <p className="text-center fw-semibold mb-3">Come join us</p>
               <h2 className="fw-bold text-center">Career Openings</h2>
-              <p className="text-muted text-center">We’re always looking for creative, talented self-starters to join the JMC
-                family. Check out our open roles below and fill out an application.</p>
+              <p className="text-muted text-center">
+                We’re always looking for creative, talented self-starters. Check out our open roles below.
+              </p>
             </div>
 
             <div className="col-md-10 mx-auto">
               <div className="row mt-4">
-                {/* Left Section - Job Categories */}
                 <div className="col-md-3">
                   <ul className="list-group border-0 bg-transparent">
                     {jobCategories.length > 0 ? (
-                      jobCategories.map((category, index) => (
-                        <li key={index} className="list-group-item border-0 bg-transparent">
-                          {category.name} {category.count ? `(${category.count})` : ""}
+                      jobCategories.map((category) => (
+                        <li
+                          key={category._id}
+                          className={`list-group-item border-0 bg-transparent ${selectedCategory === category._id ? "fw-bold text-primary" : ""}`}
+                          onClick={() => handleCategoryClick(category._id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {category.name} {category.jobCount ? `(${category.jobCount})` : ""}
                         </li>
                       ))
                     ) : (
@@ -191,85 +236,52 @@ const Career = () => {
                   </ul>
                 </div>
 
-                {/* Right Section - Job Listings */}
-        <div className="col-md-9">
-      <div className="row g-3">
-        {jobListings.length > 0 ? (
-          jobListings.map((job, index) => (
-            <div className="col-12" key={index}>
-              <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
-                <div className="col-md-5">
-                  <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
+                <div className="col-md-9">
+                  {errorMessage ? (
+                    <p className="text-center text-danger">{errorMessage}</p>
+                  ) : (
+                    <div className="row g-3">
+                      {jobListings.length > 0 ? (
+                        jobListings.map((job) => (
+                          <div className="col-12" key={job._id}>
+                            <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
+                              <div className="col-md-5">
+                                <p className="text-muted me-3 mb-0">Position</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
+                              </div>
+                              <div className="col">
+                                <p className="text-muted me-3 mb-0">Experience</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.experience}</h6>
+                              </div>
+                              <div className="col">
+                                <p className="text-muted me-3 mb-0">Deadline</p>
+                                <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
+                              </div>
+                              <div className="col-md-1">
+                                <p className="text-muted mb-0">
+                                  <button
+                                    onClick={() => handleJobClick(job)}
+                                    className="border-0 bg-transparent"
+                                  >
+                                    <GoArrowRight size={25} />
+                                  </button>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-center">Job Not Available.</p>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <div className="col">
-                  <p className="text-muted me-3 mb-0">Experience</p>
-                  <h6 className="fw-semibold me-3 mb-0">{job.experience} Years</h6>
-                </div>
-                <div className="col">
-                  <p className="text-muted me-3 mb-0">Deadline</p>
-                  <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
-                </div>
-                <div className="col-md-1">
-                  <p className="text-muted mb-0">
-                    <GoArrowRight size={25} />
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center">Loading jobs...</p>
-        )}
-      </div>
-    </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="">
-          <div className=" py-5 bg-light">
-            <div className="container">
-              <h2 className=" fw-bold mb-4 text-center">Life at Ubikon</h2>
-
-              <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
-                <TabList className="nav nav-tabs d-flex justify-content-center mb-5">
-                  {tabData.map((tab, index) => (
-                    <Tab
-                      key={index}
-                      className={`nav-item nav-link px-3 py-2 border-0 cursor-pointer  ${selectedTab === index ? 'active border-primary text-primary border-0 border-bottom bg-transparent' : 'text-dark'}`}
-                    >
-                      {tab.title}
-                    </Tab>
-                  ))}
-                </TabList>
-
-                {tabData.map((tab, index) => (
-                  <TabPanel key={index}>
-                    <motion.div
-                      key={selectedTab}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.5 }}
-                      className="row g-3 px-3"
-                    >
-                      {tab.images.map((image, imgIndex) => (
-                        <motion.div key={imgIndex} className="col-6 col-md-3">
-                          <img
-                            src={image}
-                            alt="Life at Ubikon"
-                            className="img-fluid rounded shadow-sm"
-                          />
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </TabPanel>
-                ))}
-              </Tabs>
-            </div>
-          </div>
-        </div>
+        <ActivityPage />
       </div>
       <Footer />
     </>

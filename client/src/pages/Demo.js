@@ -1,250 +1,197 @@
-import { React, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import careerBg from "../assets/img/career-bg.jpg"; // Local image import
-
-import benefit1 from "../assets/img/benefit1.png";
-import benefit2 from "../assets/img/benefit2.png";
-import benefit3 from "../assets/img/benefit3.png";
-import benefit4 from "../assets/img/benefit4.png";
-import { GoArrowRight } from "react-icons/go";
-import { motion } from "framer-motion";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+import React from "react";
 import Navbar from '../components/Navbar';
-
 import Footer from '../components/Footer';
-import culture1 from "../assets/img/culture1.png";
-import culture2 from "../assets/img/culture2.png";
-import culture3 from "../assets/img/culture3.png";
-import culture4 from "../assets/img/culture4.png";
-import work1 from "../assets/img/work1.png";
-import work2 from "../assets/img/work2.png";
-import work3 from "../assets/img/work3.png";
-import work4 from "../assets/img/work4.png";
-import events1 from "../assets/img/events1.png";
-import events2 from "../assets/img/events2.png";
-import events3 from "../assets/img/events3.png";
-import events4 from "../assets/img/events4.png";
-import team1 from "../assets/img/team1.png";
-import team2 from "../assets/img/team2.png";
-import team3 from "../assets/img/team3.png";
-import team4 from "../assets/img/team4.png";
+import careerBg from "../assets/img/career-bg.jpg"; // Local image import
+import newSectionImage from "../assets/img/new-section.png"; // New section image import
+import { FaMapMarkerAlt } from "react-icons/fa"; // Importing location icon
+import { GoDotFill } from "react-icons/go";
+import { PiBagSimpleFill } from "react-icons/pi";
+import { MdDateRange } from "react-icons/md";
+import { FaBookOpen } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
 
-const tabData = [
-  {
-    title: "Culture",
-    images: [culture1, culture2, culture3, culture4],
-  },
-  {
-    title: "Work",
-    images: [work1, work2, work3, work4],
-  },
-  {
-    title: "Events",
-    images: [events1, events2, events3, events4],
-  },
-  {
-    title: "Team",
-    images: [team1, team2, team3, team4],
-  },
-];
 
-const Career = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
 
+
+
+
+
+const Banner = () => {
   return (
-  <>
-    <Navbar />
-      <div className="career-section">
-        {/* Banner Section */}
+    <> 
+      
+      <Navbar />
+
+      <div className="product-designer-dt">
+       
         <div
-          className="position-relative text-white text-center d-flex align-items-center justify-content-center"
+          className="d-flex flex-column align-items-center justify-content-center text-white text-center p-5 rounded shadow-lg"
           style={{
-            backgroundImage: `url(${careerBg})`, // Using imported image
-            height: "400px",
+            backgroundImage: `url(${careerBg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            height: "290px",
           }}
         >
-          <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-          <div className="position-relative col-md-5 m-auto">
-            <h1 className="fw-bold">Join Us</h1>
-            <p className="small">Explore exciting career opportunities and grow with us.</p>
+          <h1 className="fw-bold mb-2">Design the Future</h1>
+          <p className="lead mb-4">Create stunning products with intuitive design solutions.</p>
+          <button className="default-btn shadow" style={{ fontSize: "14px", borderRadius: "0" }}>
+            Get Started
+          </button>
+        </div>
+
+        <div className="container">
+          <div className="d-flex justify-content-center mt-5 col-md-8 m-auto">
+            <img src={newSectionImage} alt="New Section" style={{ width: "1110px", height: "400px" }} />
           </div>
         </div>
 
-        <div className="benefits-section py-5">
-          <div className="container">
-            <div className="row">
-              {/* Left Section */}
-              <div className="col-md-5">
-                <p className="fw-semibold">Benefits</p>
-                <h2 className="fw-bold">Why you Should Join Our Awesome Team</h2>
-                <p className="text-muted">
-                  we want to feel like home when you are working at Ubikon technology pvt ltd & for that we have curated a great set of benefits for you.It all starts with the free lunch!
-                </p>
+        {/* Product Designer Section */}
+        <div className="container mt-5">
+          <div className="row">
+            {/* Left Side Content */}
+            <div className="col-md-8">
+              <h2 className="fw-bold mb-5">PRODUCT DESIGNER</h2>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Who Are We Looking For</h4>
+                <ul className="list-unstyled small">
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
+                </ul>
               </div>
-
-              {/* Right Section */}
-              <div className="col-md-7">
-                <div className="row g-4">
-                  {/* Benefit 1 */}
-                  <div className="col-md-6">
-                    <div className="p-3 shadow-sm rounded text-start benefit-card">
-                      <div className="benefit-img-wrapper benefit-1">
-                        <img src={benefit1} alt="Benefit 1" className="img-fluid rounded" />
-                      </div>
-                      <h5 className="fw-semibold mt-3">Team work</h5>
-                      <p className="text-muted">Work at your own pace with our flexible schedules.</p>
-                    </div>
-                  </div>
-
-                  {/* Benefit 2 */}
-                  <div className="col-md-6">
-                    <div className="p-3 shadow-sm rounded text-start benefit-card">
-                      <div className="benefit-img-wrapper benefit-2">
-                        <img src={benefit2} alt="Benefit 2" className="img-fluid rounded" />
-                      </div>
-                      <h5 className="fw-semibold mt-3">Secured Future</h5>
-                      <p className="text-muted">Advance your career with our development programs.</p>
-                    </div>
-                  </div>
-
-                  {/* Benefit 3 */}
-                  <div className="col-md-6">
-                    <div className="p-3 shadow-sm rounded text-start benefit-card">
-                      <div className="benefit-img-wrapper benefit-3">
-                        <img src={benefit3} alt="Benefit 3" className="img-fluid rounded" />
-                      </div>
-                      <h5 className="fw-semibold mt-3">Learning Opportunity</h5>
-                      <p className="text-muted">Enjoy a healthy work-life balance with us.</p>
-                    </div>
-                  </div>
-
-                  {/* Benefit 4 */}
-                  <div className="col-md-6">
-                    <div className="p-3 shadow-sm rounded text-start benefit-card">
-                      <div className="benefit-img-wrapper benefit-4">
-                        <img src={benefit4} alt="Benefit 4" className="img-fluid rounded" />
-                      </div>
-                      <h5 className="fw-semibold mt-3">Upgrate Skills</h5>
-                      <p className="text-muted">Be part of a collaborative and friendly team.</p>
-                    </div>
-                  </div>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">What You Will Be Doing</h4>
+                <ul className="list-unstyled small">
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
+                </ul>
+              </div>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Bonus Points for Familiarity with</h4>
+                <ul className="list-unstyled small">
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Develop user-centered designs</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Collaborate with product teams</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Conduct usability testing</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Create wireframes and prototypes</li>
+                </ul>
+              </div>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Educational Requirement</h4>
+                <div className="small">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going</p>
                 </div>
               </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="careers-section py-5" style={{ backgroundColor: "#E7F7FF" }}>
-          <div className="container">
-            {/* Heading */}
-            <div className="col-md-6 mx-auto mb-5">
-              <p className="text-center fw-semibold mb-3">Come join us</p>
-              <h2 className="fw-bold text-center">Career Openings</h2>
-              <p className="text-muted text-center">We’re always looking for creative, talented self-starters to join the JMC
-                family. Check out our open roles below and fill out an application.</p>
-            </div>
-
-            <div className="col-md-10 mx-auto">
-              <div className="row mt-4">
-                {/* Left Section - Job Categories */}
-                <div className="col-md-3">
-                  <ul className="list-group border-0 bg-transparent">
-                    <li className="list-group-item border-0 bg-transparent">HT & Admin</li>
-                    <li className="list-group-item border-0 bg-transparent">Engineering (20)</li>
-                    <li className="list-group-item border-0 bg-transparent">Support</li>
-                    <li className="list-group-item border-0 bg-transparent">Design</li>
-                    <li className="list-group-item border-0 bg-transparent">Digital Marketing</li>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Salary</h4>
+                  <ul className="list-unstyled small">
+                    <li className="mb-2"><span className="me-3"><GoDotFill /></span> Salary:  18,000 to 35,000 BDT (Depends on Skill and Experience)</li>
+                    <li className="mb-2"><span className="me-3"><GoDotFill /></span> Salary Review: Yearly</li>
                   </ul>
-                </div>
-
-                {/* Right Section - Job Listings */}
-                <div className="col-md-9">
-                  <div className="row g-3">
-                    {/* Job Cards */}
-                    {[
-                      { title: "Wordpress Developer", Experience: "Experience", Year: "2 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Product Designer", Experience: "Experience", Year: "3 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Marketing Manager", Experience: "Experience", Year: "5 Years", Deadline: "Deadline", Date: "2021-05-08" },
-                      { title: "Customer Support Specialist", Experience: "Experience", Year: "2 Years", Deadline: "Deadline", Date: "2021-05-08" }
-                    ].map((job, index) => (
-                      <div className="col-12" key={index}>
-                        <div className="row p-3 shadow-sm rounded bg-light d-flex flex-row justify-content-between align-items-center">
-                          <div className="col-md-5">
-                            <h6 className="fw-semibold me-3 mb-0">{job.title}</h6>
-                          </div>
-                          <div className="col">
-                            <p className="text-muted me-3 mb-0">{job.Experience}</p>
-                            <h6 className="fw-semibold me-3 mb-0">{job.Year}</h6>
-                          </div>
-                          <div className="col">
-                            <p className="text-muted me-3 mb-0">{job.Deadline}</p>
-                            <h6 className="fw-semibold me-3 mb-0">{job.Date}</h6>
-                          </div>
-                          <div className="col-md-1">
-                            <p className="text-muted mb-0"><GoArrowRight size={25} />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              </div>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Working Hours</h4>
+                <ul className="list-unstyled small">
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> 8 AM – 5 PM</li>
+                </ul>
+              </div>
+              <div className="mt-3 mb-5">
+                <h4 className="fw-bold mb-4">Working Days</h4>
+                <ul className="list-unstyled small">
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Weekly: 5 days.</li>
+                  <li className="mb-2"><span className="me-3"><GoDotFill /></span> Weekend: Friday.Saturday</li>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
+            {/* Right Side Button */}
+            <div className="col-md-4">
+              <div className="card m-0">
+                <div className="card-body">
+                  <div className="text-center">  <button className="default-btn mt-4">Apply Now</button> </div>
 
-        <div className="">
-          <div className=" py-5 bg-light">
-            <div className="container">
-              <h2 className=" fw-bold mb-4 text-center">Life at Ubikon</h2>
+                  <div className="mt-5">
+                    <h5 className="fw-bold mb-3">Job Summary</h5>
+                    {/* Location Section */}
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <FaMapMarkerAlt size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Location</p>
+                        <p className="mb-0 small">123 Main Street, New York, NY 10001</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <PiBagSimpleFill size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Job Type</p>
+                        <p className="mb-0 small">Full Time</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <MdDateRange  size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Date posted</p>
+                        <p className="mb-0 small">posted 1 month ago</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <FaClock  size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Experience</p>
+                        <p className="mb-0 secondary">Experience: 1-3 year</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <FaMapMarkerAlt size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Working Hours</p>
+                        <p className="mb-0 small">9 AM - 6 PM</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <FaMapMarkerAlt size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Working Days</p>
+                        <p className="mb-0 small">Weekly:5days</p>
+                        <p className="mb-0 small">Weekend: Saturday,Sunday</p>
+                      </div>
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-2 d-flex align-items-center">
+                        <FaMapMarkerAlt size={48} color="gray" />
+                      </div>
+                      <div className="col-md-10 ps-0">
+                        <p className="text-secondary mb-0">Vacancy</p>
+                        <p className="mb-0 small">Experience: 1-3 year</p>
+                      </div>
+                    </div>
 
-              <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
-                <TabList className="nav nav-tabs d-flex justify-content-center mb-5">
-                  {tabData.map((tab, index) => (
-                    <Tab
-                      key={index}
-                      className={`nav-item nav-link px-3 py-2 border-0 cursor-pointer  ${selectedTab === index ? 'active border-primary text-primary border-0 border-bottom bg-transparent' : 'text-dark'}`}
-                    >
-                      {tab.title}
-                    </Tab>
-                  ))}
-                </TabList>
-
-                {tabData.map((tab, index) => (
-                  <TabPanel key={index}>
-                    <motion.div
-                      key={selectedTab}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.5 }}
-                      className="row g-3 px-3"
-                    >
-                      {tab.images.map((image, imgIndex) => (
-                        <motion.div key={imgIndex} className="col-6 col-md-3">
-                          <img
-                            src={image}
-                            alt="Life at Ubikon"
-                            className="img-fluid rounded shadow-sm"
-                          />
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </TabPanel>
-                ))}
-              </Tabs>
+                    <div className=""><a href="" className="fw-bold border-bottom text-dark">View all job</a></div>
+                  </div>  
+                </div>  
+              </div>  
             </div>
           </div>
+
         </div>
-      </div>
-    <Footer />  
-  </>  
+      </div>  
+    <Footer />      
+    </>
   );
 };
 
-export default Career;
+export default Banner;

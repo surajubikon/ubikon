@@ -115,7 +115,6 @@ const Footer  = () => {
                       <i class="fa-brands fa-facebook-f"></i>
                     </a>
                   </li>
-
                   <li class="nav-item">
                     <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
                     </a>

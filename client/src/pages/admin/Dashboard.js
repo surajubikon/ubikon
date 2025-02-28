@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
+  const [totalJobApplication, setTotalJobApplication] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -21,7 +22,18 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-
+const fetchTootalJobApplication = async () => {
+      try {
+        const response = await axios.get(`${baseURL}${api.jobApplication.getJobApplications.url}`);
+        setTotalJobApplication(response.data.length);
+        
+      } catch (err) {
+        setError("Failed to fetch user count");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchTootalJobApplication();
     fetchTotalUsers();
   }, []);
  return (
@@ -32,15 +44,27 @@ const Dashboard = () => {
       <div className="main-content">
         <Header />
         <div className="dashboard">
-          <div className='col-sm-3'>
+          <div className='col-sm-6'>
             <div className="card">
-            <h3>Total Users</h3>
+            <h3>Total Enquiry Mails</h3>
                 {loading ? (
                   <p>Loading...</p>
                 ) : error ? (
                   <p>{error}</p>
                 ) : (
                   <p>{totalUsers}</p>
+                )}
+            </div>
+          </div> 
+          <div className='col-sm-6'>
+            <div className="card">
+            <h3>Total Job Application Form</h3>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : error ? (
+                  <p>{error}</p>
+                ) : (
+                  <p>{totalJobApplication}</p>
                 )}
             </div>
           </div>  

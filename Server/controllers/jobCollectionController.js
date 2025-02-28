@@ -46,7 +46,7 @@ export const createJob = async (req, res) => {
       title,
       category,
       experience,
-      deadline,
+      deadline: new Date(deadline).toISOString().replace(".000", ""),
       description,
       content,
       status,
@@ -80,6 +80,15 @@ export const getAllJobs = async (req, res) => {
   }
 };
 
+export const getJobCollectionById = async (req, res) => {
+  try {
+    const {id}= req.params;
+      const jobs = await JobCollection.find({category:id}).populate("category");
+      res.status(200).json(jobs);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
   
 
 // Get a single job by ID
