@@ -6,7 +6,6 @@ export const LeadValidator = [
     body("phone").trim().isMobilePhone().withMessage("Valid phone number is required").bail(),
     body("company").trim().notEmpty().withMessage("Company is required").bail(),
     body("address").trim().notEmpty().withMessage("Address is required").bail(),
-    body("interest").trim().bail(),
     body("source")
         .trim()
         .notEmpty().withMessage("Source is required")
@@ -20,19 +19,7 @@ export const LeadValidator = [
     },
     body("projectName").trim().notEmpty().withMessage("Project Name is required").bail(),
     body("projectType").trim().bail(),
-    body("timeline").trim().bail(),
     body("requirements").trim().bail(),
-    body("priority")
-        .trim()
-        .isIn(["High", "Medium", "Low"]).withMessage("Invalid priority. Allowed values: High, Medium, Low"),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ success: false, message: errors.array()[0] });
-        }
-        next();
-    },
-
 ];
 
 export const LeadStatusValidator = [
