@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import api, { baseURL } from '../../../API/api.url';
 import Sidebar from "../components/Sidebar";
 
@@ -97,14 +98,14 @@ const LeadAdd = () => {
                 });
 
                 if (response.status === 201 || response.status === 200) {
-                    alert("Lead added successfully!");
+                    toast.success("Lead added successfully!");
                     event.target.reset();
                 } else {
-                    alert("Something went wrong!");
+                    toast.error("Something went wrong!");
                 }
             } catch (error) {
-                console.error("Error submitting form:", error);
-                alert(error.response?.data?.message || "Error adding lead!");
+                toast.error("Error submitting form:", error);
+                toast.error(error.response?.data?.message || "Error adding lead!");
             }
         } else {
             console.log("Form validation failed");
