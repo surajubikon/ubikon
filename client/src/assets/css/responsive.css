@@ -87,8 +87,8 @@
     }
    
     footer:before {
-        top: -38px !important;
-        height:51px !important;
+        height: 31px !important;
+        top: -25px !important;
     }
 
  }
