@@ -1,7 +1,7 @@
 import Portfolio from "../models/portfolioSchema.js";
-import { uploadToCloudinary } from "../utils/cloudinary.js";
-import sharp from "sharp";
-import fs from "fs";
+
+import fs from 'fs';
+import path from "path";
 
 export const createPortfolio = async (req, res) => {
   const { title, description, technologies, publishedAt } = req.body;
@@ -25,26 +25,15 @@ export const createPortfolio = async (req, res) => {
       return res.status(400).json({ message: "Slug already exists" });
     }
 
-    let imageUrl = "";
-
-    if (req.files?.image) {
-      const compressedImageBuffer = await sharp(req.files.image[0].buffer)
-        .resize(800, 600) // Resize width to 800px
-        .webp({ quality: 80 }) // Convert to WebP with quality 80
-        .toBuffer();
-
-      // Upload to Cloudinary
-      const imageUpload = await uploadToCloudinary(compressedImageBuffer);
-    
-      imageUrl = imageUpload.secure_url;
-    }
+    // ✅ Multiple images handling
+    let imageUrls = req.files.map(file => "/uploads/portfolio/" + file.filename);
 
     const newPortfolio = new Portfolio({
       title,
       slug,
       description,
       technologies: Array.isArray(technologies) ? technologies : technologies.split(","), // Ensure array format
-      image: imageUrl,
+      image: imageUrls,  // ✅ Store array in DB
       publishedAt,
     });
 
@@ -55,6 +44,8 @@ export const createPortfolio = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+
 
 // ✅ Get All Portfolios
 export const getAllPortfolios = async (req, res) => {
@@ -84,27 +75,21 @@ export const updatePortfolio = async (req, res) => {
   try {
     const { title, description, technologies, publishedAt } = req.body;
 
-    // Find existing portfolio
+    // 🛠️ Find existing portfolio
     const portfolio = await Portfolio.findById(req.params.id);
     if (!portfolio) {
       return res.status(404).json({ message: "Portfolio not found" });
     }
 
-    let imageUrl = portfolio.image;
+    // 🖼️ Keep old images if no new images are uploaded
+    let imageUrls = portfolio.image;
 
-    // Handle image upload if present
-    if (req.files?.image) {
-      const compressedImageBuffer = await sharp(req.files.image[0].buffer)
-        .resize(800, 600)
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      // Upload to Cloudinary
-      const imageUpload = await uploadToCloudinary(compressedImageBuffer);
-      imageUrl = imageUpload.secure_url;
+    // ✅ Handle new image uploads
+    if (req.files && req.files.length > 0) {
+      imageUrls = req.files.map(file => "/uploads/portfolio/" + file.filename);
     }
 
-    // Generate new slug if title is changed
+    // 🏷️ Generate new slug if title is changed
     let newSlug = portfolio.slug;
     if (title && title !== portfolio.title) {
       newSlug = title
@@ -114,22 +99,22 @@ export const updatePortfolio = async (req, res) => {
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-");
 
-      // Check if new slug already exists
+      // ✅ Check if new slug already exists
       const existingPortfolio = await Portfolio.findOne({ slug: newSlug });
       if (existingPortfolio && existingPortfolio._id.toString() !== portfolio._id.toString()) {
         return res.status(400).json({ message: "Slug already exists, try a different title" });
       }
     }
 
-    // Update portfolio fields
+    // 📝 Update portfolio fields
     portfolio.title = title || portfolio.title;
     portfolio.slug = newSlug;
     portfolio.description = description || portfolio.description;
     portfolio.technologies = technologies ? technologies.split(",") : portfolio.technologies;
-    portfolio.image = imageUrl;
+    portfolio.image = imageUrls;  // ✅ Store updated image array
     portfolio.publishedAt = publishedAt || portfolio.publishedAt;
 
-    // Save updated portfolio
+    // 💾 Save updated portfolio
     await portfolio.save();
     res.status(200).json({ message: "Portfolio updated successfully", data: portfolio });
   } catch (error) {
@@ -143,12 +128,29 @@ export const updatePortfolio = async (req, res) => {
 // ✅ Delete Portfolio
 export const deletePortfolio = async (req, res) => {
   try {
-    const deletedPortfolio = await Portfolio.findByIdAndDelete(req.params.id);
-    if (!deletedPortfolio) {
+    // 🔍 Find Portfolio
+    const portfolio = await Portfolio.findById(req.params.id);
+    if (!portfolio) {
       return res.status(404).json({ message: "Portfolio not found" });
     }
-    res.status(200).json({ message: "Portfolio deleted successfully" });
+
+    // 🗑️ Delete images from folder
+    if (portfolio.image && Array.isArray(portfolio.image)) {
+      portfolio.image.forEach((imagePath) => {
+        const fullPath = path.join("public", imagePath); // Convert to full path
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath); // Delete file
+          console.log(`Deleted: ${fullPath}`); // Just for debugging
+        }
+      });
+    }
+
+    // ❌ Delete portfolio from database
+    await Portfolio.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ message: "Portfolio and its images deleted successfully" });
   } catch (error) {
+    console.error("Error deleting portfolio:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

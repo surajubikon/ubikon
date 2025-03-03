@@ -178,8 +178,11 @@ const JobApplicationPage = () => {
                   <label htmlFor="resumeInput" className="file-label d-flex flex-column align-items-center justify-content-center" style={{ cursor: 'pointer' }}>
                     <FaPlus className="plus-icon mb-2" />
                     <span>Select a file</span>
-                  </label>
+                    <span className="text-muted" style={{ fontSize: '12px' }}>PDF, DOC, DOCX, JPG, JPEG, PNG</span>
+                   </label>
+              
                 </div>
+                
               )}
               {resumePreview && (
                 <div className="mb-3 d-flex align-items-center">

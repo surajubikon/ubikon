@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Table, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+import api, { baseURL } from '../../../API/api.url';
 
 const Activity = () => {
   const [activities, setActivities] = useState([]);
@@ -30,7 +31,7 @@ const Activity = () => {
 
   const fetchActivities = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/activity/get");
+      const response = await axios.get(`${baseURL}${api.activity.getAllActivities.url}`);
       setActivities(response.data);
       setLoading(false);
     } catch (err) {
@@ -48,12 +49,15 @@ const Activity = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:8000/api/activity/${editId}`, formData, {
+        const url = `${baseURL}${api.activity.updateActivity.url.replace(':id', editId)}`;
+
+        await axios.put(url, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+
         toast.success("Activity updated successfully!");
       } else {
-        await axios.post("http://localhost:8000/api/activity/create", formData, {
+        await axios.post(`${baseURL}${api.activity.createActivity.url}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Activity added successfully!");
@@ -81,7 +85,7 @@ const Activity = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/activity/${id}`);
+      await axios.delete(`${baseURL}${api.activity.deleteActivity.url.replace(':id', id)}`);
       toast.success("Activity deleted successfully!");
       fetchActivities();
     } catch (error) {
@@ -144,7 +148,8 @@ const Activity = () => {
                 <td>{index + 1}</td>
                 <td>{activity.subject}</td>
                 <td>
-                  <img src={activity.images?.[0]} alt="Activity" width="50" height="50" />
+                  <img src={`${baseURL}${activity.images?.[0]}`} alt="Activity" width="50" height="50" />
+
                 </td>
                 <td>
                   <Button variant="warning" size="sm" className="me-2" onClick={() => handleEdit(activity)}>Edit</Button>

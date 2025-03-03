@@ -3,6 +3,7 @@ import axios from "axios";
 import { Modal, Button, Form, Table, Image } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api, { baseURL } from "../../API/api.url";
 
 const Portfolio = () => {
     const [portfolios, setPortfolios] = useState([]);
@@ -24,7 +25,7 @@ const Portfolio = () => {
 
     const fetchPortfolios = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/portfolio/get-all");
+            const response = await axios.get(`${baseURL}${api.portfolio.getAllPortfolios.url}`);
             setPortfolios(response.data);
         } catch (error) {
             console.error("Error fetching portfolios:", error);
@@ -70,7 +71,7 @@ const Portfolio = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this portfolio?")) {
             try {
-                await axios.delete(`http://localhost:8000/api/portfolio/delete/${id}`);
+                await axios.delete(`${baseURL}${api.portfolio.deletePortfolio.url.replace(':id', id)}`);
                 fetchPortfolios();
                 toast.success("Portfolio deleted successfully!");
             } catch (error) {
@@ -94,10 +95,11 @@ const Portfolio = () => {
             const config = { headers: { "Content-Type": "multipart/form-data" } };
 
             if (editing) {
-                await axios.put(`http://localhost:8000/api/portfolio/update/${selectedId}`, formDataToSend, config);
+                await axios.put(`${baseURL}${api.portfolio.updatePortfolio.url.replace(":id", selectedId)}`, formDataToSend, config);
+
                 toast.success("Portfolio updated successfully!");
             } else {
-                await axios.post("http://localhost:8000/api/portfolio/create", formDataToSend, config);
+                await axios.post(`${baseURL}${api.portfolio.createPortfolio.url}`, formDataToSend, config);
                 toast.success("Portfolio added successfully!");
             }
 
@@ -184,7 +186,7 @@ const Portfolio = () => {
                                 <td>{portfolio.title}</td>
                                 <td>{portfolio.description}</td>
                                 <td>
-                                    <img src={portfolio.image} alt={portfolio.title} style={{ width: "50px" }} />
+                                    <img src={`${baseURL}${portfolio.image}`} alt={portfolio.title} style={{ width: "50px" }} />
                                 </td>
                                 <td>{portfolio.technologies.join(", ")}</td>
                                 <td>{new Date(portfolio.publishedAt).toDateString()}</td>

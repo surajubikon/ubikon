@@ -1,21 +1,16 @@
 import JobApplication from "../models/jobApplicationSchema.js";
 import mongoose from "mongoose";
-import { uploadToCloudinary } from "../utils/cloudinary.js"; // Cloudinary upload function
 
 // Create Job Application
 export const createJobApplication = async (req, res) => {
   try {
-    console.log("8", createJobApplication)
     const { position,first, last, email, phone, currentCTC, expectedCTC, noticePeriod, portfoliolink } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "Resume file is required" });
     }
-
-    // Upload Resume to Cloudinary
-    const resumeUpload = await uploadToCloudinary(req.file.buffer);
-    const resumeUrl = resumeUpload.secure_url;
-
+    let resumeUrl = req.file.filename ? "/uploads/resume/" + req.file.filename : null;
+    
     const jobApplication = new JobApplication({
       position,
       first,

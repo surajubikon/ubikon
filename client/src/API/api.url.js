@@ -1,3 +1,5 @@
+import Portfolio from "../pages/admin/PortFolio";
+
 // export const baseURL = "http://localhost:8000";
 export const baseURL = "http://localhost:8000";
 // export const baseURL = "http://localhost:8000/api/admin/register";
@@ -72,7 +74,7 @@ const api = {
             method: 'get',
         },
     },
-    //job application routes
+    
     jobApplication: {
         createJobApplication: {
             url: '/api/jobApplicationForm/create',
@@ -83,7 +85,7 @@ const api = {
             method: 'get',
         },
     },
-    // AI Chat Routes
+   
     aiChat: {
         sendMessage: {
             url: '/api/aichat/bot',
@@ -109,6 +111,53 @@ const api = {
             method: 'post',
         },
     },
+
+    activity: {
+        getAllActivities: {
+            url: '/api/activity/get',
+            method: 'get',
+        },
+        getAllActivitiesById: {
+            url: '/api/activity/get-activity/:subject',
+            method: 'get',
+        },
+        
+        createActivity: {
+            url: '/api/activity/create',
+            method: 'post',
+        },
+        updateActivity: {
+            url: '/api/activity/:id',
+            method: 'put',
+        },
+        deleteActivity: {
+            url: '/api/activity/:id',
+            method: 'delete',
+        },
+    },
+    portfolio:{
+        getAllPortfolios: {
+            url: '/api/portfolio/get-all',
+            method: 'get',
+        },
+        createPortfolio: {
+            url: '/api/portfolio/create',
+            method: 'post',
+            },
+            getportfolioBySlug:{
+                url: '/api/portfolio/:slug',
+                method: 'get',
+            },
+            deletePortfolio:{
+                url: '/api/portfolio/delete/:id',
+                method: 'delete',
+            },
+            
+            updatePortfolio: {
+            url: '/api/portfolio/update/:id',
+            method: 'delete',
+        },
+    }
 };
 
 export default api;
