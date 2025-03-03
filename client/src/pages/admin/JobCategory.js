@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import axios from "../../utils/axiosInstance"
+import { toast } from "react-toastify";
 const JobCategory = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
@@ -26,15 +27,18 @@ const JobCategory = () => {
     try {
       if (editingCategory) {
         await axios.put(`http://localhost:8000/api/jobCategory/${editingCategory._id}`, { name: newCategory });
+        toast.success("Job Category updated successfully!");
       } else {
         await axios.post("http://localhost:8000/api/jobCategory/create-job", { name: newCategory });
+        toast.success("Job Category Created successfully!");
       }
       setNewCategory("");
       setEditingCategory(null);
       fetchCategories();
       document.getElementById("closeModal").click();
     } catch (error) {
-      console.error("Error saving category:", error);
+           toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
+     
     }
   };
 
@@ -43,8 +47,11 @@ const JobCategory = () => {
     try {
       await axios.delete(`http://localhost:8000/api/jobCategory/${id}`);
       fetchCategories();
+            toast.success("Job Category deleted successfully!");
+      
     } catch (error) {
-      console.error("Error deleting category:", error);
+      toast.error("Error deleting data: " + (error.response?.data?.message || "Something went wrong!"));
+        
     }
   };
 

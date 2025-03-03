@@ -1,4 +1,4 @@
-@media (max-width: 576px) { 
+@media (max-width: 600px) { 
     .main-slides-content h1 {
         font-size: 22px;
     }
@@ -81,10 +81,30 @@
     .job-apply {
         margin-top: 0;
     }
+    .bg-bectangle-top:before {
+        top: -28px !important;
+        height: 30px !important;
+    }
+   
+    footer:before {
+        height: 31px !important;
+        top: -25px !important;
+    }
 
  }
 
-@media (min-width: 768px) {  }
+@media (max-width: 768px) { 
+    
+    footer:before {
+        top: -47px;
+        height:51px;
+    }
+    .bg-bectangle-top:before {
+        top: -50px;
+        width: 100%;
+        height: 52px;
+    }
+ }
 
 @media (min-width: 992px) {  }
 
