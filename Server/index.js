@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
-import { WebSocketServer } from "ws";
+import path from "path";
 import connectDB from "./config/db.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import BlogpostRoutes from "./routes/blogPostRoutes.js";
@@ -16,6 +16,7 @@ import jobCategoryRoutes from "./routes/jobCategoryRoutes.js";
 import jobCollectionRoutes from "./routes/jobCollectionRoutes.js";
 import portpolioRoute from "./routes/portpolioRoute.js";
 import leadRoutes from "./routes/leadRoutes.js";
+import quotationRoutes from "./routes/quotationRoutes.js";
 import testimonialRoutes from "./routes/testimonialRoutes.js"
 import jobApplicationFormRoutes from "./routes/jobApplicationFormRoutes.js";
 import ActivityRoutes from "./routes/activityRoutes.js";
@@ -51,6 +52,7 @@ app.use("/api/jobCategory", jobCategoryRoutes)
 app.use("/api/jobCollection", jobCollectionRoutes)
 app.use("/api/portfolio" ,portpolioRoute )
 app.use("/api/leads", leadRoutes);
+app.use("/api/quotations", quotationRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/jobApplicationForm", jobApplicationFormRoutes);
 app.use("/api/activity",ActivityRoutes);

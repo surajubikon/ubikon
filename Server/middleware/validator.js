@@ -36,3 +36,12 @@ export const LeadStatusValidator = [
         next();
     }
 ];
+
+
+export const QuotationValidator = [
+    body("quotationDate").trim().notEmpty().withMessage("Date is required").bail(),
+    body("clientName").trim().notEmpty().withMessage("Name is required").bail(),
+    body("clientEmail").trim().isEmail().withMessage("Valid email is required").bail(),
+    body("clientPhone").trim().isMobilePhone().withMessage("Valid phone number is required").bail(),
+    body("clientAddress").trim().notEmpty().withMessage("Address is required").bail(),
+];
