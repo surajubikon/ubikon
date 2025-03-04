@@ -79,7 +79,7 @@ const Sidebar = () => {
             <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
               <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
                 <li><FaClipboardList /><Link to="/lead-list">Lead</Link></li>
-                {/* <li><Link to="/job-collection">Job Collections</Link></li> */}
+                <li><Link to="/quotation-list">Quotation</Link></li>
               </ul>
             </ul>
           )}

@@ -109,6 +109,17 @@ const api = {
             method: 'post',
         },
     },
+
+    quotation: {
+        getQuotations: {
+            url: '/api/quotations',
+            method: 'get',
+        },
+        createQuotation: {
+            url: '/api/quotations',
+            method: 'post',
+        }
+    },
 };
 
 export default api;
