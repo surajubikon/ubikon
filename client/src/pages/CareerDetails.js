@@ -255,8 +255,17 @@ const Career = () => {
                               </div>
                               <div className="col">
                                 <p className="text-muted me-3 mb-0">Deadline</p>
-                                <h6 className="fw-semibold me-3 mb-0">{job.deadline}</h6>
+                                <h6 className="fw-semibold me-3 mb-0">
+                                  {new Intl.DateTimeFormat('en-GB', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour12: false,
+                                    timeZone: 'Asia/Kolkata'
+                                  }).format(new Date(job.deadline))}
+                                </h6>
                               </div>
+
                               <div className="col-md-1">
                                 <p className="text-muted mb-0">
                                   <button

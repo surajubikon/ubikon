@@ -1,24 +1,24 @@
 
 import serviceSchema from "../models/serviceSchema.js";
-import { uploadToCloudinary } from "../utils/cloudinary.js";
-import mongoose from "mongoose";
-import sharp from 'sharp';
+import fs from "fs";
+import path from "path";
+
 
 export const createService = async (req, res) => {
-  const { title, ckeditor, description, seometa, publishedAt , dynamicFields } = req.body;
+  const { title, ckeditor, description, seometa, publishedAt, dynamicFields } = req.body;
 
   try {
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required." });
     }
 
-    // Generate slug from the title
+    // Generate slug from title
     const slug = title
       .toLowerCase()
       .trim()
-      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-      .replace(/\s+/g, '-') // Replace spaces with hyphens
-      .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
 
     const serviceExists = await serviceSchema.findOne({ slug });
     if (serviceExists) {
@@ -26,47 +26,16 @@ export const createService = async (req, res) => {
     }
 
     // Handle image uploads
-    let thumbnailUrl = '';
-    let coverImageUrl = '';
-    let previewImageUrl = ''; // For the preview image
+    let thumbnailUrl = req.files?.thumbnail ? `/uploads/service/${req.files.thumbnail[0].filename}` : "";
+    let coverImageUrl = req.files?.coverImage ? `/uploads/service/${req.files.coverImage[0].filename}` : "";
+    let previewImageUrl = req.files?.previewImage ? `/uploads/service/${req.files.previewImage[0].filename}` : "";
 
-    // Thumbnail Image
-    if (req.files?.thumbnail) {
-      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
-        .resize(800, 600)
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
-      thumbnailUrl = thumbnailUpload.secure_url;
+    // Convert dynamicFields to array (if needed)
+    let parsedDynamicFields = [];
+    if (dynamicFields) {
+      parsedDynamicFields = JSON.parse(dynamicFields);
     }
 
-    // Cover Image
-    if (req.files?.coverImage) {
-      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
-        .resize(1200, 800)
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
-      coverImageUrl = coverImageUpload.secure_url;
-    }
-
-    // Preview Image
-    if (req.files?.previewImage) {
-      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
-        .resize(400, 300)  // Adjust size as per your requirement
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
-      previewImageUrl = previewImageUpload.secure_url;
-    }
-  // Convert dynamicFields to array (if it's not already)
-  let parsedDynamicFields = [];
-  if (dynamicFields) {
-    parsedDynamicFields = JSON.parse(dynamicFields); // Frontend se string aaye to JSON parse karega
-  }
     // Create service with image URLs
     const service = await serviceSchema.create({
       title,
@@ -77,8 +46,8 @@ export const createService = async (req, res) => {
       publishedAt,
       thumbnail: thumbnailUrl,
       coverImage: coverImageUrl,
-      previewImage: previewImageUrl, // Add preview image URL
-      dynamicFields: parsedDynamicFields, // Store dynamic fields in DB
+      previewImage: previewImageUrl,
+      dynamicFields: parsedDynamicFields,
     });
 
     res.status(201).json(service);
@@ -115,65 +84,61 @@ export const getServiceById = async (req, res) => {
 // Update a service
 export const updateService = async (req, res) => {
   const { id } = req.params;
-  const { title, ckeditor, description, seometa, publishedAt, dynamicFields  } = req.body;
-  const updates = req.body;
+  const { title, ckeditor, description, seometa, publishedAt, dynamicFields } = req.body;
 
   try {
-    let updatedFields = { ...updates };
+    let service = await serviceSchema.findById(id);
+    if (!service) {
+      return res.status(404).json({ message: "Service not found" });
+    }
 
-    // If title is provided and changed, generate a slug
+    let updatedFields = { title, ckeditor, description, seometa, publishedAt };
+
+    // Generate new slug if title is updated
     if (title) {
       const slug = title
-        .toLowerCase() // Convert title to lowercase
-        .trim() // Remove any extra spaces at the beginning or end
-        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-        .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
 
       updatedFields.slug = slug;
     }
 
-    // Handle image uploads with Sharp for resizing and compression
-    if (req.files?.thumbnail) {
-      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
-        .resize(800, 600)
-        .webp({ quality: 80 })
-        .toBuffer();
+    // Function to delete old image
+    const deleteOldImage = (oldImagePath) => {
+      if (oldImagePath) {
+        const fullPath = path.join("public", oldImagePath);
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+    };
 
-      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
-      updatedFields.thumbnail = thumbnailUpload.secure_url;
+    // Handle image uploads
+    if (req.files?.thumbnail) {
+      deleteOldImage(service.thumbnail); // Delete old thumbnail
+      updatedFields.thumbnail = `/uploads/service/${req.files.thumbnail[0].filename}`;
     }
 
     if (req.files?.coverImage) {
-      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
-        .resize(1200, 800)
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
-      updatedFields.coverImage = coverImageUpload.secure_url;
+      deleteOldImage(service.coverImage); // Delete old cover image
+      updatedFields.coverImage = `/uploads/service/${req.files.coverImage[0].filename}`;
     }
 
-    // Handle Preview Image upload if it exists
     if (req.files?.previewImage) {
-      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
-        .resize(400, 300) // Resize according to your requirement
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
-      updatedFields.previewImage = previewImageUpload.secure_url;
+      deleteOldImage(service.previewImage); // Delete old preview image
+      updatedFields.previewImage = `/uploads/service/${req.files.previewImage[0].filename}`;
     }
-    // Handle dynamic fields (parse JSON string if coming from FormData)
+
+    // Handle dynamic fields
     if (dynamicFields) {
       updatedFields.dynamicFields = typeof dynamicFields === "string" ? JSON.parse(dynamicFields) : dynamicFields;
     }
-    // Update the service with the updated fields
-    const updatedService = await serviceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 
-    if (!updatedService) {
-      return res.status(404).json({ message: "Service not found" });
-    }
+    // Update service in database
+    const updatedService = await serviceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 
     res.json(updatedService);
   } catch (error) {
@@ -183,14 +148,29 @@ export const updateService = async (req, res) => {
 };
 
 
-// Delete a service
+
 export const deleteService = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedService = await serviceSchema.findByIdAndDelete(id);
-    if (!deletedService) {
+    const service = await serviceSchema.findById(id);
+    if (!service) {
       return res.status(404).json({ message: "Service not found" });
     }
+
+    // Delete images from uploads folder
+    const imagePaths = [service.thumbnail, service.coverImage, service.previewImage];
+
+    imagePaths.forEach((imgPath) => {
+      if (imgPath) {
+        const fullPath = path.join("public", imgPath);
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+    });
+
+    // Delete service from database
+    await serviceSchema.findByIdAndDelete(id);
     res.json({ message: "Service deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

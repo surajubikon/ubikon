@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
-import path from "path";
 import connectDB from "./config/db.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import BlogpostRoutes from "./routes/blogPostRoutes.js";

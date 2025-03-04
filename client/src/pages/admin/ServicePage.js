@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './ServicePage.css'; // Import external CSS file
 import { toast } from "react-toastify";
-
+import {baseURL} from '../../API/api.url';
 
 function ServicePage() {
   const [services, setServices] = useState([]);
@@ -204,8 +204,8 @@ const handlePreviewImageChange = (e) => {
                 <td dangerouslySetInnerHTML={{ __html: service.description }} />
                 <td>{service.seometa}</td>
                 <td>
-                  <img src={service.thumbnail} alt="Thumbnail" className="service-thumbnail" />
-                  <img src={service.coverImage} alt="Cover" className="service-cover-image" />
+                  <img src={`${baseURL}${service.thumbnail}`} alt="Thumbnail" className="service-thumbnail" />
+                  <img src={`${baseURL}${service.coverImage}`} alt="Cover" className="service-cover-image" />
                   {/* {service.previewImage && (
                     <img src={service.previewImage} alt="Preview" className="service-preview-image" />
                   )} */}

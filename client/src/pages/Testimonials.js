@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 import { FaPlayCircle } from "react-icons/fa";
+import { baseURL } from '../API/api.url';
 
 function Testimonials() {
     const [testimonials, setTestimonials] = useState([]);
@@ -98,7 +99,7 @@ function Testimonials() {
                                                 {/* Image */}
                                                 <img
                                                     className='d-inline-block img-fluid mt-2'
-                                                    src={item.image}
+                                                    src={`${baseURL}${item.image}`}
                                                     alt={item.name}
                                                     style={{
                                                         width: "100px",

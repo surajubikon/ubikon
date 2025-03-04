@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { motion } from "framer-motion";
 import axios from "axios";
-
+import { baseURL } from "../API/api.url";
 function ActivityPage() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [tabData, setTabData] = useState([]);
@@ -61,7 +61,7 @@ function ActivityPage() {
                       item.images.map((images, imageIndex) => (
                         <motion.div key={imageIndex} className="col-6 col-md-3">
                           <img
-                            src={images} // API se fetched image yaha show hogi
+                            src={`${baseURL}${images}`} // API se fetched image yaha show hogi
                             alt={item.subject}
                             className="img-fluid rounded shadow-sm"
                           />

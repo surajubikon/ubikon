@@ -157,7 +157,17 @@ const api = {
             url: '/api/portfolio/update/:id',
             method: 'delete',
         },
-    }
+    },
+    quotation: {
+        getQuotations: {
+            url: '/api/quotations',
+            method: 'get',
+        },
+        createQuotation: {
+            url: '/api/quotations',
+            method: 'post',
+        }
+    },
 };
 
 export default api;

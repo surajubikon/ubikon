@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Table, Container } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import {baseURL} from "../../../API/api.url";
 
 function TestimonialPage() {
   const [testimonials, setTestimonials] = useState([]);
@@ -113,7 +113,7 @@ function TestimonialPage() {
                 <tr key={item._id}>
                   <td>{item.heading}</td>
                   <td>{item.name}</td>
-                  <td><img src={item.image} alt="" width="50" /></td>
+                  <td><img src={`${baseURL}${item.image}`} alt="" width="50" /></td>
                   <td>{item.video ? <a href={item.video} target="_blank" rel="noopener noreferrer">Video</a> : "N/A"}</td>
                   <td>{item.paragraph}</td>
                   <td>

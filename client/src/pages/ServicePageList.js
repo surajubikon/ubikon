@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import { baseURL } from "../API/api.url";
 const ServicesPageList = () => {
   const { slug } = useParams();
   const [service, setService] = useState(null);
@@ -41,7 +41,7 @@ const ServicesPageList = () => {
         <h2>{service.title}</h2>
         <p>{service.description}</p>
         <img
-          src={service.thumbnail}
+          src={`${baseURL}${service.thumbnail}`}
           alt={service.title}
           style={{ width: "100%", borderRadius: "5px" }}
         />

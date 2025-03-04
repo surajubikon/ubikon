@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import BundledEditor from './bundled'; // Import BundledEditor (TinyMCE)
 import { toast } from "react-toastify";
-
+import { baseURL } from "../../API/api.url";
 function SubService() {
   const [subservices, setSubservices] = useState([]);
   const [services, setServices] = useState([]);
@@ -161,7 +161,8 @@ function SubService() {
                     {/* <td dangerouslySetInnerHTML={{ __html: subservice.content }}></td> */}
                     <td>{subservice.seometa}</td>
                     <td>
-                      <img src={subservice.thumbnail} alt={subservice.title} width={50} />
+                    <img src={`${baseURL}${subservice.thumbnail}`} alt={subservice.title} width={50} />
+
                     </td>
                     <td>{new Date(subservice.createdAt).toLocaleDateString()}</td>
                     <td>
