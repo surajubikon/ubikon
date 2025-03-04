@@ -28,11 +28,11 @@ function BlogListPage() {
     return (
       <>
    <Navbar/>
-   <div class="blog-banner position-relative mb-5">
-    <div class="text-center blog-banner-title">
+   <div className="blog-banner position-relative mb-5">
+    <div className="text-center blog-banner-title">
         <h2>Blog</h2><p>Stay Updated with the Latest Tech Insights</p>
     </div>
-        <img class="w-100 blogcoverimage" src={blogBG} alt="Creating a Realistic Budget for Your Startup: Best Practices" />
+        <img className="w-100 blogcoverimage" src={blogBG} alt="Creating a Realistic Budget for Your Startup: Best Practices" />
     </div>
         <div className="container">
 
