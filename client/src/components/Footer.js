@@ -96,35 +96,35 @@ const Footer  = () => {
           />
       <footer className="bg-black text-white">
         <div className="container">
-          <div class="footer-shape-1">
+          <div className="footer-shape-1">
             <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-1.png" alt="image" />
           </div>
-          {/* <div class="footer-shape-3">
+          {/* <div className="footer-shape-3">
             <img src="https://templates.envytheme.com/coze/default/assets/images/footer/footer-shape-3.png" alt="image" />
           </div> */}
           <div className="row">
             {/* About Section */}
             <div className="col-md-3 mb-4 mb-md-0">
 
-              <a class="nav-link px-0 my-3" aria-current="page" href="#"><img width={139} src={Logo} /></a>
+              <a className="nav-link px-0 my-3" aria-current="page" href="#"><img width={139} src={Logo} /></a>
               <p>Empowering Your Business with Expert Mobile App & Website Development</p>
               <div className='d-flex mt-3'>
-                <ul class="nav widget-social">
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
-                      <i class="fa-brands fa-facebook-f"></i>
+                <ul className="nav widget-social">
+                  <li className="nav-item">
+                    <a className="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
+                      <i className="fa-brands fa-facebook-f"></i>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
+                  <li className="nav-item">
+                    <a className="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i className="fa-brands fa-linkedin-in"></i>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
+                  <li className="nav-item">
+                    <a className="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i className="fa-brands fa-youtube"></i>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
+                  <li className="nav-item">
+                    <a className="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i className="fa-brands fa-instagram"></i>
                     </a>
                   </li>
                 </ul>
@@ -132,47 +132,47 @@ const Footer  = () => {
             </div>
             <div className="col-md-3 col-6 ">
               <h5 className='fw-bold'>Links</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">About Us</a>
+              <ul className="nav flex-column">
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">About Us</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Services</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Services</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">News</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">News</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Pricing</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Pricing</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Projects</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Contact Us</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Contact Us</a>
                 </li>
               </ul>
             </div>
             <div className="col-md-3 col-6">
               <h5 className='fw-bold'>Pages</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">About Us</a>
+              <ul className="nav flex-column">
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">About Us</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Services</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Services</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">News</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">News</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Pricing</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Pricing</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Projects</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Projects</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="#">Contact Us</a>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="#">Contact Us</a>
                 </li>
               </ul>
             </div>
@@ -233,23 +233,23 @@ const Footer  = () => {
               </a>
             </p>
             <div className='d-flex mt-3'>
-              <ul class="nav widget-social">
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
-                    <i class="fa-brands fa-facebook-f"></i>
+              <ul className="nav widget-social">
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="https://www.facebook.com/UBIKON" target="_blank">
+                    <i className="fa-brands fa-facebook-f"></i>
                   </a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i class="fa-brands fa-linkedin-in"></i>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="https://in.linkedin.com/company/ubikontechnologies"><i className="fa-brands fa-linkedin-in"></i>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i class="fa-brands fa-youtube"></i>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="https://www.youtube.com/@ubikontechnologies171"><i className="fa-brands fa-youtube"></i>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i class="fa-brands fa-instagram"></i>
+                <li className="nav-item">
+                  <a className="nav-link px-0" aria-current="page" href="https://www.instagram.com/ubikontechnologies/"><i className="fa-brands fa-instagram"></i>
                   </a>
                 </li>
               </ul>
@@ -257,16 +257,16 @@ const Footer  = () => {
             {/* Form page */}
             <form className="mt-5" onSubmit={handleSubmit}>
               <h5 className="mb-4 fw-bold">Ready to Get Started?</h5>
-              <div class="mb-3">
-                <input type="text" name="yourName" class="form-control" placeholder="Your name" value={formData.yourName} onChange={handleChange} required />
+              <div className="mb-3">
+                <input type="text" name="yourName" className="form-control" placeholder="Your name" value={formData.yourName} onChange={handleChange} required />
               </div>
-              <div class="mb-3">
-                <input type="email" name="email" class="form-control" data-error="Please enter your email" placeholder="Your email address" value={formData.email} onChange={handleChange} required />
+              <div className="mb-3">
+                <input type="email" name="email" className="form-control" data-error="Please enter your email" placeholder="Your email address" value={formData.email} onChange={handleChange} required />
               </div>
-              <div class="mb-3">
-                <input type="text" name="contactNumber" class="form-control" data-error="Please enter your phone number" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
+              <div className="mb-3">
+                <input type="text" name="contactNumber" className="form-control" data-error="Please enter your phone number" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} />
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 {/* <span className="icon"><i className="fa-solid fa-info"></i></span> */}
 
                 <select name="subject" value={formData.subject} onChange={handleChange} required>
@@ -277,8 +277,8 @@ const Footer  = () => {
                 </select>
 
               </div>
-              <div class="mb-3">
-                <textarea name="textMessage" class="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..." value={formData.textMessage} onChange={handleChange} required></textarea>
+              <div className="mb-3">
+                <textarea name="textMessage" className="form-control" cols="30" rows="6" data-error="Please enter your message" placeholder="Write your message..." value={formData.textMessage} onChange={handleChange} required></textarea>
               </div>
               <button type="submit" className="default-btn mt-5" disabled={loading}>  {loading ?  "Submitting..." :"Send Message"}</button>
             </form>
