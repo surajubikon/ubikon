@@ -7,15 +7,30 @@ import BundledEditor from "../../admin/bundled";
 import MultiSelectDropdown from "../../admin/components/MultiSelectDropdown";
 
 const Quotation = () => {
+    const [stateData, setStateData] = useState([]);
+    const [cityData, setCityData] = useState([]);
+    const [selectedState, setSelectedState] = useState("");
     const [formErrors, setFormErrors] = useState({});
+    const [quotationNo, setQuotationNo] = useState("");
     const [items, setItems] = useState([{ description: "", qty: 1, price: "", total: 0 }]);
     const projectMilestones = [
         { value: "advanced payment", label: "Advanced payment ........... 30%" },
-        { value: "design & prototypes", label: "Design & Prototypes ...... 25%" },
-        { value: "development", label: "Development ....... 25%" },
-        { value: "final delivery", label: "Final Delivery ..... 15%" },
+        { value: "design & prototypes", label: "Design & Prototypes ........... 25%" },
+        { value: "development", label: "Development ........... 25%" },
+        { value: "final delivery", label: "Final Delivery ........... 15%" },
     ];
     const [selectedMilestones, setSelectedMilestones] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${baseURL}${api.quotation.getQuotations.url}`);
+            setQuotationNo(response.data.nextQuotationNo);
+        } catch (error) {
+            setQuotationNo(2001);
+            console.error("Error fetching quotations:", error);
+        }
+    };
+    fetchData();
 
     const handleItemChange = (index, field, value) => {
         const updatedItems = [...items];
@@ -33,6 +48,39 @@ const Quotation = () => {
     const removeItem = (index) => {
         const updatedItems = items.filter((_, i) => i !== index);
         setItems(updatedItems);
+    };
+
+    const getTotalAmount = () => {
+        return items.reduce((sum, item) => sum + (item.total || 0), 0);
+    };
+
+
+    useEffect(() => {
+        const fetchStateData = async () => {
+            try {
+                const stateResponse = await axios.get(`${baseURL}${api.lead.getStates.url}`);
+                setStateData(stateResponse.data.data);
+            } catch (error) {
+                console.error("Error fetching states:", error);
+            }
+        };
+        fetchStateData();
+    }, []);
+
+    const handleStateChange = async (event) => {
+        const selectedStateName = event.target.value;
+        setSelectedState(selectedStateName);
+        setCityData([]);
+
+        if (!selectedStateName) {
+            return;
+        }
+        try {
+            const cityResponse = await axios.get(`${baseURL}/api/leads/cities/${selectedStateName}/IN`);
+            setCityData(cityResponse.data.data);
+        } catch (error) {
+            console.error("Error fetching cities:", error);
+        }
     };
 
     const validateForm = () => {
@@ -74,6 +122,8 @@ const Quotation = () => {
             formData.append("email", document.getElementById("email").value);
             formData.append("phone", document.getElementById("phone").value);
             formData.append("address", document.getElementById("address").value);
+            formData.append("state", document.getElementById("state").value);
+            formData.append("city", document.getElementById("city").value);
             formData.append("quotationNo", document.getElementById("quotationNo").value);
             formData.append("quotationDate", document.getElementById("quotationDate").value);
 
@@ -91,6 +141,7 @@ const Quotation = () => {
             formData.append("projectOverview", document.getElementById("projectOverview").value);
             formData.append("projectDetails", document.getElementById("projectDetails").value);
             formData.append("milestone", JSON.stringify(selectedMilestones.map((opt) => opt.value)));
+            formData.append("totalAmount", document.getElementById("totalAmount").value);
 
             try {
                 const response = await axios.post(`${baseURL}${api.quotation.createQuotation.url}`, formData, {
@@ -102,6 +153,7 @@ const Quotation = () => {
                     event.target.reset();
                     setItems([{ description: "", qty: 1, price: "", total: 0 }]);
                     setSelectedMilestones([])
+                    fetchData()
                 } else {
                     toast.error("Something went wrong!");
                 }
@@ -124,7 +176,7 @@ const Quotation = () => {
                             <div className="row g-3">
                                 <div className="col-md-4">
                                     <label htmlFor="quotationNo" className="form-label">Quotation No</label>
-                                    <input type="number" className="form-control" name="quotationNo" id="quotationNo" />
+                                    <input type="number" className="form-control" name="quotationNo" id="quotationNo" value={quotationNo} readOnly />
                                     {formErrors.name && <small className="text-danger">{formErrors.quotationNo}</small>}
                                 </div>
                                 <div className="col-md-4">
@@ -146,27 +198,48 @@ const Quotation = () => {
                                     {formErrors.name && <small className="text-danger">{formErrors.name}</small>}
                                 </div>
                                 <div className="col-md-4">
-                                    <label htmlFor="company" className="form-label">Company</label>
-                                    <input type="text" className="form-control" name="company" id="company" placeholder="Enter company" />
-                                    {formErrors.company && <small className="text-danger">{formErrors.company}</small>}
-                                </div>
-                                <div className="col-md-4">
                                     <label htmlFor="email" className="form-label">Email</label>
                                     <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
                                     {formErrors.email && <small className="text-danger">{formErrors.email}</small>}
                                 </div>
-                            </div>
-
-                            <div className="row g-3 mt-3">
                                 <div className="col-md-4">
                                     <label htmlFor="phone" className="form-label">Phone</label>
                                     <input type="text" className="form-control" name="phone" id="phone" placeholder="Enter phone" />
                                     {formErrors.phone && <small className="text-danger">{formErrors.phone}</small>}
                                 </div>
+                            </div>
+
+                            <div className="row g-3 mt-3">
+                                <div className="col-md-4">
+                                    <label htmlFor="company" className="form-label">Company</label>
+                                    <input type="text" className="form-control" name="company" id="company" placeholder="Enter company" />
+                                    {formErrors.company && <small className="text-danger">{formErrors.company}</small>}
+                                </div>
                                 <div className="col-md-4">
                                     <label htmlFor="address" className="form-label">Address</label>
                                     <input type="text" className="form-control" name="address" id="address" placeholder="Enter address" />
                                     {formErrors.address && <small className="text-danger">{formErrors.address}</small>}
+                                </div>
+                                <div className="col-md-4">
+                                    <label htmlFor="state" className="form-label">State</label>
+                                    <select className="form-control" name="state" id="state" onChange={handleStateChange}>
+                                        <option value="">Select State</option>
+                                        {stateData.map((state, index) => (
+                                            <option key={index} value={state.isoCode}>{state.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="row g-3 mt-3">
+                                <div className="col-md-4">
+                                    <label htmlFor="city" className="form-label">City</label>
+                                    <select className="form-control" name="city" id="city" disabled={!selectedState}>
+                                        <option value="">Select City</option>
+                                        {cityData.map((city, index) => (
+                                            <option key={index} value={city.name}>{city.name}</option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
 
@@ -228,6 +301,21 @@ const Quotation = () => {
                                             </tr>
                                         ))}
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colSpan="3" className="text-end fw-bold">Total Amount:</td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    id="totalAmount"
+                                                    value={getTotalAmount()}
+                                                    readOnly
+                                                />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                                 <button type="button" className="btn btn-secondary mt-2" onClick={addItem}>
                                     Add Item
@@ -247,7 +335,6 @@ const Quotation = () => {
                                 />
                             </div>
 
-
                             <div className="mt-4">
                                 <label>Project Details</label>
                                 <BundledEditor
@@ -261,13 +348,12 @@ const Quotation = () => {
                                 />
                             </div>
 
-                            <div className="mt-4">
-                                <MultiSelectDropdown
-                                    options={projectMilestones}
-                                    label="Project Milestone Breakdown"
-                                    onChange={setSelectedMilestones}
-                                />
-                            </div>
+                            <MultiSelectDropdown
+                                options={projectMilestones}
+                                label="Project Milestone Breakdown"
+                                onChange={setSelectedMilestones}
+                                totalAmount={getTotalAmount()}
+                            />
 
                             <button type="submit" className="btn btn-primary w-100 mt-4" style={{ fontSize: "1.2rem", padding: "12px" }}>
                                 Submit

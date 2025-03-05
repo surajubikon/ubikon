@@ -25,12 +25,6 @@ router.route("/")
   .post(QuotationValidator, upload.single("image"), createQuotation)
   .get(getQuotations);
 
-// router.route("/states/:countryCode")
-//   .get(getStates)
-
-// router.route("/cities/:stateCode/:countryCode")
-//   .get(getCities)
-
 router.route("/:id")
   //   .put(LeadValidator, updateLead)
   //   .patch(LeadStatusValidator, updateStatus)

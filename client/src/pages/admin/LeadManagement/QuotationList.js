@@ -9,7 +9,6 @@ const QuotationList = () => {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [search, setSearch] = useState("");
-    const [quotationNo, setQuotationNo] = useState("");
    
     useEffect(() => {
         const fetchData = async () => {
@@ -17,9 +16,7 @@ const QuotationList = () => {
                 const response = await axios.get(`${baseURL}${api.quotation.getQuotations.url}`);
                 setData(response.data.data);
                 setFilteredData(response.data.data);
-                setQuotationNo();
             } catch (error) {
-                setQuotationNo();
                 console.error("Error fetching quotations:", error);
             }
         };

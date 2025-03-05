@@ -43,6 +43,12 @@ const quotationSchema = new mongoose.Schema(
         address: {
             type: String,
         },
+        state: {
+            type: String
+        },
+        city: {
+            type: String
+        },
         items: [itemSchema],
         projectOverview: {
             type: String,

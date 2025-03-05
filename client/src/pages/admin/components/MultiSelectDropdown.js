@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-const MultiSelectDropdown = ({ options, label, onChange }) => {
+const MultiSelectDropdown = ({ options, label, onChange, totalAmount }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const updatedOptions = options.map((milestone) => {
+    const percentage = parseInt(milestone.label.match(/\d+/)[0]);
+    const calculatedAmount = ((totalAmount * percentage) / 100).toFixed(2);
+    return {
+      ...milestone,
+      label: `${milestone.label} (${calculatedAmount})`,
+    };
+  });
 
   const handleChange = (selected) => {
     setSelectedOptions(selected);
-    onChange(selected); // Pass selected values to parent component
+    onChange(selected);
   };
 
   return (
@@ -14,7 +23,7 @@ const MultiSelectDropdown = ({ options, label, onChange }) => {
       {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
       <Select
         isMulti
-        options={options}
+        options={updatedOptions}
         value={selectedOptions}
         onChange={handleChange}
         className="mt-2"
