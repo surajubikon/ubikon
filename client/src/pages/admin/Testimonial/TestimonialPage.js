@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Table, Container } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {baseURL} from "../../../API/api.url";
+import { baseURL } from "../../../API/api.url";
 
 function TestimonialPage() {
   const [testimonials, setTestimonials] = useState([]);
+  const [previewImage, setPreviewImage] = useState(null);
+
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -52,20 +54,20 @@ function TestimonialPage() {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Testimonial updated successfully!");
-        
+
       } else {
         await axios.post("http://localhost:8000/api/testimonials/create-testimonial", formDataObj, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-         toast.success("Testimonial added successfully!");
-        
+        toast.success("Testimonial added successfully!");
+
       }
       fetchTestimonials();
       setShowForm(false);
       setEditingId(null);
     } catch (error) {
       toast.error("Error uploading data: " + (error.response?.data?.message || "Something went wrong!"));
-    
+
     }
   };
 
@@ -80,6 +82,7 @@ function TestimonialPage() {
     });
     setEditingId(testimonial._id);
     setShowForm(true);
+    setPreviewImage(`${baseURL}${testimonial.image}`); // Image preview ke liye
   };
 
   const handleDelete = async (id) => {
@@ -93,7 +96,7 @@ function TestimonialPage() {
 
   return (
     <Container className="mt-4">
-      
+
       {!showForm ? (
         <>
           <Button variant="primary" onClick={() => setShowForm(true)}>Add Testimonial</Button>
@@ -141,10 +144,21 @@ function TestimonialPage() {
             <Form.Group>
               <Form.Label>Image Upload</Form.Label>
               <Form.Control type="file" name="image" onChange={handleChange} />
+
+              {/* ✅ Agar edit mode me hai & naye image select nahi kiya, to preview dikhao */}
+              {editingId && !formData.image && previewImage && (
+                <img src={previewImage} alt="Preview" className="mt-2" width="100" height="100" />
+              )}
             </Form.Group>
+
             <Form.Group>
               <Form.Label>Video Upload</Form.Label>
-              <Form.Control type="text" name="video" onChange={handleChange} />
+              <Form.Control type="text" name="video" value={formData.video} onChange={handleChange} />
+              {editingId && formData.video && (
+                <div className="mt-2">
+                  <a href={formData.video} target="_blank" rel="noopener noreferrer">View Video</a>
+                </div>
+              )}
             </Form.Group>
             <Form.Group>
               <Form.Label>Paragraph</Form.Label>

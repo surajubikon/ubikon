@@ -168,6 +168,28 @@ const api = {
             method: 'post',
         }
     },
+    milestone: {
+        milestoneGet: {
+          url: `${baseURL}/api/milestone/get`,
+          method: "get",
+        },
+        milestoneCreate: {
+          url: `${baseURL}/api/milestone/create`,
+          method: "post",
+        },
+        milestoneGetByID: {
+          url: (id) => `${baseURL}/api/milestone/${id}`,
+          method: "get",
+        },
+        milestoneUpdate: {
+          url: (id) => `${baseURL}/api/milestone/update/${id}`,
+          method: "put",
+        },
+        milestoneDelete: {
+          url: (id) => `${baseURL}/api/milestone/delete/${id}`,
+          method: "delete",
+        },
+    }
 };
 
 export default api;

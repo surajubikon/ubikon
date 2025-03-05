@@ -45,6 +45,7 @@ import LeadList from './pages/admin/LeadManagement/LeadList.js';
 import LeadAdd from './pages/admin/LeadManagement/LeadAdd.js';
 import QuotationList from './pages/admin/LeadManagement/QuotationList.js';
 import QuotationAdd from './pages/admin/LeadManagement/QuotationAdd.js';
+import Milestone from './pages/admin/Milestone/Milestone.js';
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
 import ActivityUbikon from './pages/admin/Activity-ubikon/Activity.js';
@@ -97,6 +98,7 @@ function App() {
             <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>}/>
             <Route path="/quotation-list" element={<PrivateRoute> <QuotationList /></PrivateRoute>}/>
             <Route path="/quotation-add" element={<PrivateRoute> <QuotationAdd /></PrivateRoute>}/>
+            <Route path="/milestone" element={<PrivateRoute> <Milestone /></PrivateRoute>}/>
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
             <Route path="/job-category" element={<PrivateRoute><JobCategory /></PrivateRoute>} />
             <Route path="/job-collection" element={<PrivateRoute><JobCollection /></PrivateRoute>} />
