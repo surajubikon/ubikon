@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks ,FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks,FaFlagCheckered  ,FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -84,7 +84,9 @@ const Sidebar = () => {
             </ul>
           )}
         </li>
-
+        <li>
+          <Link to="/milestone"><FaFlagCheckered  /> Milestone</Link>
+        </li>
         <li>
           <Link to="/settings"><FaCogs /> Settings</Link>
         </li>

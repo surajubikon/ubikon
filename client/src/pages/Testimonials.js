@@ -98,9 +98,9 @@ function Testimonials() {
                                             <div style={{ position: "relative", display: "inline-block" }}>
                                                 {/* Image */}
                                                 <img
-                                                    className='d-inline-block img-fluid mt-2'
+                                                    className='d-inline-block img-fluid mt-2' 
                                                     src={`${baseURL}${item.image}`}
-                                                    alt={item.name}
+                                                    alt={item.name || "Testimonial Image"}
                                                     style={{
                                                         width: "100px",
                                                         height: "100px",

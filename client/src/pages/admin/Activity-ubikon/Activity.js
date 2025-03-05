@@ -43,9 +43,13 @@ const Activity = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonLoading(true);
+
     const formData = new FormData();
     formData.append("subject", subject);
-    formData.append("image", image);
+
+    if (image) {
+      formData.append("image", image); // Naya image selected hai
+    }
 
     try {
       if (editId) {
@@ -79,9 +83,10 @@ const Activity = () => {
   const handleEdit = (activity) => {
     setSubject(activity.subject);
     setEditId(activity._id);
-    setPreview(activity.images?.[0] || null);
+    setPreview(activity.images?.[0] ? `${baseURL}${activity.images[0]}` : null);
     setShow(true);
   };
+
 
   const handleDelete = async (id) => {
     try {
@@ -114,12 +119,20 @@ const Activity = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-
             <Form.Group className="mt-3">
               <Form.Label>Upload Image</Form.Label>
-              <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} required />
+              <Form.Control
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setImage(file);
+                  setPreview(file ? URL.createObjectURL(file) : preview); // Naya image hai toh update karo, nahi toh wahi rehne do
+                }}
+              />
               {preview && <img src={preview} alt="Preview" className="mt-2" width="100" height="100" />}
             </Form.Group>
+
+
 
             <Button className="mt-3 w-100" variant="success" type="submit" disabled={buttonLoading}>
               {buttonLoading ? <Spinner as="span" animation="border" size="sm" /> : editId ? "Update" : "Submit"}

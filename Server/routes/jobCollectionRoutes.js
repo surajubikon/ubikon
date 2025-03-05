@@ -30,7 +30,7 @@ router.post("/create" , upload.fields([{ name: 'thumbnail' }, { name: 'previewIm
 router.get("/get", getAllJobs);
 router.get("/get-jobcollection/:id", getJobCollectionById);
 router.get("/:id", getJobById);
-router.put("/:id", updateJob);
+router.put("/:id",upload.fields([{ name: 'thumbnail' }, { name: 'previewImage' }]), updateJob);
 router.delete("/:id", deleteJob);
 
 export default router;

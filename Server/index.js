@@ -19,7 +19,7 @@ import quotationRoutes from "./routes/quotationRoutes.js";
 import testimonialRoutes from "./routes/testimonialRoutes.js"
 import jobApplicationFormRoutes from "./routes/jobApplicationFormRoutes.js";
 import ActivityRoutes from "./routes/activityRoutes.js";
-
+import milestoneRoutes from './routes/milestoneRoutes.js'
 dotenv.config();
 connectDB();
 
@@ -28,7 +28,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
-// **Uploads folder ka path set karna**
+
 const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,6 +55,7 @@ app.use("/api/quotations", quotationRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/jobApplicationForm", jobApplicationFormRoutes);
 app.use("/api/activity",ActivityRoutes);
+app.use("/api/milestone",milestoneRoutes);
 
 
 
