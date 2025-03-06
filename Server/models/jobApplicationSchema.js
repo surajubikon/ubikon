@@ -7,6 +7,7 @@ const jobApplicationSchema = new mongoose.Schema(
         last: { type: String, required: true },
         email: { type: String, required: true },
         phone: { type: String, required: true }, // Changed to String
+        experience:{ type:String,required:true},
         currentCTC: { type: Number, required: true },
         expectedCTC: { type: Number, required: true },
         noticePeriod: { type: Number, required: true },

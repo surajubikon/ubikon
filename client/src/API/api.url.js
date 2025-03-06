@@ -75,7 +75,7 @@ const api = {
         },
     },
     
-    jobApplication: {
+    jobApplicationfORM: {
         createJobApplication: {
             url: '/api/jobApplicationForm/create',
             method: 'post',
@@ -189,7 +189,57 @@ const api = {
           url: (id) => `${baseURL}/api/milestone/delete/${id}`,
           method: "delete",
         },
-    }
+    },
+     projectAPI: {
+        projectGet: {
+            url: `${baseURL}/api/project/get`,
+            method: "get",
+        },
+        projectCreate: {
+            url: `${baseURL}/api/project/create`,
+            method: "post",
+        },
+        projectGetByID: {
+            url: (subject) => `${baseURL}/api/project/get-project/${subject}`,
+            method: "get",
+        },
+        projectUpdate: {
+            url: (id) => `${baseURL}/api/project/update/${id}`,
+            method: "put",
+        },
+        projectDelete: {
+            url: (id) => `${baseURL}/api/project/delete/${id}`,
+            method: "delete",
+        },
+     },
+    
+
+    jobApplicationForm: {
+        createJobApplication: {
+            url: `${baseURL}/api/jobApplicationForm/create`,
+            method: "post"
+        },
+        getJobApplications: {
+            url: `${baseURL}/api/jobApplicationForm/get`,
+            method: "get"
+        },
+        getJobApplicationById: {
+            url: `${baseURL}/api/jobApplicationForm/:id`,
+            method: "get"
+        },
+        updateJobApplicationRemark: {
+            url: `${baseURL}/api/jobApplicationForm/update-remark/:id`,
+            method: "put"
+        },
+        updateJobApplicationStatus: {
+            url: `${baseURL}/api/jobApplicationForm/update/:id`,
+            method: "put"
+        },
+        deleteJobApplication: {
+            url: `${baseURL}/api/jobApplicationForm/:id`,
+            method: "delete"
+        },
+    }    
 };
 
 export default api;

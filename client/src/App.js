@@ -50,6 +50,7 @@ import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
 import ActivityUbikon from './pages/admin/Activity-ubikon/Activity.js';
 import NotFound from './pages/NotFound/NotFound';
+import Project from './pages/admin/Project/Project.js';
 
 function App() {
   useEffect(() => {
@@ -100,6 +101,7 @@ function App() {
             <Route path="/quotation-add" element={<PrivateRoute> <QuotationAdd /></PrivateRoute>}/>
             <Route path="/milestone" element={<PrivateRoute> <Milestone /></PrivateRoute>}/>
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
+            <Route path="/projects" element={<PrivateRoute><Project /></PrivateRoute>} />
             <Route path="/job-category" element={<PrivateRoute><JobCategory /></PrivateRoute>} />
             <Route path="/job-collection" element={<PrivateRoute><JobCollection /></PrivateRoute>} />
             <Route path="/sub-category-list" element={<PrivateRoute><SubService /></PrivateRoute>} />
