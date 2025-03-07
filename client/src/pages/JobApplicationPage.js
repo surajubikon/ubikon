@@ -17,6 +17,7 @@ const JobApplicationPage = () => {
     last: '',
     email: '',
     phone: '',
+    experience: '',
     currentCTC: '',
     expectedCTC: '',
     noticePeriod: '',
@@ -35,6 +36,7 @@ const JobApplicationPage = () => {
     last: "Enter Last Name",
     email: "Enter Email Address",
     phone: "Enter Phone Number",
+    experience:"Enter Your Experience",
     currentCTC: "Enter Current CTC",
     expectedCTC: "Enter Expected CTC",
     noticePeriod: "Enter Notice Period (in days)",
@@ -105,6 +107,7 @@ const JobApplicationPage = () => {
         last: '',
         email: '',
         phone: '',
+        experience:'',
         currentCTC: '',
         expectedCTC: '',
         noticePeriod: '',
@@ -148,7 +151,7 @@ const JobApplicationPage = () => {
             <form onSubmit={handleSubmit} className="mt-4">
               
               <div className="row">
-                {['position','first', 'last', 'email', 'phone', 'currentCTC', 'expectedCTC', 'noticePeriod', 'portfoliolink'].map((field) => (
+                {['position','first', 'last', 'email', 'phone', 'experience', 'currentCTC', 'expectedCTC', 'noticePeriod', 'portfoliolink'].map((field) => (
                   <div className="col-md-12 mb-3" key={field}>
                     <input
                       type={field.includes('CTC') || field === 'noticePeriod' ? 'number' : 'text'}

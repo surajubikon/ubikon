@@ -20,6 +20,8 @@ import testimonialRoutes from "./routes/testimonialRoutes.js"
 import jobApplicationFormRoutes from "./routes/jobApplicationFormRoutes.js";
 import ActivityRoutes from "./routes/activityRoutes.js";
 import milestoneRoutes from './routes/milestoneRoutes.js'
+import projectRoutes from "./routes/projectRoutes.js";
+
 dotenv.config();
 connectDB();
 
@@ -56,6 +58,7 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/jobApplicationForm", jobApplicationFormRoutes);
 app.use("/api/activity",ActivityRoutes);
 app.use("/api/milestone",milestoneRoutes);
+app.use("/api/project",projectRoutes);
 
 
 

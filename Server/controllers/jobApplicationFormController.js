@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 // Create Job Application
 export const createJobApplication = async (req, res) => {
   try {
-    const { position,first, last, email, phone, currentCTC, expectedCTC, noticePeriod, portfoliolink } = req.body;
+    const { position,first, last, email, phone, experience, currentCTC, expectedCTC, noticePeriod, portfoliolink } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "Resume file is required" });
@@ -17,6 +17,7 @@ export const createJobApplication = async (req, res) => {
       last,
       email,
       phone,
+      experience,
       currentCTC,
       expectedCTC,
       noticePeriod,

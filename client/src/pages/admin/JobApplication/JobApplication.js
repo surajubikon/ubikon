@@ -146,7 +146,7 @@ function JobApplication() {
             {loading ? <Spinner animation="border" className="d-block mx-auto" /> :
                 <Table striped bordered hover>
                     <thead className="table-dark">
-                        <tr><th>#</th><th>Position</th><th>Name</th><th>Email</th><th>phone</th><th>currentCTC</th><th>expectedCTC</th><th>Notic Period</th><th>Status</th><th>Actions</th><th>Resume</th><th>Portfolio</th></tr>
+                        <tr><th>#</th><th>Position</th><th>Name</th><th>Email</th><th>phone</th><th>experience</th><th>currentCTC</th><th>expectedCTC</th><th>Notic Period</th><th>Status</th><th>Actions</th><th>Resume</th><th>Portfolio</th></tr>
                     </thead>
                     <tbody>
                         {displayedApplications.map((app, index) => (
@@ -156,6 +156,7 @@ function JobApplication() {
                                 <td>{app.first} {app.last}</td>
                                 <td>{app.email}</td>
                                 <td>{app.phone}</td>
+                                <td>{app.experience}</td>
                                 <td>{app.currentCTC}</td>
                                 <td>{app.expectedCTC}</td>
                                 <td>{app.noticePeriod}</td>

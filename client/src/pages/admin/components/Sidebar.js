@@ -87,6 +87,9 @@ const Sidebar = () => {
           )}
         </li>
         <li>
+          <Link to="/projects"><FaCogs />Project</Link>
+        </li>
+        <li>
           <Link to="/settings"><FaCogs /> Settings</Link>
         </li>
         <li>

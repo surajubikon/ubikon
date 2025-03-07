@@ -31,7 +31,7 @@ const JobCollection = () => {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("https://www.ubikon.in/api/jobCollection/get");
+      const res = await axios.get("http://localhost:8000/api/jobCollection/get");
       setJobs(res.data);
       console.log("respomnses", res)
     } catch (error) {
@@ -41,7 +41,7 @@ const JobCollection = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("https://www.ubikon.in/api/jobCategory/get-job");
+      const res = await axios.get("http://localhost:8000/api/jobCategory/get-job");
       setCategories(res.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -67,13 +67,13 @@ const JobCollection = () => {
       });
 
       if (editingJob) {
-        await axios.put(`https://www.ubikon.in/api/jobCollection/${editingJob._id}`, formData, {
+        await axios.put(`http://localhost:8000/api/jobCollection/${editingJob._id}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
                 toast.success("Job Collection updated successfully!");
         
       } else {
-        await axios.post("https://www.ubikon.in/api/jobCollection/create", formData, {
+        await axios.post("http://localhost:8000/api/jobCollection/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Job Collection Created successfully!");
@@ -107,7 +107,7 @@ const JobCollection = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://www.ubikon.in/api/jobCollection/${id}`);
+      await axios.delete(`http://localhost:8000/api/jobCollection/${id}`);
       fetchJobs();
             toast.success("Job Collection deleted successfully!");
       
