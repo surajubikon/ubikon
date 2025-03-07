@@ -42,31 +42,38 @@ const LeadAdd = () => {
     const validateForm = () => {
         const errors = {};
         const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
+        // const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const company = document.getElementById("company").value;
-        const address = document.getElementById("address").value;
-        const source = document.getElementById("source").value;
+        // const address = document.getElementById("address").value;
+        // const source = document.getElementById("source").value;
         const projectName = document.getElementById("projectName").value;
+        const projectType = document.getElementById("projectType").value;
 
-        if (!name) errors.name = "Name is required";
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!email) {
-            errors.email = "Email is required";
-        } else if (!emailRegex.test(email)) {
-            errors.email = "Please enter a valid email address";
-        }
+        // if (!name) errors.name = "Name is required";
+        // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        // if (!email) {
+        //     errors.email = "Email is required";
+        // } else if (!emailRegex.test(email)) {
+        //     errors.email = "Please enter a valid email address";
+        // }
         const phoneRegex = /^\d{10}$/;
         if (!phone) {
             errors.phone = "Phone number is required";
         } else if (!phoneRegex.test(phone)) {
             errors.phone = "Please enter a valid phone number";
         }
-
-        if (!company) errors.company = "Company is required";
-        if (!address) errors.address = "Address is required";
-        if (!source) errors.source = "Source is required";
+        if (!name && !company) {
+            errors.name = "Either Name or Company is required";
+            errors.company = "Either Name or Company is required";
+        }
+    
+        // if (!company) errors.company = "Company is required";
+        // if (!address) errors.address = "Address is required";
+        // if (!source) errors.source = "Source is required";
         if (!projectName) errors.projectName = "project Name is required";
+        if (!projectType) errors.projectType = "Please select project type";
+
 
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
@@ -130,7 +137,7 @@ const LeadAdd = () => {
                                 <div className="col-md-4">
                                     <label htmlFor="email" className="form-label">Email</label>
                                     <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
-                                    {formErrors.email && <small className="text-danger">{formErrors.email}</small>}
+                                    {/* {formErrors.email && <small className="text-danger">{formErrors.email}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="phone" className="form-label">Phone</label>
@@ -148,7 +155,7 @@ const LeadAdd = () => {
                                 <div className="col-md-4">
                                     <label htmlFor="address" className="form-label">Address</label>
                                     <input type="text" className="form-control" name="address" id="address" placeholder="Enter address" />
-                                    {formErrors.address && <small className="text-danger">{formErrors.address}</small>}
+                                    {/* {formErrors.address && <small className="text-danger">{formErrors.address}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="state" className="form-label">State</label>
@@ -182,7 +189,7 @@ const LeadAdd = () => {
                                         <option value="Referral">Referral</option>
                                         <option value="Cold Call">Cold Call</option>
                                     </select>
-                                    {formErrors.source && <small className="text-danger">{formErrors.source}</small>}
+                                    {/* {formErrors.source && <small className="text-danger">{formErrors.source}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="projectName" className="form-label">Project Name</label>
@@ -219,6 +226,7 @@ const LeadAdd = () => {
                                         <option value="Database Administration">Database Administration</option>
                                         <option value="Robotics">Robotics</option>
                                     </select>
+                                    {formErrors.projectType && <small className="text-danger">{formErrors.projectType}</small>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="projectBudget" className="form-label">Project Budget</label>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks, FaFlagCheckered, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase, FaChartLine,FaFileInvoice } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks, FaFlagCheckered, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase, FaChartLine, FaFileInvoice } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {

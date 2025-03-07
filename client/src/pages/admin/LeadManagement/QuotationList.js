@@ -57,7 +57,7 @@ const QuotationList = () => {
         {
             name: "Generate Quotation",
             cell: (row) => (
-                <Link to="/quotation" state={row.quotationId}><button
+                <Link to="/genrate-quotation" state={row._id}><button
                     className="btn btn-success"
                 >
                     Generate

@@ -166,7 +166,11 @@ const api = {
         createQuotation: {
             url: '/api/quotations',
             method: 'post',
-        }
+        },
+        genrateQuotation: {
+            url: '/api/quotations',
+            method: 'get',
+        },
     },
     milestone: {
         milestoneGet: {

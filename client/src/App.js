@@ -45,7 +45,7 @@ import LeadList from './pages/admin/LeadManagement/LeadList.js';
 import LeadAdd from './pages/admin/LeadManagement/LeadAdd.js';
 import QuotationList from './pages/admin/LeadManagement/QuotationList.js';
 import QuotationAdd from './pages/admin/LeadManagement/QuotationAdd.js';
-import Quotation from './pages/admin/LeadManagement/Quotation.js';
+import GenrateQuotation from './pages/admin/LeadManagement/GenrateQuotation.js';
 import Milestone from './pages/admin/LeadManagement/Milestone.js';
 import TestimonialPage from './pages/admin/Testimonial/TestimonialPage';
 import JobApplication from './pages/admin/JobApplication/JobApplication';
@@ -100,7 +100,7 @@ function App() {
             <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>}/>
             <Route path="/quotation-list" element={<PrivateRoute> <QuotationList /></PrivateRoute>}/>
             <Route path="/quotation-add" element={<PrivateRoute> <QuotationAdd /></PrivateRoute>}/>
-            <Route path="/quotation" element={<PrivateRoute> <Quotation /></PrivateRoute>}/>
+            <Route path="/genrate-quotation" element={<PrivateRoute> <GenrateQuotation /></PrivateRoute>}/>
             <Route path="/milestone" element={<PrivateRoute> <Milestone /></PrivateRoute>}/>
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
             <Route path="/projects" element={<PrivateRoute><Project /></PrivateRoute>} />

@@ -42,7 +42,7 @@ export const createQuotation = async (req, res) => {
             items,
             projectOverview,
             projectDetails,
-            milestone,
+            milestone: JSON.parse(milestone),
             totalAmount,
         });
         await quotation.save();
@@ -66,6 +66,21 @@ export const getQuotations = async (req, res) => {
         }
 
         res.status(200).json({ success: true, message: "Quotations Get Successfully", data: quotations, nextQuotationNo: nextQuotationNo });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const genrateQuotation = async (req, res) => {
+    try {
+        const { quotationId } = req.params;
+        const quotationData = await Quotation.findById(quotationId);
+
+        if (!quotationData) {
+            return res.status(404).json({ success: false, message: "No Quotation Found", data: [] });
+        }
+
+        res.status(200).json({ success: true, message: "Quotation Get Successfully", data: quotationData });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -112,22 +112,22 @@ const QuotationAdd = () => {
         const quotationDate = document.getElementById("quotationDate").value;
         const lead = document.getElementById("lead").value;
         const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
+        // const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const company = document.getElementById("company").value;
-        const address = document.getElementById("address").value;
+        // const address = document.getElementById("address").value;
 
         if (!quotationDate) errors.quotationDate = "Quotation Date is required";
 
         if (!lead) errors.lead = "Please select lead";
 
-        if (!name) errors.name = "Name is required";
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!email) {
-            errors.email = "Email is required";
-        } else if (!emailRegex.test(email)) {
-            errors.email = "Please enter a valid email address";
-        }
+        // if (!name) errors.name = "Name is required";
+        // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        // if (!email) {
+        //     errors.email = "Email is required";
+        // } else if (!emailRegex.test(email)) {
+        //     errors.email = "Please enter a valid email address";
+        // }
         const phoneRegex = /^\d{10}$/;
         if (!phone) {
             errors.phone = "Phone is required";
@@ -135,8 +135,12 @@ const QuotationAdd = () => {
             errors.phone = "Please enter a valid phone";
         }
 
-        if (!company) errors.company = "Company is required";
-        if (!address) errors.address = "Address is required";
+        if (!name && !company) {
+            errors.name = "Either Name or Company is required";
+            errors.company = "Either Name or Company is required";
+        }
+        // if (!company) errors.company = "Company is required";
+        // if (!address) errors.address = "Address is required";
 
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
@@ -171,7 +175,8 @@ const QuotationAdd = () => {
             });
             formData.append("projectOverview", document.getElementById("projectOverview").value);
             formData.append("projectDetails", document.getElementById("projectDetails").value);
-            formData.append("milestone", JSON.stringify(selectedMilestones.map((opt) => opt.value)));
+            // formData.append("milestone", JSON.stringify(selectedMilestones.map((opt) => opt.value)));
+            formData.append("milestone", JSON.stringify(selectedMilestones));
             formData.append("totalAmount", document.getElementById("totalAmount").value);
 
             try {
@@ -229,7 +234,7 @@ const QuotationAdd = () => {
                                         <option value="">Select Lead</option>
                                         {leads.map((lead) => (
                                             <option key={lead._id} value={lead._id}>
-                                                {lead.name} ({lead.email})
+                                                {lead.name} ({lead.company}) ({lead.phone})
                                             </option>
                                         ))}
                                     </select>

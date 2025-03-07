@@ -16,6 +16,15 @@ const itemSchema = new mongoose.Schema({
     }
 });
 
+const milestoneSchema = new mongoose.Schema({
+    title: {
+        type: String,
+    },
+    percentage: {
+        type: Number,
+    },
+});
+
 const quotationSchema = new mongoose.Schema(
     {
         quotationNo: {
@@ -60,9 +69,7 @@ const quotationSchema = new mongoose.Schema(
         projectDetails: {
             type: String,
         },
-        milestone: [{
-            type: String,
-        }],
+        milestone: [milestoneSchema],
         totalAmount: {
             type: Number,
         }
