@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks,FaFlagCheckered  ,FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase,FaChartLine } from "react-icons/fa";
+import { FaHome, FaUser, FaCogs, FaChartBar, FaTasks, FaFlagCheckered, FaSignOutAlt, FaQuoteLeft, FaCaretDown, FaClipboardList, FaBriefcase, FaChartLine,FaFileInvoice } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -29,7 +29,7 @@ const Sidebar = () => {
           <Link to="/jobapplication"><FaClipboardList />Received Job Application Form</Link>
         </li>
         <li>
-          <Link to="/activity-ubi"><FaTasks  />Activity</Link>
+          <Link to="/activity-ubi"><FaTasks />Activity</Link>
         </li>
         <li>
           <Link to="/blog-list"><FaUser /> Blogs</Link>
@@ -71,21 +71,20 @@ const Sidebar = () => {
         </li>
 
         <li>
-          <div onClick={toggleLeadDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <FaChartLine />Lead Management <FaCaretDown />
+          <div onClick={toggleLeadDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span><FaChartLine />Lead Management</span>
+            <FaCaretDown />
           </div>
 
           {leadManagement && (
             <ul style={{ listStyleType: 'none', paddingLeft: '10px', marginTop: '10px' }}>
               <ul style={{ listStyleType: 'none', paddingLeft: '10px' }}>
-                <li><FaClipboardList /><Link to="/lead-list">Lead</Link></li>
-                <li><Link to="/quotation-list">Quotation</Link></li>
+                <li><Link to="/lead-list"><FaClipboardList /> Lead</Link></li>
+                <li><Link to="/quotation-list"><FaFileInvoice /> Quotation</Link></li>
+                <li><Link to="/milestone"><FaFlagCheckered /> Milestone</Link></li>
               </ul>
             </ul>
           )}
-        </li>
-        <li>
-          <Link to="/milestone"><FaFlagCheckered  /> Milestone</Link>
         </li>
         <li>
           <Link to="/settings"><FaCogs /> Settings</Link>

@@ -5,6 +5,7 @@ export const createQuotation = async (req, res) => {
         const {
             quotationNo,
             quotationDate,
+            lead,
             name,
             company,
             email,
@@ -20,7 +21,7 @@ export const createQuotation = async (req, res) => {
         } = req.body;
 
         let imageUrl
-        if (req.file.filename) {
+        if (req.file) {
             imageUrl = "/uploads/quotation/" + req.file.filename;
         } else {
             imageUrl = "";
@@ -30,6 +31,7 @@ export const createQuotation = async (req, res) => {
             quotationNo,
             quotationDate,
             image: imageUrl,
+            lead,
             name,
             company,
             email,

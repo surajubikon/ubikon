@@ -6,20 +6,18 @@ import Sidebar from "../components/Sidebar";
 import BundledEditor from "../../admin/bundled";
 import MultiSelectDropdown from "../../admin/components/MultiSelectDropdown";
 
-const Quotation = () => {
+const QuotationAdd = () => {
     const [stateData, setStateData] = useState([]);
     const [cityData, setCityData] = useState([]);
     const [selectedState, setSelectedState] = useState("");
     const [formErrors, setFormErrors] = useState({});
     const [quotationNo, setQuotationNo] = useState("");
     const [items, setItems] = useState([{ description: "", qty: 1, price: "", total: 0 }]);
-    const projectMilestones = [
-        { value: "advanced payment", label: "Advanced payment ........... 30%" },
-        { value: "design & prototypes", label: "Design & Prototypes ........... 25%" },
-        { value: "development", label: "Development ........... 25%" },
-        { value: "final delivery", label: "Final Delivery ........... 15%" },
-    ];
+    const [milestones, setMilestones] = useState([]);
     const [selectedMilestones, setSelectedMilestones] = useState([]);
+    const [leads, setLeads] = useState([]);
+    const [selectedLead, setSelectedLead] = useState(null);
+
 
     const fetchData = async () => {
         try {
@@ -54,7 +52,6 @@ const Quotation = () => {
         return items.reduce((sum, item) => sum + (item.total || 0), 0);
     };
 
-
     useEffect(() => {
         const fetchStateData = async () => {
             try {
@@ -65,12 +62,39 @@ const Quotation = () => {
             }
         };
         fetchStateData();
+        const fetchMilestones = async () => {
+            try {
+                const response = await fetch(`${api.milestone.milestoneGet.url}`);
+                const data = await response.json();
+                setMilestones(
+                    data.map((milestone) => ({
+                        value: milestone.value,
+                        label: `${milestone.name} ........... ${milestone.percentage}%`,
+                    }))
+                );
+            } catch (error) {
+                console.error("Error fetching milestones:", error);
+            }
+        };
+
+        fetchMilestones();
+        const fetchLeads = async () => {
+            try {
+                const response = await axios.get(`${baseURL}${api.lead.getLeads.url}`);
+                setLeads(response.data.data);
+            } catch (error) {
+                console.error("Error fetching leads:", error);
+            }
+        };
+
+        fetchLeads();
     }, []);
 
     const handleStateChange = async (event) => {
         const selectedStateName = event.target.value;
         setSelectedState(selectedStateName);
         setCityData([]);
+        selectedLead.city = "";
 
         if (!selectedStateName) {
             return;
@@ -85,11 +109,17 @@ const Quotation = () => {
 
     const validateForm = () => {
         const errors = {};
+        const quotationDate = document.getElementById("quotationDate").value;
+        const lead = document.getElementById("lead").value;
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const company = document.getElementById("company").value;
         const address = document.getElementById("address").value;
+
+        if (!quotationDate) errors.quotationDate = "Quotation Date is required";
+
+        if (!lead) errors.lead = "Please select lead";
 
         if (!name) errors.name = "Name is required";
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -126,6 +156,7 @@ const Quotation = () => {
             formData.append("city", document.getElementById("city").value);
             formData.append("quotationNo", document.getElementById("quotationNo").value);
             formData.append("quotationDate", document.getElementById("quotationDate").value);
+            formData.append("lead", document.getElementById("lead").value);
 
             const imageFile = document.getElementById("image").files[0];
             if (imageFile) {
@@ -153,6 +184,7 @@ const Quotation = () => {
                     event.target.reset();
                     setItems([{ description: "", qty: 1, price: "", total: 0 }]);
                     setSelectedMilestones([])
+                    setSelectedLead(null)
                     fetchData()
                 } else {
                     toast.error("Something went wrong!");
@@ -164,6 +196,13 @@ const Quotation = () => {
             console.log("Form validation failed");
         }
     };
+
+    const handleLeadChange = (event) => {
+        const selectedId = event.target.value;
+        const lead = leads.find((l) => l._id === selectedId);
+        setSelectedLead(lead || null);
+    };
+
 
     return (
         <div className="admin d-flex">
@@ -185,26 +224,33 @@ const Quotation = () => {
                                     {formErrors.quotationDate && <small className="text-danger">{formErrors.quotationDate}</small>}
                                 </div>
                                 <div className="col-md-4">
-                                    <label htmlFor="image" className="form-label">Image</label>
-                                    <input type="file" className="form-control" name="image" id="image" />
-                                    {formErrors.image && <small className="text-danger">{formErrors.image}</small>}
+                                    <label htmlFor="lead" className="form-label">Select Lead</label>
+                                    <select className="form-control" name="lead" id="lead" onChange={handleLeadChange}>
+                                        <option value="">Select Lead</option>
+                                        {leads.map((lead) => (
+                                            <option key={lead._id} value={lead._id}>
+                                                {lead.name} ({lead.email})
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {formErrors.lead && <small className="text-danger">{formErrors.lead}</small>}
                                 </div>
                             </div>
 
                             <div className="row g-3 mt-3">
                                 <div className="col-md-4">
                                     <label htmlFor="name" className="form-label">Name</label>
-                                    <input type="text" className="form-control" name="name" id="name" placeholder="Enter Name" />
+                                    <input type="text" className="form-control" name="name" id="name" placeholder="Enter Name" value={selectedLead?.name || ""} />
                                     {formErrors.name && <small className="text-danger">{formErrors.name}</small>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="email" className="form-label">Email</label>
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
+                                    <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" value={selectedLead?.email || ""} />
                                     {formErrors.email && <small className="text-danger">{formErrors.email}</small>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="phone" className="form-label">Phone</label>
-                                    <input type="text" className="form-control" name="phone" id="phone" placeholder="Enter phone" />
+                                    <input type="text" className="form-control" name="phone" id="phone" placeholder="Enter phone" value={selectedLead?.phone || ""} />
                                     {formErrors.phone && <small className="text-danger">{formErrors.phone}</small>}
                                 </div>
                             </div>
@@ -212,34 +258,54 @@ const Quotation = () => {
                             <div className="row g-3 mt-3">
                                 <div className="col-md-4">
                                     <label htmlFor="company" className="form-label">Company</label>
-                                    <input type="text" className="form-control" name="company" id="company" placeholder="Enter company" />
+                                    <input type="text" className="form-control" name="company" id="company" placeholder="Enter company" value={selectedLead?.company || ""} />
                                     {formErrors.company && <small className="text-danger">{formErrors.company}</small>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="address" className="form-label">Address</label>
-                                    <input type="text" className="form-control" name="address" id="address" placeholder="Enter address" />
+                                    <input type="text" className="form-control" name="address" id="address" placeholder="Enter address" value={selectedLead?.address || ""} />
                                     {formErrors.address && <small className="text-danger">{formErrors.address}</small>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="state" className="form-label">State</label>
-                                    <select className="form-control" name="state" id="state" onChange={handleStateChange}>
+                                    <select className="form-control" name="state" id="state">
+                                        <option value="">Select State</option>
+                                        <option value={selectedLead?.state} selected>{selectedLead?.state}</option>
+                                        {/* {selectedLead && selectedLead.state ? (
+                                        ) : null}
+                                        {stateData.map((state, index) => (
+                                            <option key={index} value={state.isoCode}>{state.name}</option>
+                                        ))} */}
+                                    </select>
+                                    {/* <select className="form-control" name="state" id="state" onChange={handleStateChange}>
                                         <option value="">Select State</option>
                                         {stateData.map((state, index) => (
                                             <option key={index} value={state.isoCode}>{state.name}</option>
                                         ))}
-                                    </select>
+                                    </select> */}
                                 </div>
                             </div>
 
                             <div className="row g-3 mt-3">
                                 <div className="col-md-4">
                                     <label htmlFor="city" className="form-label">City</label>
-                                    <select className="form-control" name="city" id="city" disabled={!selectedState}>
+                                    <select className="form-control" name="city" id="city">
                                         <option value="">Select City</option>
+                                        <option value={selectedLead?.city} selected>{selectedLead?.city}</option>
+                                        {/* {selectedLead && selectedLead.city ? (
+                                        ) : null}
                                         {cityData.map((city, index) => (
                                             <option key={index} value={city.name}>{city.name}</option>
-                                        ))}
+                                        ))} */}
+                                        {/* {cityData.map((city, index) => (
+                                            <option key={index} value={city.name}>{city.name}</option>
+                                        ))} */}
                                     </select>
+                                </div>
+                                <div className="col-md-4">
+                                    <label htmlFor="image" className="form-label">Image</label>
+                                    <input type="file" className="form-control" name="image" id="image" />
+                                    {formErrors.image && <small className="text-danger">{formErrors.image}</small>}
                                 </div>
                             </div>
 
@@ -349,7 +415,7 @@ const Quotation = () => {
                             </div>
 
                             <MultiSelectDropdown
-                                options={projectMilestones}
+                                options={milestones}
                                 label="Project Milestone Breakdown"
                                 onChange={setSelectedMilestones}
                                 totalAmount={getTotalAmount()}
@@ -366,4 +432,4 @@ const Quotation = () => {
     );
 };
 
-export default Quotation;
+export default QuotationAdd;

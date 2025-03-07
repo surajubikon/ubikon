@@ -25,8 +25,9 @@ const quotationSchema = new mongoose.Schema(
         quotationDate: {
             type: Date,
         },
-        image: {
-            type: String,
+        lead: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Lead",
         },
         name: {
             type: String,
@@ -48,6 +49,9 @@ const quotationSchema = new mongoose.Schema(
         },
         city: {
             type: String
+        },
+        image: {
+            type: String,
         },
         items: [itemSchema],
         projectOverview: {

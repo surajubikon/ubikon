@@ -1,5 +1,5 @@
 import React from "react";
-import InvBG from '../assets/img/invoiceBG.jpg'
+// import InvBG from '../assets/img/invoiceBG.jpg'
 import { FaCheckCircle } from "react-icons/fa";
 import { Color } from "antd/es/color-picker";
 
@@ -10,9 +10,9 @@ const InvoicePage = () => {
     <div className="invoice-section position-relative">
       
       {/* Banner with Image */}
-      <div className="position-relative w-100 overflow-hidden">
+      {/* <div className="position-relative w-100 overflow-hidden">
         <img src={InvBG} alt="Banner" className="img-fluid w-100" />
-      </div>
+      </div> */}
 
       <div className="container py-4 position-relative">
 
