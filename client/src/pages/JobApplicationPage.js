@@ -17,6 +17,7 @@ const JobApplicationPage = () => {
     last: '',
     email: '',
     phone: '',
+    experience: '',
     currentCTC: '',
     expectedCTC: '',
     noticePeriod: '',
@@ -35,6 +36,7 @@ const JobApplicationPage = () => {
     last: "Enter Last Name",
     email: "Enter Email Address",
     phone: "Enter Phone Number",
+    experience:"Enter Your Experience",
     currentCTC: "Enter Current CTC",
     expectedCTC: "Enter Expected CTC",
     noticePeriod: "Enter Notice Period (in days)",
@@ -105,6 +107,7 @@ const JobApplicationPage = () => {
         last: '',
         email: '',
         phone: '',
+        experience:'',
         currentCTC: '',
         expectedCTC: '',
         noticePeriod: '',
@@ -148,7 +151,7 @@ const JobApplicationPage = () => {
             <form onSubmit={handleSubmit} className="mt-4">
               
               <div className="row">
-                {['position','first', 'last', 'email', 'phone', 'currentCTC', 'expectedCTC', 'noticePeriod', 'portfoliolink'].map((field) => (
+                {['position','first', 'last', 'email', 'phone', 'experience', 'currentCTC', 'expectedCTC', 'noticePeriod', 'portfoliolink'].map((field) => (
                   <div className="col-md-12 mb-3" key={field}>
                     <input
                       type={field.includes('CTC') || field === 'noticePeriod' ? 'number' : 'text'}
@@ -178,8 +181,11 @@ const JobApplicationPage = () => {
                   <label htmlFor="resumeInput" className="file-label d-flex flex-column align-items-center justify-content-center" style={{ cursor: 'pointer' }}>
                     <FaPlus className="plus-icon mb-2" />
                     <span>Select a file</span>
-                  </label>
+                    <span className="text-muted" style={{ fontSize: '12px' }}>PDF, DOC, DOCX, JPG, JPEG, PNG</span>
+                   </label>
+              
                 </div>
+                
               )}
               {resumePreview && (
                 <div className="mb-3 d-flex align-items-center">

@@ -1,5 +1,5 @@
 import express from 'express';
-import upload from "../middleware/multer.js";
+import multer from 'multer';
 import { 
   createService, 
   getService, 
@@ -11,13 +11,35 @@ import {
 
 const router = express.Router();
 
-router.post('/create', upload.fields([{ name: 'thumbnail' }, { name: 'coverImage' }, { name: 'previewImage' }]), createService);
+// ✅ Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads/service");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// ✅ Routes with Correct Multer Usage
+router.post('/create', upload.fields([
+  { name: 'thumbnail', maxCount: 1 }, 
+  { name: 'coverImage', maxCount: 1 }, 
+  { name: 'previewImage', maxCount: 1 }
+]), createService);
+
 router.get('/all', getService);       
 router.get('/:id', getServiceById);
 router.get('/slug/:slug', getServiceBySlug);
-// Changed from :id to :slug
 
-router.put('/update/:id', upload.fields ([{ name: 'thumbnail' }, { name: 'coverImage' }, { name: 'previewImage' }]),  updateService); // ✅ Update blog post
-router.delete('/delete/:id',  deleteService); 
+router.put('/update/:id', upload.fields([
+  { name: 'thumbnail', maxCount: 1 }, 
+  { name: 'coverImage', maxCount: 1 }, 
+  { name: 'previewImage', maxCount: 1 }
+]), updateService);
+
+router.delete('/delete/:id', deleteService);
 
 export default router;

@@ -33,6 +33,7 @@
     "openai": "^4.82.0",
     "sharp": "^0.33.5",
     "universal-analytics": "^0.5.3",
+    "update": "^0.7.4",
     "uuid": "^11.0.5",
     "websocket": "^1.0.35",
     "ws": "^8.18.0"

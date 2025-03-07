@@ -1,5 +1,5 @@
 import express from 'express';
-import upload from "../middleware/multer.js";
+import multer from 'multer';
 import { 
   createTestimonial, 
   getTestimonial, 
@@ -9,6 +9,16 @@ import {
   deleteTestimonial 
 } from '../controllers/testimonialController.js';
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, "./public/uploads/testimonial");
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + file.originalname);
+
+  }
+});
+const upload = multer({storage : storage});
 const router = express.Router();
 
 router.post('/create-testimonial', upload.single( 'image' ), createTestimonial);

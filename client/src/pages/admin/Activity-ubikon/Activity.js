@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Table, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+import api, { baseURL } from '../../../API/api.url';
 
 const Activity = () => {
   const [activities, setActivities] = useState([]);
@@ -30,7 +31,7 @@ const Activity = () => {
 
   const fetchActivities = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/activity/get");
+      const response = await axios.get(`${baseURL}${api.activity.getAllActivities.url}`);
       setActivities(response.data);
       setLoading(false);
     } catch (err) {
@@ -42,18 +43,25 @@ const Activity = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonLoading(true);
+
     const formData = new FormData();
     formData.append("subject", subject);
-    formData.append("image", image);
+
+    if (image) {
+      formData.append("image", image); // Naya image selected hai
+    }
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:8000/api/activity/${editId}`, formData, {
+        const url = `${baseURL}${api.activity.updateActivity.url.replace(':id', editId)}`;
+
+        await axios.put(url, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+
         toast.success("Activity updated successfully!");
       } else {
-        await axios.post("http://localhost:8000/api/activity/create", formData, {
+        await axios.post(`${baseURL}${api.activity.createActivity.url}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Activity added successfully!");
@@ -75,13 +83,14 @@ const Activity = () => {
   const handleEdit = (activity) => {
     setSubject(activity.subject);
     setEditId(activity._id);
-    setPreview(activity.images?.[0] || null);
+    setPreview(activity.images?.[0] ? `${baseURL}${activity.images[0]}` : null);
     setShow(true);
   };
 
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/activity/${id}`);
+      await axios.delete(`${baseURL}${api.activity.deleteActivity.url.replace(':id', id)}`);
       toast.success("Activity deleted successfully!");
       fetchActivities();
     } catch (error) {
@@ -110,12 +119,20 @@ const Activity = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-
             <Form.Group className="mt-3">
               <Form.Label>Upload Image</Form.Label>
-              <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} required />
+              <Form.Control
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setImage(file);
+                  setPreview(file ? URL.createObjectURL(file) : preview); // Naya image hai toh update karo, nahi toh wahi rehne do
+                }}
+              />
               {preview && <img src={preview} alt="Preview" className="mt-2" width="100" height="100" />}
             </Form.Group>
+
+
 
             <Button className="mt-3 w-100" variant="success" type="submit" disabled={buttonLoading}>
               {buttonLoading ? <Spinner as="span" animation="border" size="sm" /> : editId ? "Update" : "Submit"}
@@ -144,7 +161,8 @@ const Activity = () => {
                 <td>{index + 1}</td>
                 <td>{activity.subject}</td>
                 <td>
-                  <img src={activity.images?.[0]} alt="Activity" width="50" height="50" />
+                  <img src={`${baseURL}${activity.images?.[0]}`} alt="Activity" width="50" height="50" />
+
                 </td>
                 <td>
                   <Button variant="warning" size="sm" className="me-2" onClick={() => handleEdit(activity)}>Edit</Button>

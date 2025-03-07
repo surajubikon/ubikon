@@ -9,7 +9,7 @@ import { MdDateRange } from "react-icons/md";
 import { FaClock } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
-
+import { baseURL } from '../API/api.url';
 const JobRequirement = () => {
       const navigate = useNavigate(); // ✅ useNavigate Hook
     const location = useLocation();
@@ -46,7 +46,7 @@ const JobRequirement = () => {
                     {/* Image Section */}
                     <div className="container">
                         <div className="d-flex justify-content-center mt-5 col-md-8 m-auto">
-                            <img src={job.thumbnail} alt="New Section" style={{ width: "1110px", height: "450px" }} />
+                            <img src={`${baseURL}${job.thumbnail}`} alt="New Section" style={{ width: "1110px", height: "450px" }} />
                         </div>
                     </div>
 

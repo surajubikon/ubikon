@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ReactPaginate from "react-paginate";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import { baseURL } from "../../../API/api.url";
 function JobApplication() {
     const applicationsPerPage = 10;
     const [applications, setApplications] = useState([]);
@@ -76,13 +76,13 @@ function JobApplication() {
                 `http://localhost:8000/api/jobApplicationForm/update-remark/${selectedApplication._id}`,
                 { remark }
             );
-    
+
             console.log("Response:", response.data); // API response check karo
-    
+
             setApplications(prev =>
                 prev.map(app => (app._id === selectedApplication._id ? { ...app, remark } : app))
             );
-    
+
             toast.success("Remark added successfully!");
             setShowModal(false);
         } catch (error) {
@@ -90,7 +90,7 @@ function JobApplication() {
             toast.error("Failed to update remark!");
         }
     };
-    
+
 
     const handleStatusChange = async (id, newStatus) => {
         try {
@@ -146,7 +146,7 @@ function JobApplication() {
             {loading ? <Spinner animation="border" className="d-block mx-auto" /> :
                 <Table striped bordered hover>
                     <thead className="table-dark">
-                        <tr><th>#</th><th>Position</th><th>Name</th><th>Email</th><th>Status</th><th>Actions</th></tr>
+                        <tr><th>#</th><th>Position</th><th>Name</th><th>Email</th><th>phone</th><th>experience</th><th>currentCTC</th><th>expectedCTC</th><th>Notic Period</th><th>Status</th><th>Actions</th><th>Resume</th><th>Portfolio</th></tr>
                     </thead>
                     <tbody>
                         {displayedApplications.map((app, index) => (
@@ -155,6 +155,12 @@ function JobApplication() {
                                 <td>{app.position || "N/A"}</td>
                                 <td>{app.first} {app.last}</td>
                                 <td>{app.email}</td>
+                                <td>{app.phone}</td>
+                                <td>{app.experience}</td>
+                                <td>{app.currentCTC}</td>
+                                <td>{app.expectedCTC}</td>
+                                <td>{app.noticePeriod}</td>
+
                                 <td>
                                     <Form.Select value={app.status} onChange={(e) => handleStatusChange(app._id, e.target.value)}>
                                         <option value="Pending">Pending</option>
@@ -167,6 +173,31 @@ function JobApplication() {
                                     <Button variant="primary" size="sm" onClick={() => handleOpenRemarkModal(app)}>Remark</Button>{' '}
                                     <Button variant="danger" size="sm" onClick={() => handleDelete(app._id)}>Delete</Button>
                                 </td>
+                                <td>
+                                    {app.resume ? (
+                                        <>
+                                            {/* PDF ko New Tab me Open Karne ke liye */}
+                                            <a href={`${baseURL}${app.resume}`} target="_blank" rel="noopener noreferrer">
+                                                View
+                                            </a>
+                                            {' | '}
+                                            {/* PDF ko Direct Download Karne ke liye */}
+                                            <a href={`${baseURL}${app.resume}`} download>
+                                                Download
+                                            </a>
+                                        </>
+                                    ) : (
+                                        "No Resume"
+                                    )}
+                                </td>
+
+
+                                <td>
+                                    <a href={app.portfoliolink} target="_blank" rel="noopener noreferrer">
+                                        View Portfolio
+                                    </a>
+                                </td>
+
                             </tr>
                         ))}
                     </tbody>

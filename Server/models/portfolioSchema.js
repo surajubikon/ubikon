@@ -15,9 +15,7 @@ const PortfolioSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-    },
+    image: { type: [String], required: true },
     technologies: [
       {
         type: String,

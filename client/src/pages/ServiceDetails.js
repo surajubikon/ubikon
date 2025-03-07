@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // Import useParams hook to get slug from URL
-
+import { baseURL } from "../API/api.url";
 function ServiceDetails() {
   const { slug } = useParams(); // Get the slug from URL parameters
   const [serviceDetails, setServiceDetails] = useState(null);
@@ -41,11 +41,12 @@ function ServiceDetails() {
       
       {/* Display thumbnail if available */}
       {serviceDetails.thumbnail && (
-        <img
-          src={serviceDetails.thumbnail}
-          alt={serviceDetails.title}
-          style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
-        />
+       <img
+       src={`${baseURL}${serviceDetails.thumbnail}`} // ✅ Fix here
+       alt={serviceDetails.title}
+       style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
+     />
+     
       )}
 
       

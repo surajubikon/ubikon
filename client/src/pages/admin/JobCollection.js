@@ -3,6 +3,7 @@ import axios from "../../utils/axiosInstance";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import
 import BundledEditor from './bundled'; // Import BundledEditor (TinyMCE)
 import { toast } from "react-toastify";
+import { baseURL } from "../../API/api.url";
 
 const JobCollection = () => {
   const [jobs, setJobs] = useState([]);
@@ -220,7 +221,7 @@ const JobCollection = () => {
                   <td>{job.description}</td>
                   <td>
                     <img
-                      src={job.thumbnail}
+                      src={`${baseURL}${job.thumbnail}`}
                       alt="Thumbnail"
                       style={{ width: "80px", height: "50px", objectFit: "cover", borderRadius: "5px" }}
                     />

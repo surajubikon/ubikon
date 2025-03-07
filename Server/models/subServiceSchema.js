@@ -23,10 +23,10 @@ const SubServiceSchema = new mongoose.Schema(
       required: true,
     },
     thumbnail: {
-      type: String,
-    },
-   
-    content: { 
+      type: [String], // Change to an array of strings
+      default: []
+  },
+   content: { 
         type: String ,
         required: true ,
 }, 

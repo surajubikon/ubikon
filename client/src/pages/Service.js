@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";  // Import React Helmet
-
+import { baseURL } from "../API/api.url";
 const Service = () => {
     const [services, setServices] = useState([]);
 
@@ -76,7 +76,7 @@ const Service = () => {
                                 <div className="services-image">
                                     <Link to={`/service-list/${service.slug}`}>
                                         {service.thumbnail && (
-                                            <img width="100%" src={service.thumbnail} alt={service.title || "Image"} />
+                                            <img width="100%" src={`${baseURL}${service.thumbnail}`} alt={service.title || "Image"} />
                                         )}
                                     </Link>
                                 </div>
