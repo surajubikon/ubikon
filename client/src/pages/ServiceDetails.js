@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // Import useParams hook to get slug from URL
+import { useParams } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import { baseURL } from "../API/api.url";
-function ServiceDetails() {
-  const { slug } = useParams(); // Get the slug from URL parameters
+
+const ServiceDetails = () => {
+  const { slug } = useParams();
   const [serviceDetails, setServiceDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch service details based on slug
     axios
-      .get(`http://localhost:8000/api/sub-services/${slug}`)
+      .get(`${baseURL}/api/sub-services/${slug}`)
       .then((response) => {
-        setServiceDetails(response.data); // ✅ Use response.data (not response.data[0])
+        setServiceDetails(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -21,41 +22,60 @@ function ServiceDetails() {
         setError("Error fetching service details");
         setLoading(false);
       });
-  }, [slug]); // Re-run effect when slug changes
+  }, [slug]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-lg font-semibold mt-10">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-red-500 mt-10">{error}</div>;
   }
 
   if (!serviceDetails) {
-    return <div>Service Not Found</div>;
+    return <div className="text-center text-gray-600 mt-10">Service Not Found</div>;
   }
 
   return (
-    <div>
-      <h1>{serviceDetails.title}</h1> {/* Service title */}
-      
-      {/* Display thumbnail if available */}
-      {serviceDetails.thumbnail && (
-       <img
-       src={`${baseURL}${serviceDetails.thumbnail}`} // ✅ Fix here
-       alt={serviceDetails.title}
-       style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
-     />
+    <>
+      <Navbar />
      
-      )}
+      <div className="relative w-full h-[400px] bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center text-white text-center px-6">
+        <div>
+          <h1 className="text-4xl font-bold drop-shadow-lg">{serviceDetails.title}</h1>
+          <p className="text-lg mt-3 max-w-2xl mx-auto">{serviceDetails.description}</p>
+        </div>
+      </div>
 
-      
-      <p>{serviceDetails.description}</p> {/* Service description */}
+     
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+         
+          {serviceDetails.thumbnail && (
+            <div>
+              <img
+                src={`${baseURL}${serviceDetails.thumbnail}`}
+                alt={serviceDetails.title}
+                className="rounded-xl shadow-lg w-full max-w-lg mx-auto"
+              />
+            </div>
+          )}
 
-      {/* Display the rich text content safely */}
-      <div dangerouslySetInnerHTML={{ __html: serviceDetails.content }} />
-    </div>
+         
+          <div>
+            <h2 className="text-3xl font-semibold mb-4">About This Service</h2>
+            <div
+              className="text-gray-700 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: serviceDetails.content }}
+            />
+            <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+              Get This Service
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default ServiceDetails;
