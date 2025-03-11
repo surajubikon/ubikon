@@ -42,21 +42,10 @@ const LeadAdd = () => {
     const validateForm = () => {
         const errors = {};
         const name = document.getElementById("name").value;
-        // const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const company = document.getElementById("company").value;
-        // const address = document.getElementById("address").value;
-        // const source = document.getElementById("source").value;
         const projectName = document.getElementById("projectName").value;
         const projectType = document.getElementById("projectType").value;
-
-        // if (!name) errors.name = "Name is required";
-        // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        // if (!email) {
-        //     errors.email = "Email is required";
-        // } else if (!emailRegex.test(email)) {
-        //     errors.email = "Please enter a valid email address";
-        // }
         const phoneRegex = /^\d{10}$/;
         if (!phone) {
             errors.phone = "Phone number is required";
@@ -67,10 +56,6 @@ const LeadAdd = () => {
             errors.name = "Either Name or Company is required";
             errors.company = "Either Name or Company is required";
         }
-    
-        // if (!company) errors.company = "Company is required";
-        // if (!address) errors.address = "Address is required";
-        // if (!source) errors.source = "Source is required";
         if (!projectName) errors.projectName = "project Name is required";
         if (!projectType) errors.projectType = "Please select project type";
 
@@ -95,8 +80,8 @@ const LeadAdd = () => {
                 projectName: document.getElementById("projectName").value,
                 projectType: document.getElementById("projectType").value,
                 projectBudget: document.getElementById("projectBudget").value,
+                remark: document.getElementById("remark").value,
                 projectRequirements: document.getElementById("projectRequirements").value
-
             };
 
             try {
@@ -119,12 +104,11 @@ const LeadAdd = () => {
         }
     };
 
-
     return (
         <div className="admin d-flex">
             <Sidebar />
-            <div className="main-content container-fluid d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", flex: "1" }}>
-                <div className="card p-4 shadow-lg w-100" style={{ maxWidth: "1000px", borderRadius: "15px", backgroundColor: "#f8f9fa" }}>
+            <div className="main-content container-fluid d-flex justify-content-center align-items-center" >
+                <div className="p-4  w-100">
                     <div className="card-body">
                         <h3 className="text-center mb-4">Add Lead</h3>
                         <form onSubmit={handleSubmit}>
@@ -137,7 +121,6 @@ const LeadAdd = () => {
                                 <div className="col-md-4">
                                     <label htmlFor="email" className="form-label">Email</label>
                                     <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
-                                    {/* {formErrors.email && <small className="text-danger">{formErrors.email}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="phone" className="form-label">Phone</label>
@@ -155,7 +138,6 @@ const LeadAdd = () => {
                                 <div className="col-md-4">
                                     <label htmlFor="address" className="form-label">Address</label>
                                     <input type="text" className="form-control" name="address" id="address" placeholder="Enter address" />
-                                    {/* {formErrors.address && <small className="text-danger">{formErrors.address}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="state" className="form-label">State</label>
@@ -188,8 +170,8 @@ const LeadAdd = () => {
                                         <option value="Ads">Ads</option>
                                         <option value="Referral">Referral</option>
                                         <option value="Cold Call">Cold Call</option>
+                                        <option value="Google">Google</option>
                                     </select>
-                                    {/* {formErrors.source && <small className="text-danger">{formErrors.source}</small>} */}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="projectName" className="form-label">Project Name</label>
@@ -230,12 +212,16 @@ const LeadAdd = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="projectBudget" className="form-label">Project Budget</label>
-                                    <input type="number" className="form-control" name="projectBudget" id="projectBudget" placeholder="Enter Project Budget" />
+                                    <input type="text" className="form-control" name="projectBudget" id="projectBudget" placeholder="Enter Project Budget" />
                                 </div>
                             </div>
 
                             <div className="row g-3 mt-3">
-                                <div className="col-md-12">
+                                <div className="col-md-6">
+                                    <label htmlFor="remark" className="form-label">Remark</label>
+                                    <textarea type="text" className="form-control" name="remark" id="remark" rows={10} placeholder="Enter your remark" />
+                                </div>
+                                <div className="col-md-6">
                                     <label htmlFor="projectRequirements" className="form-label">Project Requirements</label>
                                     <textarea type="text" className="form-control" name="projectRequirements" id="projectRequirements" rows={10} placeholder="Enter your project requirement" />
                                 </div>

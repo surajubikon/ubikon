@@ -5,15 +5,16 @@ import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import InvBG from "../../../assets/img/invoiceBG.jpg";
+import InvBG from "../../../assets/img/invoiceBG.png";
 import { FaCheckCircle } from "react-icons/fa";
 
 const GenrateQuotation = () => {
   const componentRef = useRef();
   const location = useLocation();
   const quotationId = location.state;
+  console.log("")
   const [data, setData] = useState([]);
-  console.log("data", data)
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

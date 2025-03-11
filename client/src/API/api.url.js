@@ -110,6 +110,14 @@ const api = {
             url: '/api/leads',
             method: 'post',
         },
+        updateStatus: {
+            url: '/api/leads',
+            method: 'patch',
+        },
+        deleteLead: {
+            url: '/api/leads',
+            method: 'delete',
+        },
     },
 
     activity: {
