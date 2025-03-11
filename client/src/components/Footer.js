@@ -14,9 +14,10 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import WhatsApp from '../pages/WhatsApp';
-
+import { Link } from "react-router-dom";
 
 import AnimatedCursor from "react-animated-cursor";
+import ServiceCategory from "./ServiceCategory";
 
 const Footer  = () => {
 
@@ -130,29 +131,7 @@ const Footer  = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-3 col-6 ">
-              <h5 className='fw-bold'>Links</h5>
-              <ul className="nav flex-column">
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">About Us</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Services</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">News</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Pricing</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Projects</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Contact Us</a>
-                </li>
-              </ul>
-            </div>
+           
             <div className="col-md-3 col-6">
               <h5 className='fw-bold'>Pages</h5>
               <ul className="nav flex-column">
@@ -160,19 +139,13 @@ const Footer  = () => {
                   <a className="nav-link px-0" aria-current="page" href="#">About Us</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Services</a>
+                  <Link className="nav-link px-0" aria-current="page"  to="/services">Services</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">News</a>
+                  <Link className="nav-link px-0" aria-current="page"  to="/project">Projects</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Pricing</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Projects</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link px-0" aria-current="page" href="#">Contact Us</a>
+                  <Link className="nav-link px-0" aria-current="page"  to="/contact">Contact Us</Link>
                 </li>
               </ul>
             </div>

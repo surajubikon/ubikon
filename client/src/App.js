@@ -35,7 +35,6 @@ import Login from "./pages/admin/Login";
 import Enquiry from './pages/admin/Enquiry';
 import BlogPages from './pages/admin/BlogPages';
 import BlogDetails from './pages/admin/BlogDeatails';
-import Register from './pages/admin/Register';
 import ServicePage from './pages/admin/ServicePage';
 import SubService from './pages/admin/SubService';
 import JobCategory from './pages/admin/JobCategory';
@@ -84,7 +83,7 @@ function App() {
             <Route path="/service-list/:slug" element={<ServicesPageList />} />
             <Route path="/demo" element={<Demo />} />
             <Route path="/blog/:slug" element={<BlogDetails />} />
-            <Route path='/register' element={<Register />} />
+            {/* <Route path='/register' element={<Register />} /> */}
             <Route path='/jobapp-form' element={<JobApplicationPage />} />
             <Route path='/job-req' element={<JobRequirement />} />
 

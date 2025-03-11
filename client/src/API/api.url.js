@@ -75,16 +75,7 @@ const api = {
         },
     },
     
-    jobApplicationfORM: {
-        createJobApplication: {
-            url: '/api/jobApplicationForm/create',
-            method: 'post',
-        },
-        getJobApplications: {
-            url: '/api/jobApplicationForm/get',
-            method: 'get',
-        },
-    },
+  
    
     aiChat: {
         sendMessage: {
