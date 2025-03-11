@@ -110,6 +110,14 @@ const api = {
             url: '/api/leads',
             method: 'post',
         },
+        updateStatus: {
+            url: '/api/leads',
+            method: 'patch',
+        },
+        deleteLead: {
+            url: '/api/leads',
+            method: 'delete',
+        },
     },
 
     activity: {
@@ -166,7 +174,11 @@ const api = {
         createQuotation: {
             url: '/api/quotations',
             method: 'post',
-        }
+        },
+        genrateQuotation: {
+            url: '/api/quotations',
+            method: 'get',
+        },
     },
     milestone: {
         milestoneGet: {

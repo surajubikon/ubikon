@@ -16,6 +16,15 @@ const itemSchema = new mongoose.Schema({
     }
 });
 
+const milestoneSchema = new mongoose.Schema({
+    title: {
+        type: String,
+    },
+    percentage: {
+        type: Number,
+    },
+});
+
 const quotationSchema = new mongoose.Schema(
     {
         quotationNo: {
@@ -25,8 +34,9 @@ const quotationSchema = new mongoose.Schema(
         quotationDate: {
             type: Date,
         },
-        image: {
-            type: String,
+        lead: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Lead",
         },
         name: {
             type: String,
@@ -43,6 +53,15 @@ const quotationSchema = new mongoose.Schema(
         address: {
             type: String,
         },
+        state: {
+            type: String
+        },
+        city: {
+            type: String
+        },
+        image: {
+            type: String,
+        },
         items: [itemSchema],
         projectOverview: {
             type: String,
@@ -50,9 +69,7 @@ const quotationSchema = new mongoose.Schema(
         projectDetails: {
             type: String,
         },
-        milestone: [{
-            type: String,
-        }],
+        milestone: [milestoneSchema],
         totalAmount: {
             type: Number,
         }

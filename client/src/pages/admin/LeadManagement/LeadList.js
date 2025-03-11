@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
 import api, { baseURL } from '../../../API/api.url';
 import Sidebar from "../components/Sidebar";
 import CustomDataTable from "../components/CustomDataTable";
@@ -9,6 +11,7 @@ const LeadList = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
+  const statusOptions = ["New", "Contacted", "Interested", "Converted", "Not Interested"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +44,43 @@ const LeadList = () => {
     }
   }, [search, data]);
 
+  const handleStatusChange = async (leadId, newStatus) => {
+    try {
+      const response = await axios.patch(`${baseURL}${api.lead.updateStatus.url}/${leadId}`, { status: newStatus });
+      setData((prevData) =>
+        prevData.map((lead) => (lead._id === leadId ? { ...lead, status: newStatus } : lead))
+      );
+      setFilteredData((prevData) =>
+        prevData.map((lead) => (lead._id === leadId ? { ...lead, status: newStatus } : lead))
+      );
+      if (response.status === 200) {
+        toast.success("Lead Status Updated Successfully");
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  const handleDelete = async (leadId) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this lead?");
+    if (!isConfirmed) return;
+
+    try {
+      const response = await axios.delete(`${baseURL}${api.lead.deleteLead.url}/${leadId}`);
+      setData((prevData) => prevData.filter((lead) => lead._id !== leadId));
+      setFilteredData((prevData) => prevData.filter((lead) => lead._id !== leadId));
+      if (response.status === 200) {
+        toast.success("Lead Deleted Successfully");
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error deleting lead:", error);
+    }
+  };
+
   const columns = [
     {
       name: "S No",
@@ -53,7 +93,35 @@ const LeadList = () => {
     { name: "Email", selector: (row) => row.email, sortable: true },
     { name: "Phone", selector: (row) => row.phone, sortable: true },
     { name: "Source", selector: (row) => row.source, sortable: true },
-    { name: "Status", selector: (row) => row.status, sortable: true },
+    { name: "Remark", selector: (row) => row.remark, sortable: true },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+      sortable: true,
+      cell: (row) => (
+        <select
+          value={row.status}
+          onChange={(e) => handleStatusChange(row._id, e.target.value)}
+          style={{ padding: "5px", borderRadius: "5px" }}
+        >
+          {statusOptions.map((status) => (
+            <option key={status} value={status}>{status}</option>
+          ))}
+        </select>
+      ),
+    },
+    {
+      name: "Action",
+      cell: (row) => (
+        <FaTrash
+          style={{ cursor: "pointer", color: "red", fontSize: "20px" }}
+          onClick={() => handleDelete(row._id)}
+        />
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    }
   ];
 
   return (

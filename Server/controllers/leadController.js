@@ -9,10 +9,13 @@ export const createLead = async (req, res) => {
             phone,
             company,
             address,
+            state,
+            city,
             source,
             projectName,
             projectType,
             projectBudget,
+            remark,
             projectRequirements,
         } = req.body;
 
@@ -22,10 +25,13 @@ export const createLead = async (req, res) => {
             phone,
             company,
             address,
+            state,
+            city,
             source,
             projectName,
             projectType,
             projectBudget,
+            remark,
             projectRequirements,
         });
         await lead.save();
@@ -39,7 +45,7 @@ export const createLead = async (req, res) => {
 export const getLeads = async (req, res) => {
     try {
         const { status, source, page = 1, limit = 10 } = req.query;
-        let filter = {};
+        let filter = { isDelete: false };
         if (status) filter.status = status;
         if (source) filter.source = source;
 
@@ -87,6 +93,8 @@ export const updateLead = async (req, res) => {
             phone,
             company,
             address,
+            state,
+            city,
             status,
             source,
             projectName,
@@ -101,6 +109,8 @@ export const updateLead = async (req, res) => {
             phone,
             company,
             address,
+            state,
+            city,
             status,
             source,
             projectName,
@@ -124,7 +134,11 @@ export const updateStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
 
-        const lead = await Lead.findByIdAndUpdate(id, { status }, { new: true });
+        const lead = await Lead.findOneAndUpdate(
+            { _id: id },
+            { $set: { status } },
+            { new: true }
+        );
 
         if (!lead) {
             return res.status(404).json({ success: false, message: "Lead Not Found", data: {} });
@@ -139,7 +153,16 @@ export const updateStatus = async (req, res) => {
 export const deleteLead = async (req, res) => {
     try {
         const { id } = req.params;
-        const lead = await Lead.findByIdAndDelete(id);
+        const lead = await Lead.findOneAndUpdate(
+            { _id: id },
+            {
+                $set: {
+                    isDelete: true,
+                    deletedAt: new Date()
+                }
+            },
+            { new: true }
+        );
 
         if (!lead) {
             return res.status(404).json({ success: false, message: "Lead Not Found", data: {} });

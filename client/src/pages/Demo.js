@@ -1,5 +1,5 @@
 import React from "react";
-import InvBG from '../assets/img/invoiceBG.jpg'
+import InvBG from '../assets/img/invoiceBG.png'
 import { FaCheckCircle } from "react-icons/fa";
 import { Color } from "antd/es/color-picker";
 

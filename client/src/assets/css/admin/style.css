@@ -1,12 +1,13 @@
 /*** Variables ***/
-.admin {
+/* .admin { */
   /*** Sidebar ***/
   /*** Main Content ***/
   /*** Header ***/
   /*** Notification ***/
   /*** Profile ***/
   /*** Dropdown ***/
-  /*** Dashboard ***/ }
+  /*** Dashboard ***/ 
+/* } */
   .admin .sidebar {
     width: 250px;
     background: #222;

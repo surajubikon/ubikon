@@ -17,8 +17,14 @@ const leadSchema = new mongoose.Schema(
         address: {
             type: String
         },
+        state: {
+            type: String
+        },
+        city: {
+            type: String
+        },
         status: { type: String, enum: ["New", "Contacted", "Interested", "Converted", "Not Interested"], default: "New" },
-        source: { type: String, enum: ["Website", "Ads", "Referral", "Cold Call"] },
+        source: { type: String },
         projectName: {
             type: String
         },
@@ -26,11 +32,21 @@ const leadSchema = new mongoose.Schema(
             type: String
         },
         projectBudget: {
-            type: Number
+            type: String,
+        },
+        remark: {
+            type: String
         },
         projectRequirements: {
             type: String
         },
+        isDelete: {
+            type: Boolean,
+            default: false
+        },
+        deletedAt: {
+            type: Date
+        }
     },
     { timestamps: true }
 );

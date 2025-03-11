@@ -9,17 +9,14 @@ const QuotationList = () => {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [search, setSearch] = useState("");
-    const [quotationNo, setQuotationNo] = useState("");
-   
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${baseURL}${api.quotation.getQuotations.url}`);
                 setData(response.data.data);
                 setFilteredData(response.data.data);
-                setQuotationNo();
             } catch (error) {
-                setQuotationNo();
                 console.error("Error fetching quotations:", error);
             }
         };
@@ -57,6 +54,20 @@ const QuotationList = () => {
         { name: "Phone", selector: (row) => row.phone, sortable: true },
         { name: "Address", selector: (row) => row.address, sortable: true },
         { name: "Total Amount", selector: (row) => row.totalAmount, sortable: true },
+        {
+            name: "Generate Quotation",
+            cell: (row) => (
+                <Link to="/genrate-quotation" state={row._id}><button
+                    className="btn btn-success"
+                >
+                    Generate
+                </button>
+                </Link>
+            ),
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        }
     ];
 
     return (
