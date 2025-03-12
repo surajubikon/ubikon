@@ -35,9 +35,7 @@ const LeadList = () => {
       const result = data.filter(
         (row) =>
           row?.company?.toLowerCase().includes(search?.toLowerCase()) ||
-          row?.projectName?.toLowerCase().includes(search?.toLowerCase()) ||
           row?.name?.toLowerCase().includes(search?.toLowerCase()) ||
-          row?.email?.toLowerCase().includes(search?.toLowerCase()) ||
           row?.phone?.toLowerCase().includes(search) ||
           row?.source?.toLowerCase().includes(search?.toLowerCase()) ||
           row?.status?.toLowerCase().includes(search?.toLowerCase())
@@ -94,10 +92,8 @@ const LeadList = () => {
       sortable: false,
       width: "80px",
     },
-    { name: "Company", selector: (row) => row.company, sortable: true, width: "150px", },
-    { name: "Project Name", selector: (row) => row.projectName, sortable: true, width: "180px" },
+    { name: "Company", selector: (row) => row.company, sortable: true, width: "170px", },
     { name: "Name", selector: (row) => row.name, sortable: true, width: "150px" },
-    { name: "Email", selector: (row) => row.email, sortable: true, width: "200px" },
     { name: "Phone", selector: (row) => row.phone, sortable: true, width: "130px" },
     { name: "Source", selector: (row) => row.source, sortable: true, width: "120px" },
     { name: "Remark", selector: (row) => row.remark, sortable: true, width: "200px" },
