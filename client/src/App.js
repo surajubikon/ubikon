@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { initGA, logPageView } from "./utils/analytics";  
+import { initGA, logPageView } from "./utils/analytics";
 import { LoaderProvider } from "./context/LoaderContext";
 
 // ✅ Styles & Assets (CSS, Bootstrap)
@@ -29,7 +29,7 @@ import JobApplicationPage from './pages/JobApplicationPage.js';
 import JobRequirement from './pages/JobRequirement.js';
 
 // ✅ Admin Pages
-import PrivateRoute from './API/PrivateRoute';  
+import PrivateRoute from './API/PrivateRoute';
 import Dashboard from "./pages/admin/Dashboard";
 import Login from "./pages/admin/Login";
 import Enquiry from './pages/admin/Enquiry';
@@ -43,6 +43,7 @@ import JobCollection from './pages/admin/JobCollection';
 import PortFolio from './pages/admin/PortFolio';
 import LeadList from './pages/admin/LeadManagement/LeadList.js';
 import LeadAdd from './pages/admin/LeadManagement/LeadAdd.js';
+import LeadEdit from './pages/admin/LeadManagement/leadEdit.js';
 import QuotationList from './pages/admin/LeadManagement/QuotationList.js';
 import QuotationAdd from './pages/admin/LeadManagement/QuotationAdd.js';
 import GenrateQuotation from './pages/admin/LeadManagement/GenrateQuotation.js';
@@ -73,7 +74,7 @@ function App() {
       <LoaderProvider>
         <Router>
           <Routes>
-        
+
             {/* Frontend Pages */}
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
@@ -94,14 +95,15 @@ function App() {
             <Route path="/enquiry" element={<PrivateRoute><Enquiry /></PrivateRoute>} />
             <Route path="/jobapplication" element={<PrivateRoute><JobApplication /></PrivateRoute>} />
             <Route path="/activity-ubi" element={<PrivateRoute><ActivityUbikon /></PrivateRoute>} />
-            <Route path="/blog-list" element={<PrivateRoute><BlogPages/></PrivateRoute>} />
+            <Route path="/blog-list" element={<PrivateRoute><BlogPages /></PrivateRoute>} />
             <Route path="/portfolio" element={<PrivateRoute><PortFolio /></PrivateRoute>} />
-            <Route path="/lead-list" element={<PrivateRoute> <LeadList /></PrivateRoute>}/>
-            <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>}/>
-            <Route path="/quotation-list" element={<PrivateRoute> <QuotationList /></PrivateRoute>}/>
-            <Route path="/quotation-add" element={<PrivateRoute> <QuotationAdd /></PrivateRoute>}/>
-            <Route path="/genrate-quotation" element={<PrivateRoute> <GenrateQuotation /></PrivateRoute>}/>
-            <Route path="/milestone" element={<PrivateRoute> <Milestone /></PrivateRoute>}/>
+            <Route path="/lead-list" element={<PrivateRoute> <LeadList /></PrivateRoute>} />
+            <Route path="/lead-add" element={<PrivateRoute> <LeadAdd /></PrivateRoute>} />
+            <Route path="/lead-edit" element={<PrivateRoute> <LeadEdit /></PrivateRoute>} />
+            <Route path="/quotation-list" element={<PrivateRoute> <QuotationList /></PrivateRoute>} />
+            <Route path="/quotation-add" element={<PrivateRoute> <QuotationAdd /></PrivateRoute>} />
+            <Route path="/genrate-quotation" element={<PrivateRoute> <GenrateQuotation /></PrivateRoute>} />
+            <Route path="/milestone" element={<PrivateRoute> <Milestone /></PrivateRoute>} />
             <Route path="/testimonials" element={<PrivateRoute><TestimonialPage /></PrivateRoute>} />
             <Route path="/projects" element={<PrivateRoute><Project /></PrivateRoute>} />
             <Route path="/job-category" element={<PrivateRoute><JobCategory /></PrivateRoute>} />
@@ -111,12 +113,12 @@ function App() {
 
             {/* 404 Page */}
             <Route path="*" element={<NotFound />} />
-           
+
           </Routes>
 
         </Router>
         <ToastContainer position="top-right" autoClose={3000} />
-      </LoaderProvider> 
+      </LoaderProvider>
     </>
   );
 }

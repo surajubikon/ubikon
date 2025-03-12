@@ -72,6 +72,13 @@ const quotationSchema = new mongoose.Schema(
         milestone: [milestoneSchema],
         totalAmount: {
             type: Number,
+        },
+        isDelete: {
+            type: Boolean,
+            default: false
+        },
+        deletedAt: {
+            type: Date
         }
     },
     { timestamps: true }

@@ -74,7 +74,7 @@ const api = {
             method: 'get',
         },
     },
-    
+
     jobApplicationfORM: {
         createJobApplication: {
             url: '/api/jobApplicationForm/create',
@@ -85,7 +85,7 @@ const api = {
             method: 'get',
         },
     },
-   
+
     aiChat: {
         sendMessage: {
             url: '/api/aichat/bot',
@@ -110,6 +110,14 @@ const api = {
             url: '/api/leads',
             method: 'post',
         },
+        editLead: {
+            url: '/api/leads',
+            method: 'get',
+        },
+        updateLead: {
+            url: '/api/leads',
+            method: 'put',
+        },
         updateStatus: {
             url: '/api/leads',
             method: 'patch',
@@ -129,7 +137,7 @@ const api = {
             url: '/api/activity/get-activity/:subject',
             method: 'get',
         },
-        
+
         createActivity: {
             url: '/api/activity/create',
             method: 'post',
@@ -143,7 +151,7 @@ const api = {
             method: 'delete',
         },
     },
-    portfolio:{
+    portfolio: {
         getAllPortfolios: {
             url: '/api/portfolio/get-all',
             method: 'get',
@@ -151,17 +159,17 @@ const api = {
         createPortfolio: {
             url: '/api/portfolio/create',
             method: 'post',
-            },
-            getportfolioBySlug:{
-                url: '/api/portfolio/:slug',
-                method: 'get',
-            },
-            deletePortfolio:{
-                url: '/api/portfolio/delete/:id',
-                method: 'delete',
-            },
-            
-            updatePortfolio: {
+        },
+        getportfolioBySlug: {
+            url: '/api/portfolio/:slug',
+            method: 'get',
+        },
+        deletePortfolio: {
+            url: '/api/portfolio/delete/:id',
+            method: 'delete',
+        },
+
+        updatePortfolio: {
             url: '/api/portfolio/update/:id',
             method: 'delete',
         },
@@ -179,30 +187,34 @@ const api = {
             url: '/api/quotations',
             method: 'get',
         },
+        deleteQuotation: {
+            url: '/api/quotations',
+            method: 'delete',
+        },
     },
     milestone: {
         milestoneGet: {
-          url: `${baseURL}/api/milestone/get`,
-          method: "get",
+            url: `${baseURL}/api/milestone/get`,
+            method: "get",
         },
         milestoneCreate: {
-          url: `${baseURL}/api/milestone/create`,
-          method: "post",
+            url: `${baseURL}/api/milestone/create`,
+            method: "post",
         },
         milestoneGetByID: {
-          url: (id) => `${baseURL}/api/milestone/${id}`,
-          method: "get",
+            url: (id) => `${baseURL}/api/milestone/${id}`,
+            method: "get",
         },
         milestoneUpdate: {
-          url: (id) => `${baseURL}/api/milestone/update/${id}`,
-          method: "put",
+            url: (id) => `${baseURL}/api/milestone/update/${id}`,
+            method: "put",
         },
         milestoneDelete: {
-          url: (id) => `${baseURL}/api/milestone/delete/${id}`,
-          method: "delete",
+            url: (id) => `${baseURL}/api/milestone/delete/${id}`,
+            method: "delete",
         },
     },
-     projectAPI: {
+    projectAPI: {
         projectGet: {
             url: `${baseURL}/api/project/get`,
             method: "get",
@@ -223,8 +235,8 @@ const api = {
             url: (id) => `${baseURL}/api/project/delete/${id}`,
             method: "delete",
         },
-     },
-    
+    },
+
 
     jobApplicationForm: {
         createJobApplication: {
@@ -251,7 +263,7 @@ const api = {
             url: `${baseURL}/api/jobApplicationForm/:id`,
             method: "delete"
         },
-    }    
+    }
 };
 
 export default api;
