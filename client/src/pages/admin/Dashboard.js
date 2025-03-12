@@ -24,7 +24,7 @@ const Dashboard = () => {
     };
 const fetchTootalJobApplication = async () => {
       try {
-        const response = await axios.get(`${baseURL}${api.jobApplication.getJobApplications.url}`);
+        const response = await axios.get(`${api.jobApplicationForm.getJobApplications.url}`);
         setTotalJobApplication(response.data.length);
         
       } catch (err) {
