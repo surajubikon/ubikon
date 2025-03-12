@@ -95,7 +95,7 @@ export const updateSubService = async (req, res) => {
         // 🔹 Resize & Compress Image
         const compressedImagePath = `./public/uploads/subservice/compressed-${file.filename}`;
         await sharp(imagePath)
-          .resize(800, 600)
+          .resize(800, 600, { fit: 'inside' })
           .webp({ quality: 80 })
           .toFile(compressedImagePath);
 

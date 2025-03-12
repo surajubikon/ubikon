@@ -72,7 +72,7 @@ const Project = () => {
                                     <div className="blog-image">
                                         {/* Link to dynamic blog post page */}
                                         <Link to={`/blog/${post.slug}`}>
-                                            {post.thumbnail && <img src={`${baseURL}${post.thumbnail}`} alt={post.title || "Image"} />}
+                                            {post.previewImage && <img src={`${baseURL}${post.previewImage}`} alt={post.title || "Image"} />}
                                         </Link>
                                     </div>
                                 </div>

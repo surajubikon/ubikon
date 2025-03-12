@@ -184,7 +184,7 @@ function SubService() {
     <div className="subservicepage-container">
       {!isFormPage && (
         <>
-          <button onClick={() => setIsFormPage(true)} className="add-subservice-btn"> ➕ Add Subservice </button>
+          <button onClick={() => setIsFormPage(true)} className="add-subservice-btn"> ➕ Add SubCategory </button>
 
           {subservices.length === 0 ? (
             <p>Loading...</p>
@@ -230,7 +230,7 @@ function SubService() {
       {/* Form Page */}
       {isFormPage && (
         <div className="form-page">
-          <h2>{editSubserviceId ? "Edit Subservice" : "Add Subservice"}</h2>
+          <h2>{editSubserviceId ? "Edit SubCategory" : "Add SubCategory"}</h2>
           <form onSubmit={handleAddOrEditSubservice}>
             <input
               type="text"

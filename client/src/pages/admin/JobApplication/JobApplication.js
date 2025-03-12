@@ -122,7 +122,7 @@ function JobApplication() {
         }
     };
 
-    const displayedApplications = filteredApplications.slice(
+     const displayedApplications = filteredApplications.slice(
         currentPage * applicationsPerPage,
         (currentPage + 1) * applicationsPerPage
     );
@@ -146,15 +146,18 @@ function JobApplication() {
             {loading ? <Spinner animation="border" className="d-block mx-auto" /> :
                 <Table striped bordered hover>
                     <thead className="table-dark">
-                        <tr><th>#</th><th>Position</th><th>Name</th><th>Email</th><th>phone</th><th>experience</th><th>currentCTC</th><th>expectedCTC</th><th>Notic Period</th><th>Status</th><th>Actions</th><th>Resume</th><th>Portfolio</th></tr>
+                        <tr><th>#</th><th>D&T</th>
+                        <th>Position</th><th>Name</th><th>phone</th><th>experience</th><th>currentCTC</th><th>expectedCTC</th><th>Notic Period</th><th>Status</th><th>Actions</th><th>Resume</th><th>Portfolio</th></tr>
                     </thead>
                     <tbody>
                         {displayedApplications.map((app, index) => (
-                            <tr key={app._id} style={{ backgroundColor: getStatusColor(app.status) }}>
+                             <tr key={app._id} style={{ backgroundColor: getStatusColor(app.status) }}>
                                 <td>{currentPage * applicationsPerPage + index + 1}</td>
+                                <th>{new Date(app.createdAt).toLocaleString()}</th>
+
                                 <td>{app.position || "N/A"}</td>
                                 <td>{app.first} {app.last}</td>
-                                <td>{app.email}</td>
+                                {/* <td>{app.email}</td> */}
                                 <td>{app.phone}</td>
                                 <td>{app.experience}</td>
                                 <td>{app.currentCTC}</td>
@@ -203,6 +206,27 @@ function JobApplication() {
                     </tbody>
                 </Table>
             }
+<ReactPaginate
+    previousLabel={"← Prev"}
+    nextLabel={"Next →"}
+    breakLabel={"..."}
+    pageCount={Math.max(1, Math.ceil(filteredApplications.length / applicationsPerPage))}
+    marginPagesDisplayed={2}
+    pageRangeDisplayed={3}
+    onPageChange={handlePageClick}
+    containerClassName={"pagination justify-content-center mt-3"}
+    pageClassName={"page-item"}
+    pageLinkClassName={"page-link"}
+    previousClassName={"page-item"}
+    previousLinkClassName={"page-link"}
+    nextClassName={"page-item"}
+    nextLinkClassName={"page-link"}
+    breakClassName={"page-item"}
+    breakLinkClassName={"page-link"}
+    activeClassName={"active"}
+    disabledClassName={"disabled"}
+/>
+
 
             {/* Modal for Adding Remarks */}
             <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">

@@ -6,25 +6,6 @@ import { baseURL } from "../API/api.url";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from '../components/Footer';
-import ReactIcon from "./ReactIcon"
-
-const iconMap = {
-  "web development": <ReactIcon />,
-  // "flutter development": <FlutterIcon />,
-  // "ai ml development": <AIIcon />,
-};
-
-// Function to find the best match
-const getClosestMatch = (input) => {
-  const normalizedInput = normalizeText(input);
-
-  // Find best match from iconMap keys
-  return (
-    Object.keys(iconMap).find((key) =>
-      normalizedInput.includes(key.split(" ")[0]) // Match first word
-    ) || null
-  );
-};
 
 // Normalize function
 const normalizeText = (text) =>
@@ -150,8 +131,8 @@ const ServicesPageList = () => {
               Modern {service.title} requires the best tools and technologies.
             </p>
 
-            {/* Get Closest Match & Show Icon */}
-            {iconMap[getClosestMatch(service.title)]}
+            
+            
           </Col>
         </Row>
         

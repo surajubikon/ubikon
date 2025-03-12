@@ -3,7 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import api, { baseURL } from '../../API/api.url';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalJobApplication, setTotalJobApplication] = useState(0);
@@ -45,7 +45,9 @@ const fetchTootalJobApplication = async () => {
         <Header />
         <div className="dashboard">
           <div className='col-sm-6'>
+          <Link to="/enquiry">
             <div className="card">
+           
             <h3>Total Enquiry Mails</h3>
                 {loading ? (
                   <p>Loading...</p>
@@ -54,10 +56,13 @@ const fetchTootalJobApplication = async () => {
                 ) : (
                   <p>{totalUsers}</p>
                 )}
+                
             </div>
+            </Link>
           </div> 
           <div className='col-sm-6'>
-            <div className="card">
+            <Link to="/jobapplication">
+          <div className="card">
             <h3>Total Job Application Form</h3>
                 {loading ? (
                   <p>Loading...</p>
@@ -67,6 +72,7 @@ const fetchTootalJobApplication = async () => {
                   <p>{totalJobApplication}</p>
                 )}
             </div>
+            </Link>
           </div>  
         </div>
       </div>
