@@ -1335,3 +1335,51 @@ opacity: 1;
   background-repeat: no-repeat;
   background-position: center;
 } */
+.react-icon-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.react-circle {
+  width: 20px;
+  height: 20px;
+  background-color: #61dafb;
+  border-radius: 50%;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  z-index: 2;
+}
+
+.react-ellipse {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  border: 4px solid #61dafb;
+  border-radius: 50%;
+  animation: spin 3s linear infinite;
+}
+
+.ellipse1 {
+  transform: rotate(0deg);
+}
+
+.ellipse2 {
+  transform: rotate(60deg);
+}
+
+.ellipse3 {
+  transform: rotate(-60deg);
+}
+.react-icon {
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import blogBG from '../assets/img/service-img.webp'
 import { FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { baseURL } from '../API/api.url';
 
 function BlogListPage() {
     const [posts, setPosts] = useState([]);
@@ -44,7 +45,7 @@ function BlogListPage() {
                                     <div className="blog-image">
                                         {/* Link to dynamic blog post page */}
                                         <Link to={`/blog/${post.slug}`}>
-                                            {post.thumbnail && <img src={post.thumbnail} alt={post.title || "Image"} />}
+                                            {post.thumbnail && <img src={`${baseURL}${post.thumbnail}`} alt={post.title || "Image"} />}
                                         </Link>
                                     </div>
                                 </div>

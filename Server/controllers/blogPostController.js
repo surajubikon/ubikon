@@ -1,7 +1,4 @@
 import Blogposts from "../models/blogPost.js";
-import { uploadToCloudinary } from "../utils/cloudinary.js";
-import mongoose from "mongoose";
-import sharp from 'sharp';
 
 export const createBlogPost = async (req, res) => {
   const { title, content, description, seometa , publishedAt } = req.body;
@@ -24,42 +21,11 @@ export const createBlogPost = async (req, res) => {
     }
 
     // Handle image uploads
-    let thumbnailUrl = '';
-    let coverImageUrl = '';
-    let previewImageUrl = ''; // New variable for Preview Image
+    let thumbnailUrl = req.files?.thumbnail ? `/uploads/blogpost/${req.files.thumbnail[0].filename}` : "";
+    let coverImageUrl = req.files?.coverImage ? `/uploads/blogpost/${req.files?.coverImage[0].filename}`:"";
+    let previewImageUrl = req.files?.previewImage? `/uploads/blogpost/${req.files?.previewImage[0].filename}`: ""; // New variable for Preview Image
 
-    if (req.files?.thumbnail) {
-      const thumbnailBuffer = await sharp(req.files.thumbnail[0].buffer)
-        .resize(800, 600)  // Resize image to 800x600
-        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
-        .toBuffer();  // Get processed image as buffer
-      
 
-      const thumbnailUpload = await uploadToCloudinary(thumbnailBuffer);
-      thumbnailUrl = thumbnailUpload.secure_url;
-    }
-
-    if (req.files?.coverImage) {
-      const coverImageBuffer = await sharp(req.files.coverImage[0].buffer)
-        .resize(1200, 800)  // Resize image to 1200x800
-        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
-        .toBuffer();  // Get processed image as buffer
-     
-
-      const coverImageUpload = await uploadToCloudinary(coverImageBuffer);
-      coverImageUrl = coverImageUpload.secure_url;
-    }
-
-    if (req.files?.previewImage) {  // Handling Preview Image
-      const previewImageBuffer = await sharp(req.files.previewImage[0].buffer)
-        .resize(400, 300)  // Resize image to 400x300 for preview
-        .webp({ quality: 80 })  // Compress to 80% quality (WebP format)
-        .toBuffer();  // Get processed image as buffer
-    
-
-      const previewImageUpload = await uploadToCloudinary(previewImageBuffer);
-      previewImageUrl = previewImageUpload.secure_url;
-    }
 
     // Create the blog post with image URLs
     const blogPost = await Blogposts.create({

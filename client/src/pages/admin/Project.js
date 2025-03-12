@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { baseURL } from "../../API/api.url";
 
 
 const Project = () => {
@@ -71,7 +72,7 @@ const Project = () => {
                                     <div className="blog-image">
                                         {/* Link to dynamic blog post page */}
                                         <Link to={`/blog/${post.slug}`}>
-                                            {post.thumbnail && <img src={post.thumbnail} alt={post.title || "Image"} />}
+                                            {post.thumbnail && <img src={`${baseURL}${post.thumbnail}`} alt={post.title || "Image"} />}
                                         </Link>
                                     </div>
                                 </div>

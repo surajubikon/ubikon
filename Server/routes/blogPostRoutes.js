@@ -1,5 +1,5 @@
 import express from 'express';
-import upload from "../middleware/multer.js";
+import multer from "multer";
 import { 
   createBlogPost, 
   getBlogPosts, 
@@ -10,6 +10,19 @@ import {
 } from '../controllers/blogPostController.js';
 
 const router = express.Router();
+
+// ✅ Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads/blogpost");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 router.post('/create', upload.fields([{ name: 'thumbnail' }, { name: 'coverImage' }, { name: 'previewImage' }]), createBlogPost);
 router.get('/all', getBlogPosts);       

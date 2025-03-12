@@ -208,7 +208,7 @@ function Project() {
                                     View link
                                 </a>
                             </td>
-                            <td>
+                            <td className="table-actions">
                                 <Button variant="warning" size="sm" onClick={() => handleEdit(project)}>
                                     Edit
                                 </Button>{" "}
