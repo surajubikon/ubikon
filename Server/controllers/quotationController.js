@@ -56,9 +56,9 @@ export const createQuotation = async (req, res) => {
 export const getQuotations = async (req, res) => {
     try {
 
-        const quotations = await Quotation.find({});
+        const quotations = await Quotation.find({ isDelete: false });
 
-        const lastQuotationNo = await Quotation.findOne().sort({ quotationNo: -1 }).limit(1);
+        const lastQuotationNo = await Quotation.findOne({ isDelete: false }).sort({ quotationNo: -1 }).limit(1);
         const nextQuotationNo = lastQuotationNo ? lastQuotationNo.quotationNo + 1 : 2001;
 
         if (quotations.length === 0) {
@@ -134,7 +134,17 @@ export const updateQuotation = async (req, res) => {
 export const deleteQuotation = async (req, res) => {
     try {
         const { id } = req.params;
-        const quotation = await Quotation.findByIdAndDelete(id);
+        const quotation = await Quotation.findOneAndUpdate(
+            { _id: id },
+            {
+                $set: {
+                    isDelete: true,
+                    deletedAt: new Date()
+                }
+            },
+            { new: true }
+        );
+        // const quotation = await Quotation.findByIdAndDelete(id);
 
         if (!quotation) {
             return res.status(404).json({ success: false, message: "Quotation Not Found", data: {} });

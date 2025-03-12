@@ -12,9 +12,8 @@ const GenrateQuotation = () => {
   const componentRef = useRef();
   const location = useLocation();
   const quotationId = location.state;
-  console.log("")
   const [data, setData] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,7 +86,15 @@ const GenrateQuotation = () => {
 
         <div className="mt-4 mt-4 justify-content-between d-flex">
           <h4><b>Quotation no: </b><span>{data?.quotationNo}</span></h4>
-          <h4 className="float-end"><b>Quotation Date: </b><span>{data?.quotationDate?.split("T")[0]}</span></h4>
+          <h4 className="float-end"><b>Quotation Date: </b>
+            <span>{data?.quotationDate
+              ? new Date(data.quotationDate)
+                .toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })
+              : ""}</span></h4>
         </div>
 
         {/* 📑 Invoice Header */}
@@ -180,21 +187,21 @@ const GenrateQuotation = () => {
         {/* 📍 Milestone Section */}
         <h2 className="fw-semibold mt-5 h4 mb-4">Payment Milestones</h2>
         <div className="row g-3">
-        {data?.milestone?.map((milestone, index) => (
-          <div className="col-md-4" key={index}>
-            {/* <p>
+          {data?.milestone?.map((milestone, index) => (
+            <div className="col-md-4" key={index}>
+              {/* <p>
               <span className="rounded-pill mx-2" 
                 style={{ fontSize: "12px", padding: "6px 11px", backgroundColor: "#0084C3", color: "#fff" }}>
                 {index + 1}
               </span>
               {milestone.title}
             </p> */}
-            <div className="card p-3 rounded-4">
-              <h3 className="fw-bold h5 mb-2">{milestone.title}</h3>
-              <p>{milestone.percentage}</p>
+              <div className="card p-3 rounded-4">
+                <h3 className="fw-bold h5 mb-2">{milestone.title}</h3>
+                <p>{milestone.percentage}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         </div>
 
         {/* 📜 Terms & Conditions */}

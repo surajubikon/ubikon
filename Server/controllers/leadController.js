@@ -84,6 +84,22 @@ export const getCities = async (req, res) => {
     }
 };
 
+export const editLead = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const lead = await Lead.findById(id);
+
+        if (!lead) {
+            return res.status(404).json({ success: false, message: "No Leads Found", data: {} });
+        }
+
+        res.status(200).json({ success: true, message: "Lead Get Successfully", data: lead });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 export const updateLead = async (req, res) => {
     try {
         const { id } = req.params;
@@ -95,11 +111,11 @@ export const updateLead = async (req, res) => {
             address,
             state,
             city,
-            status,
             source,
             projectName,
             projectType,
             projectBudget,
+            remark,
             projectRequirements,
         } = req.body;
 
@@ -111,11 +127,11 @@ export const updateLead = async (req, res) => {
             address,
             state,
             city,
-            status,
             source,
             projectName,
             projectType,
             projectBudget,
+            remark,
             projectRequirements,
         }, { new: true });
 
