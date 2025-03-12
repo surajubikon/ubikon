@@ -15,7 +15,7 @@
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
-    "antd": "^5.24.1",
+    "antd": "^5.24.3",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "ckeditor4-react": "^5.2.1",

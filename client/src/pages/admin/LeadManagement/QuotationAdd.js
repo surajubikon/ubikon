@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "select2/dist/css/select2.min.css";
 import "select2/dist/js/select2.min.js";
@@ -86,7 +86,7 @@ const QuotationAdd = () => {
 
     useEffect(() => {
         $("#lead").select2();
-    
+
         $("#lead").on("select2:select", function (e) {
             const selectedId = e.params.data.id;
             console.log("Lead Selected:", selectedId);
@@ -94,12 +94,12 @@ const QuotationAdd = () => {
             console.log("Found Lead:", lead);
             setSelectedLead(lead || null);
         });
-    
+
         return () => {
             $("#lead").select2("destroy");
         };
     }, [filteredLeads]);
-    
+
 
     const handleProjectTypeChange = (selectedType) => {
         setSelectedProjectType(selectedType);
@@ -109,7 +109,7 @@ const QuotationAdd = () => {
         } else {
             setFilteredLeads(leads);
         }
-        setSelectedLead(null); 
+        setSelectedLead(null);
     };
     const validateForm = () => {
         const errors = {};

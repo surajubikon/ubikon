@@ -1337,36 +1337,3 @@ opacity: 1;
   background-repeat: no-repeat;
   background-position: center;
 } */
-.featurs {
-  background: #1A1A1A;
-}
-.featurs .card {
-  background-color: #252525 !important;
-  color: #fff;
-  border-radius: 15px !important;
-}
-
-.featurs .card svg {
-  color: #E0C053;
-}
-.featurs .card h5 {
-  color: #F58539;
-}
-
-/******/
-
-.use-cases {
-  background: #252525;
-}
-.use-cases .card {
-  background-color: #1A1A1A !important;
-  color: #fff;
-  border-radius: 15px !important;
-}
-
-.use-cases .card svg {
-  color: #E0C053;
-}
-.use-cases .card h5 {
-  color: #fff;
-}

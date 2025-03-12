@@ -45,16 +45,20 @@ const Navbar = () => {
             {/* <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link></li> */}
             <ServiceCategory />
-          <li className="nav-item"><a className="nav-link" href="#">Project</a></li>
+            {/* <li className="nav-item"><a className="nav-link" href="#">Project</a></li> */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/services">Explore All Services</Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/blog-all-list">Blog</Link>
-              </li>
+            </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/contact">Contact Us</Link>
-              </li>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/careerdetails">Careers</Link>
-              </li>
+            </li>
             <li className="nav-item">
               <a className="nav-link" style={{ color: "#F58539" }} href="tel:+916264818989">
                 <IoCallOutline /> <span>+91 6264818989</span>

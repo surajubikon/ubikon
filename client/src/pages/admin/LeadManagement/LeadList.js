@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import api, { baseURL } from '../../../API/api.url';
 import Sidebar from "../components/Sidebar";
 import CustomDataTable from "../components/CustomDataTable";
 
 const LeadList = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
@@ -81,23 +83,29 @@ const LeadList = () => {
     }
   };
 
+  const handleEdit = (leadId) => {
+    navigate("/lead-edit", { state: leadId });
+  };
+
   const columns = [
     {
       name: "S No",
       selector: (row, index) => index + 1,
-      sortable: false
+      sortable: false,
+      width: "80px",
     },
-    { name: "Company", selector: (row) => row.company, sortable: true },
-    { name: "Project Name", selector: (row) => row.projectName, sortable: true },
-    { name: "Name", selector: (row) => row.name, sortable: true },
-    { name: "Email", selector: (row) => row.email, sortable: true },
-    { name: "Phone", selector: (row) => row.phone, sortable: true },
-    { name: "Source", selector: (row) => row.source, sortable: true },
-    { name: "Remark", selector: (row) => row.remark, sortable: true },
+    { name: "Company", selector: (row) => row.company, sortable: true, width: "150px", },
+    { name: "Project Name", selector: (row) => row.projectName, sortable: true, width: "180px" },
+    { name: "Name", selector: (row) => row.name, sortable: true, width: "150px" },
+    { name: "Email", selector: (row) => row.email, sortable: true, width: "200px" },
+    { name: "Phone", selector: (row) => row.phone, sortable: true, width: "130px" },
+    { name: "Source", selector: (row) => row.source, sortable: true, width: "120px" },
+    { name: "Remark", selector: (row) => row.remark, sortable: true, width: "200px" },
     {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
+      width: "150px",
       cell: (row) => (
         <select
           value={row.status}
@@ -113,11 +121,18 @@ const LeadList = () => {
     {
       name: "Action",
       cell: (row) => (
-        <FaTrash
-          style={{ cursor: "pointer", color: "red", fontSize: "20px" }}
-          onClick={() => handleDelete(row._id)}
-        />
+        <div style={{ display: "flex", gap: "10px" }}>
+          <FaEdit
+            style={{ cursor: "pointer", color: "green", fontSize: "25px" }}
+            onClick={() => handleEdit(row._id)}
+          />
+          <FaTrash
+            style={{ cursor: "pointer", color: "red", fontSize: "25px" }}
+            onClick={() => handleDelete(row._id)}
+          />
+        </div>
       ),
+      width: "120px",
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,

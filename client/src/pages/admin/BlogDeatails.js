@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-
+import { baseURL } from '../../API/api.url';
 function BlogDetails() {
     const { slug } = useParams();  // Get the slug from the URL
     const [blog, setBlog] = useState(null);
@@ -43,7 +43,7 @@ function BlogDetails() {
                                 <h2>Blog</h2>
                                 <p>Stay Updated with the Latest Tech Insights</p>
                             </div>
-                            {blog.coverImage && <img className='w-100 blogcoverimage' src={blog.coverImage} alt={blog.title} />}
+                            {blog.coverImage && <img className='w-100 blogcoverimage' src={`${baseURL}${blog.coverImage}`} alt={blog.title} />}
                         </div>
                         <div className='blog-details-content'>
                             <div className='container'>
@@ -52,11 +52,22 @@ function BlogDetails() {
                                     <p className='blog-published-dt'><strong>Published on:</strong> {new Date(blog.createdAt).toLocaleDateString()}</p>
                                     {blog.thumbnail && (
                                         <img
-                                            src={blog.thumbnail}
+                                            src={`${baseURL}${blog.thumbnail}`}
                                             alt={blog.title}
                                             className='w-100'
                                         />
                                     )}
+                                    <div className='col-md-8 m-auto'>
+
+                                    
+                                    {blog.previewImage && (
+                                        <img
+                                            src={`${baseURL}${blog.previewImage}`}
+                                            alt={blog.title}
+                                            className='w-100'
+                                        />
+                                    )}
+                                    </div>
                                     <div className='blog-content'>
                                         <p>{blog.description}</p>
                                         <div className="" dangerouslySetInnerHTML={{ __html: blog.content }}></div>

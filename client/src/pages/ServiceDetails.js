@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { useParams, useNavigate } from "react-router-dom";
 import { baseURL } from "../API/api.url";
+import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const ServiceDetails = () => {
   const { slug } = useParams();
   const [serviceDetails, setServiceDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -25,55 +29,126 @@ const ServiceDetails = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="text-center text-lg font-semibold mt-10">Loading...</div>;
+    return (
+      <Container className="text-center my-5">
+        <Spinner animation="border" variant="warning" />
+      </Container>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-red-500 mt-10">{error}</div>;
+    return <h2 className="text-center text-danger">{error}</h2>;
   }
 
   if (!serviceDetails) {
-    return <div className="text-center text-gray-600 mt-10">Service Not Found</div>;
+    return <h2 className="text-center">Service Not Found</h2>;
   }
 
   return (
     <>
+      {/* Navbar Fix - Ensuring title is visible */}
       <Navbar />
-     
-      <div className="relative w-full h-[400px] bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center text-white text-center px-6">
-        <div>
-          <h1 className="text-4xl font-bold drop-shadow-lg">{serviceDetails.title}</h1>
-          <p className="text-lg mt-3 max-w-2xl mx-auto">{serviceDetails.description}</p>
-        </div>
-      </div>
+      <Container
+        className="d-flex flex-column"
+        style={{
+          paddingTop: "120px",
+          minHeight: "80vh",
+        }}
+      >
+        <Row className="text-center mb-4">
+          <Col>
+            <h1
+              className="fw-bold text-uppercase"
+              style={{
+                background: "linear-gradient(45deg, #FFA500, #FF8C00)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
+            >
+              {serviceDetails.title}
+            </h1>
+          </Col>
+        </Row>
 
-     
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-         
-          {serviceDetails.thumbnail && (
-            <div>
+        <Row className="align-items-center mb-5">
+          <Col md={6} className="text-center text-md-start">
+            <Card className="p-4 shadow-sm border-0" style={{ borderRadius: "10px" }}>
+              <Card.Body>
+                <Card.Title className="fw-bold fs-3">{serviceDetails.title}</Card.Title>
+                <Card.Text className="text-muted fs-5">{serviceDetails.description}</Card.Text>
+                <Button
+                  style={{
+                    background: "linear-gradient(45deg, #FFA500, #FF8C00)",
+                    border: "none",
+                    color: "white",
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    borderRadius: "8px",
+                  }}
+                  onClick={() => navigate("/")}
+                >
+                  Get in Touch
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6} className="text-center">
+            {serviceDetails.thumbnail && (
               <img
                 src={`${baseURL}${serviceDetails.thumbnail}`}
                 alt={serviceDetails.title}
-                className="rounded-xl shadow-lg w-full max-w-lg mx-auto"
+                className="img-fluid rounded shadow"
+                style={{ maxHeight: "400px", border: "1px solid #ddd", padding: "8px" }}
               />
-            </div>
-          )}
+            )}
+          </Col>
+        </Row>
 
-         
-          <div>
-            <h2 className="text-3xl font-semibold mb-4">About This Service</h2>
-            <div
-              className="text-gray-700 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: serviceDetails.content }}
-            />
-            <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
-              Get This Service
-            </button>
-          </div>
-        </div>
-      </div>
+        <Row className="my-5 text-center">
+          <Col>
+            <h2 className="fw-bold">Key Features of {serviceDetails.title}</h2>
+          </Col>
+        </Row>
+
+        <Row>
+          {serviceDetails.dynamicFields?.map((field) => (
+            <Col md={6} key={field._id} className="mb-4">
+              <Card className="shadow border-0">
+                <Card.Body>
+                  <Card.Title className="fw-bold">{field.heading}</Card.Title>
+                  <Card.Text>{field.value}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        <Row className="text-center my-5">
+          <Col>
+            <h2 className="fw-bold">Want to Know More?</h2>
+            <p className="text-muted">Contact us today and let's discuss your requirements!</p>
+            <Button
+              style={{
+                background: "linear-gradient(45deg, #FFA500, #FF8C00)",
+                border: "none",
+                color: "white",
+                padding: "10px 20px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                borderRadius: "8px",
+              }}
+              onClick={() => navigate("/contact")}
+            >
+              Contact Us
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+
+      {/* Footer Fix - Making sure it stays at the bottom */}
+      <Footer />
     </>
   );
 };

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify"; // Import Toastify
 import "react-toastify/dist/ReactToastify.css"; // Toastify CSS
 import "./Blogpage.css"; // External CSS
 import BundledEditor from "./bundled"; // TinyMCE Editor
+import { baseURL } from "../../API/api.url";
 
 function BlogPage() {
   const [blogs, setBlogs] = useState([]);
@@ -48,10 +49,18 @@ function BlogPage() {
   const handleAddOrEditBlog = async (e) => {
     e.preventDefault();
     const form = new FormData();
-    Object.keys(formData).forEach((key) => {
-      if (formData[key] !== null) form.append(key, formData[key]);
-    });
-
+  
+    // ✅ Add Text Fields Correctly
+    form.append("title", formData.title);
+    form.append("description", formData.description);
+    form.append("seometa", formData.seometa);
+    form.append("content", formData.content);
+  
+    // ✅ Add Images Only If Selected
+    if (formData.thumbnailFile) form.append("thumbnail", formData.thumbnailFile);
+    if (formData.coverImageFile) form.append("coverImage", formData.coverImageFile);
+    if (formData.previewImageFile) form.append("previewImage", formData.previewImageFile);
+  
     try {
       let res;
       if (editBlogId) {
@@ -59,21 +68,22 @@ function BlogPage() {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setBlogs(blogs.map((blog) => (blog._id === editBlogId ? res.data : blog)));
-        toast.success("Blog updated successfully!");
+        toast.success("✅ Blog updated successfully!");
       } else {
         res = await axios.post("http://localhost:8000/api/blogpost/create", form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setBlogs([...blogs, res.data]);
-        toast.success("Blog added successfully!");
+        toast.success("✅ Blog added successfully!");
       }
-
+  
       resetForm();
     } catch (error) {
-      console.error("Error saving blog:", error.response?.data || error);
-      toast.error("Failed to save blog!");
+      console.error("❌ Error saving blog:", error.response?.data || error);
+      toast.error("❌ Failed to save blog!");
     }
   };
+  
 
   // Handle Edit
   const handleEdit = (blog) => {
@@ -108,13 +118,13 @@ function BlogPage() {
   };
 
   // Handle file changes
-  const handleFileChange = (e, type, previewType) => {
+  const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
       setFormData({
         ...formData,
         [type]: file,
-        [previewType]: URL.createObjectURL(file),
+        [`${type}Preview`]: URL.createObjectURL(file),
       });
     }
   };
@@ -216,7 +226,7 @@ function BlogPage() {
                     <td>{blog.slug}</td>
                     <td dangerouslySetInnerHTML={{ __html: blog.description }} />
                     <td>{blog.seometa}</td>
-                    <td><img src={blog.thumbnail} alt="Thumbnail" className="blog-thumbnail" /></td>
+                    <td><img src={`${baseURL}${blog.thumbnail}`} alt="Thumbnail" className="blog-thumbnail" /></td>
                     <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
                     <td>
                       <button onClick={() => handleEdit(blog)} className="edit-btn">✏️</button>

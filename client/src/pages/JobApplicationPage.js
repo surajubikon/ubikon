@@ -97,7 +97,7 @@ const JobApplicationPage = () => {
     }
   
     try {
-      await axios.post(`${baseURL}${api.jobApplication.createJobApplication.url}`, data, {
+      await axios.post(`${api.jobApplicationForm.createJobApplication.url}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       toast.success('Application submitted successfully!');
