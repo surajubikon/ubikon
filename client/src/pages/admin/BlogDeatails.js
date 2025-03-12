@@ -41,7 +41,7 @@ function BlogDetails() {
                         <div className='blog-banner position-relative'>
                             <div className='text-center blog-banner-title'>
                                 <h2>Blog</h2>
-                                <p>Stay Updated with the Latest Tech Insights</p>
+                                <p>{blog.title}</p>
                             </div>
                             {blog.coverImage && <img className='w-100 blogcoverimage' src={`${baseURL}${blog.coverImage}`} alt={blog.title} />}
                         </div>
@@ -57,17 +57,7 @@ function BlogDetails() {
                                             className='w-100'
                                         />
                                     )}
-                                    <div className='col-md-8 m-auto'>
-
-                                    
-                                    {blog.previewImage && (
-                                        <img
-                                            src={`${baseURL}${blog.previewImage}`}
-                                            alt={blog.title}
-                                            className='w-100'
-                                        />
-                                    )}
-                                    </div>
+                                   
                                     <div className='blog-content'>
                                         <p>{blog.description}</p>
                                         <div className="" dangerouslySetInnerHTML={{ __html: blog.content }}></div>

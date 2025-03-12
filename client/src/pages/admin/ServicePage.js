@@ -234,7 +234,7 @@ const handlePreviewImageChange = (e) => {
         aria-label="Close"
       ></button>
       
-      <h2 className="text-center mb-4">{editServiceId ? "Edit Service" : "Add Service"}</h2>
+      <h2 className="text-center mb-4">{editServiceId ? "Edit Category" : "Add Category"}</h2>
       
       <form onSubmit={handleAddOrEditService} className="needs-validation">
         <div className="mb-3">
