@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate , Link} from "react-router-dom"; 
 import api, { baseURL } from '../../API/api.url';
+import adminlogin from "../../assets/img/admin_login.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,36 +40,59 @@ const Login = () => {
 };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>} 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-dark">
+      <div className="row shadow-lg bg-white rounded" style={{ width: "900px" }}>
+        {/* Left Side - Image Section */}
+        <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center" style={{ backgroundColor: "#EAF0F7" }}>
+          <img
+            src={adminlogin}
+            alt="Illustration"
+            className="img-fluid"
+            width={190}
           />
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+
+        {/* Right Side - Login Form */}
+        <div className="col-md-6 p-5">
+          <h3 className="text-center text-dark mb-4 fw-bold">Admin</h3>
+
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{borderRadius:"0"}}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{borderRadius:"0"}}
+              />
+            </div>
+
+           
+
+            <button type="submit" className="default-btn mt-4 w-100" disabled={loading}>
+              {loading ? "Logging in..." : "LOGIN"}
+            </button>
+          </form>
+
           
-        </button>
-        <div>
-  {/* <Link to="/register">Don't have an account? Register here</Link> */}
-</div>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };
