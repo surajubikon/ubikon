@@ -59,15 +59,16 @@ const ServiceDetails = () => {
                 className="w-100"
             />
             )}
-            <div className="position-absolute top-50 start-50 translate-middle p-4 rounded">
-              {/* <h1 className="mb-2">{serviceDetails.title}</h1> */}
-              {/* <p className="mb-3">{serviceDetails.description}</p> */}
-              {/* <button className="btn btn-danger">Click Here</button> */}
-            </div>
           </div>
         </div>
         <div className="featurs py-5">
           <div className="container">
+            
+            <div className="text-center mb-5 text-white pb-3">
+              <h2 className="mb-2">{serviceDetails.title}</h2> 
+               <p className="mb-3">{serviceDetails.description}</p>
+              {/* <button className="btn btn-danger">Click Here</button> */}
+            </div>
             <h2 className="mb-4 fw-bold text-center text-theme">Key Features</h2>
             <div className="row">
               {serviceDetails.features?.map((feature) => (
@@ -87,7 +88,7 @@ const ServiceDetails = () => {
         <div style={{backgroundColor: "#333", fontFamily: "Arial", color: "white"}} className="py-5">
           <div className="container"> 
           <div dangerouslySetInnerHTML={{ __html: serviceDetails.content }} />
-          </div>
+        </div>
 
         </div>
         <div className="use-cases py-5">
@@ -108,7 +109,7 @@ const ServiceDetails = () => {
             </div>
           </div>
         </div>
-        <div className="featurs py-5">
+        <div className="why_Choose py-5">
           <div className="container">
             <h2 className="mb-4 fw-bold text-theme">Why Choose Us?</h2>
             <div className="row">
@@ -138,8 +139,8 @@ const ServiceDetails = () => {
             </div>
           </div>
         </div>
+       <Footer/>
       </div>
-      <Footer/>
     </>
   );
 };

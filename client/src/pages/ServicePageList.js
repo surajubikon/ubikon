@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from '../components/Navbar';
+import mobileimBg from '../assets/img/mobile-dev.jpg';
 import { useParams, useNavigate } from "react-router-dom";
 import { baseURL } from "../API/api.url";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from '../components/Footer';
 
 // Normalize function
@@ -45,132 +45,82 @@ const ServicesPageList = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-
-      {/* Content */}
-      <Container
-        className="d-flex flex-column"
-        style={{
-          paddingTop: "120px",
-          minHeight: "80vh",
-        }}
-      >
-        <Row className="text-center mb-4">
-          <Col>
-            <h1
-              className="fw-bold text-uppercase"
-              style={{
-                background: "linear-gradient(45deg, #FFA500, #FF8C00)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                display: "inline-block",
-              }}
-            >
-              {service.title}
-            </h1>
-          </Col>
-        </Row>
-
-        <Row className="align-items-center mb-5">
-          <Col md={6}>
-            <Card
-              className="shadow-sm border-0 p-4"
-              style={{
-                borderRadius: "10px",
-                boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.15)",
-                border: "1px solid #ddd",
-              }}
-            >
-              <Card.Body>
-                <Card.Title className="fw-bold fs-3">{service.title}</Card.Title>
-                <Card.Text className="text-muted fs-5">{service.description}</Card.Text>
-                <Button
-                  className="px-4 py-2 fw-bold border-0"
-                  style={{
-                    background: "linear-gradient(90deg, #ff7e00, #ffbb00)",
-                    color: "white",
-                    transition: "0.3s",
-                    boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.15)",
-                    border: "1px solid #ff7e00",
-                  }}
-                  onMouseOver={(e) => (e.target.style.opacity = "0.8")}
-                  onMouseOut={(e) => (e.target.style.opacity = "1")}
-                  onClick={() => navigate("/contact")}
-                >
-                  Contact Us
-                </Button>
-
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={6}>
-            <div
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "10px",
-                boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.15)",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                src={`${baseURL}${service.thumbnail}`}
-                alt={service.title}
-                className="img-fluid rounded"
-                style={{ maxWidth: "100%", height: "auto", maxHeight: "400px" }}
-              />
+        <div className="" style={{marginTop:"88px"}}>
+          <img src={mobileimBg} width="100%" />
+        </div>
+        {/* Content */}
+        <div className="container d-flex flex-column">
+          <div className="row text-center mb-4">
+            <div className="mt-5 mb-4">
+              <h2 className="fw-bold text-uppercase text-theme"> {service.title} </h2>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
-          </Col>
-        </Row>
+          </div>
 
-        <Row className="text-center my-5">
-          <Col>
-            <h2 className="fw-bold">Technologies Behind {service.title}</h2>
-            <p className="text-muted">
-              Modern {service.title} requires the best tools and technologies.
-            </p>
+          <div className="row mb-5">
 
-            
-            
-          </Col>
-        </Row>
-        
-        <Row>
-          {service.dynamicFields?.map((field) => (
-            <Col md={6} key={field._id} className="mb-4">
-              <Card className="shadow-sm border-0">
-                <Card.Body>
-                  <Card.Title className="fw-bold text-primary">{field.heading}</Card.Title>
-                  <Card.Text>{field.value}</Card.Text>
-                </Card.Body>
-              </Card>
+            <div className="col-md-6">
+              <div>
+                <img
+                  src={`${baseURL}${service.thumbnail}`}
+                  alt={service.title}
+                  className="img-fluid rounded"
+                  style={{ maxWidth: "100%", height: "auto", maxHeight: "400px" }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div>
+                <div className="card-body">
+                  <h4 className="fw-bold fs-3 mb-3 text-theme">{service.title}</h4>
+                  <p className="text-muted">{service.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="technologies-bhd">
+            <div  className=" my-5 row text-center">
+                <h2 className="fw-bold">Technologies Behind {service.title}</h2>
+                <p className="text-muted">
+                  Modern {service.title} requires the best tools and technologies.
+                </p>
+            </div>
+            <div className="row ">
+              {service.dynamicFields?.map((field) => (
+                <div className="col-md-6 mb-4" md={6} key={field._id}>
+                  <div  className="card shadow-sm border-0">
+                    <div className="card-body">
+                      <h2 className="fw-bold">{field.heading}</h2>
+                      <p>{field.value}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>  
+
+          <Row className="text-center my-5">
+            <Col>
+              <h2 className="fw-bold">Want to Know More?</h2>
+              <p className="text-muted">Let's discuss how we can help your business.</p>
+              <Button
+                className="px-4 py-2 fw-bold border-0"
+                style={{
+                  background: "linear-gradient(90deg, #ff7e00, #ffbb00)",
+                  color: "white",
+                  transition: "0.3s",
+                }}
+                onMouseOver={(e) => (e.target.style.opacity = "0.8")}
+                onMouseOut={(e) => (e.target.style.opacity = "1")}
+                onClick={() => navigate("/contact")}
+              >
+                Get in Touch
+              </Button>
             </Col>
-          ))}
-        </Row>
+          </Row>
+        </div>
 
-        <Row className="text-center my-5">
-          <Col>
-            <h2 className="fw-bold">Want to Know More?</h2>
-            <p className="text-muted">Let's discuss how we can help your business.</p>
-            <Button
-              className="px-4 py-2 fw-bold border-0"
-              style={{
-                background: "linear-gradient(90deg, #ff7e00, #ffbb00)",
-                color: "white",
-                transition: "0.3s",
-              }}
-              onMouseOver={(e) => (e.target.style.opacity = "0.8")}
-              onMouseOut={(e) => (e.target.style.opacity = "1")}
-              onClick={() => navigate("/contact")}
-            >
-              Get in Touch
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* Footer always at the bottom */}
+        {/* Footer always at the bottom */}
       <Footer />
     </div>
   );

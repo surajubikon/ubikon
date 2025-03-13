@@ -49,6 +49,8 @@ function BlogDetails() {
                             <div className='container'>
                                 <div className='col-md-8 m-auto'>
                                     <h1>{blog.title}</h1>
+                                    <p className='mb-5'>{blog.description}</p>
+                                    
                                     <p className='blog-published-dt'><strong>Published on:</strong> {new Date(blog.createdAt).toLocaleDateString()}</p>
                                     {blog.thumbnail && (
                                         <img
@@ -59,7 +61,6 @@ function BlogDetails() {
                                     )}
                                    
                                     <div className='blog-content'>
-                                        <p>{blog.description}</p>
                                         <div className="" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
                                     </div>
                                 </div>

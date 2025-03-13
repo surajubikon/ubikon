@@ -1023,7 +1023,7 @@ opacity: 1;
   margin: 40px;
 }
 .blog-details-content h1 {
-  font-size: 43px;
+  font-size: 25px;
   font-weight:bold !important;
 }
 .blogcoverimage  {
@@ -1338,21 +1338,25 @@ opacity: 1;
   background-position: center;
 } */
 
-.featurs {
+.service-dts {
+  background-color: #1A1A1A;
+}
+.featurs, .why_Choose {
   background: #1A1A1A;
 }
-.featurs .card {
+.featurs .card, .why_Choose .card {
   background-color: #252525 !important;
   color: #fff;
   border-radius: 15px !important;
 }
 
-.featurs .card svg {
+.featurs .card svg, .why_Choose .card svg {
   color: #E0C053;
 }
-.featurs .card h5 {
+.featurs .card h5, .why_Choose .card h5 {
   color: #F58539;
 }
+
 
 /******/
 
@@ -1370,6 +1374,22 @@ opacity: 1;
 }
 .use-cases .card h5 {
   color: #fff;
+}
+
+.technologies-bhd .card {
+  border-radius: 14px !important;
+  border: 2px solid #4e5254 !important;
+  box-shadow: none !important;
+  background-color: #f4f4f4 !important;
+}
+
+.technologies-bhd .card h2{
+  font-size: 20px;
+  color: #f58539;
+}
+.technologies-bhd .card p{
+  font-size: 14px;
+  margin-bottom: 0 !important;
 }
 
 .react-icon-container {
