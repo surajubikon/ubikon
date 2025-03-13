@@ -37,7 +37,31 @@ const SubServiceSchema = new mongoose.Schema(
     publishedAt: {
       type: Date,
     },
+    features:[
+      {
+        title:{type:String, required: true},
+        description:{type:String, required: true},
+        icon:{type: String}
+      }
+    ],
+
+    useCases:[
+      {
+        title:{ type: String, required : true },
+        description:{ type: String, required: true },
+        icon:{ type: String }
+      
+      }
+    ],
+    whyChooseUs:[
+      {
+        title:{type: String, required: true},
+        description:{type: String, required: true},
+        icon:{type: String}
+      }
+    ],
   },
+
   { timestamps: true }
 );
 

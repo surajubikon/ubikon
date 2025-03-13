@@ -1,8 +1,11 @@
+import { BiAdjust } from "react-icons/bi";
+import { FaCheckCircle } from "react-icons/fa";
+import careerbg from "../assets/img/career-bg.jpg";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { baseURL } from "../API/api.url";
-import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -12,7 +15,6 @@ const ServiceDetails = () => {
   const [serviceDetails, setServiceDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -46,109 +48,98 @@ const ServiceDetails = () => {
 
   return (
     <>
-      {/* Navbar Fix - Ensuring title is visible */}
-      <Navbar />
-      <Container
-        className="d-flex flex-column"
-        style={{
-          paddingTop: "120px",
-          minHeight: "80vh",
-        }}
-      >
-        <Row className="text-center mb-4">
-          <Col>
-            <h1
-              className="fw-bold text-uppercase"
-              style={{
-                background: "linear-gradient(45deg, #FFA500, #FF8C00)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                display: "inline-block",
-              }}
-            >
-              {serviceDetails.title}
-            </h1>
-          </Col>
-        </Row>
-
-        <Row className="align-items-center mb-5">
-          <Col md={6} className="text-center text-md-start">
-            <Card className="p-4 shadow-sm border-0" style={{ borderRadius: "10px" }}>
-              <Card.Body>
-                <Card.Title className="fw-bold fs-3">{serviceDetails.title}</Card.Title>
-                <Card.Text className="text-muted fs-5">{serviceDetails.description}</Card.Text>
-                <Button
-                  style={{
-                    background: "linear-gradient(45deg, #FFA500, #FF8C00)",
-                    border: "none",
-                    color: "white",
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    borderRadius: "8px",
-                  }}
-                  onClick={() => navigate("/")}
-                >
-                  Get in Touch
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={6} className="text-center">
+    <Navbar />
+      <div className="service-dts">
+        <div className="service-dts-banner">
+          <div className="position-relative text-start text-white">
             {serviceDetails.thumbnail && (
               <img
-                src={`${baseURL}${serviceDetails.thumbnail}`}
+                src={`${baseURL}${serviceDetails.thumbnail[0]}`}
                 alt={serviceDetails.title}
-                className="img-fluid rounded shadow"
-                style={{ maxHeight: "400px", border: "1px solid #ddd", padding: "8px" }}
-              />
+                className="w-100"
+            />
             )}
-          </Col>
-        </Row>
+            <div className="position-absolute top-50 start-50 translate-middle p-4 rounded">
+              {/* <h1 className="mb-2">{serviceDetails.title}</h1> */}
+              {/* <p className="mb-3">{serviceDetails.description}</p> */}
+              {/* <button className="btn btn-danger">Click Here</button> */}
+            </div>
+          </div>
+        </div>
+        <div className="featurs py-5">
+          <div className="container">
+            <h2 className="mb-4 fw-bold text-center text-theme">Key Features</h2>
+            <div className="row">
+              {serviceDetails.features?.map((feature) => (
+                <div className="col-sm-4" key={feature._id}>
+                  <div className="card">
+                    <div className="card-body">
+                      <FaCheckCircle className="mb-2" size={30} />
+                      <h5 className="fw-bold">{feature.title}</h5>
+                      <p>{feature.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div style={{backgroundColor: "#333", fontFamily: "Arial", color: "white"}} className="py-5">
+          <div className="container"> 
+          <div dangerouslySetInnerHTML={{ __html: serviceDetails.content }} />
+          </div>
 
-        <Row className="my-5 text-center">
-          <Col>
-            <h2 className="fw-bold">Key Features of {serviceDetails.title}</h2>
-          </Col>
-        </Row>
-
-        <Row>
-          {serviceDetails.dynamicFields?.map((field) => (
-            <Col md={6} key={field._id} className="mb-4">
-              <Card className="shadow border-0">
-                <Card.Body>
-                  <Card.Title className="fw-bold">{field.heading}</Card.Title>
-                  <Card.Text>{field.value}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        <Row className="text-center my-5">
-          <Col>
-            <h2 className="fw-bold">Want to Know More?</h2>
-            <p className="text-muted">Contact us today and let's discuss your requirements!</p>
-            <Button
-              style={{
-                background: "linear-gradient(45deg, #FFA500, #FF8C00)",
-                border: "none",
-                color: "white",
-                padding: "10px 20px",
-                fontSize: "16px",
-                fontWeight: "bold",
-                borderRadius: "8px",
-              }}
-              onClick={() => navigate("/contact")}
-            >
-              Contact Us
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* Footer Fix - Making sure it stays at the bottom */}
-      <Footer />
+        </div>
+        <div className="use-cases py-5">
+          <div className="container">
+            <h2 className="mb-4 fw-bold text-center text-theme">Use Cases</h2>
+            <div className="row">
+              {serviceDetails.useCases?.map((useCase) => (
+                <div className="col-sm-3" key={useCase._id}>
+                  <div className="card">
+                    <div className="card-body">
+                      <BiAdjust className="mb-2" size={30} />
+                      <h5 className="fw-bold">{useCase.title}</h5>
+                      <p className="small">{useCase.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="featurs py-5">
+          <div className="container">
+            <h2 className="mb-4 fw-bold text-theme">Why Choose Us?</h2>
+            <div className="row">
+              <div className="col-sm-6">
+                <div className="text-white">
+                  {serviceDetails.whyChooseUs?.map((reason) => (
+                    <div className="mb-3" key={reason._id}>
+                      <h5>{reason.title}</h5>
+                      <p className="muted-text">{reason.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="col-sm-6">
+                <div className="row">
+                  {serviceDetails.whyChooseUs?.map((_, index) => (
+                    <div className="col-md-4" key={index}>
+                      <div className="card">
+                        <div className="card-body">
+                          <BiAdjust className="mb-2" size={30} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer/>
     </>
   );
 };

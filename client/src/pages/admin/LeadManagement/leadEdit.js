@@ -98,7 +98,6 @@ const LeadEdit = () => {
         const name = document.getElementById("name").value;
         const phone = document.getElementById("phone").value;
         const company = document.getElementById("company").value;
-        const projectName = document.getElementById("projectName").value;
         const projectType = document.getElementById("projectType").value;
         const phoneRegex = /^\d{10}$/;
         if (!phone) {
@@ -110,7 +109,6 @@ const LeadEdit = () => {
             errors.name = "Either Name or Company is required";
             errors.company = "Either Name or Company is required";
         }
-        if (!projectName) errors.projectName = "project Name is required";
         if (!projectType) errors.projectType = "Please select project type";
 
 
@@ -165,7 +163,7 @@ const LeadEdit = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="phone" className="form-label">Phone</label>
-                                    <input type="text" className="form-control" name="phone" id="phone" placeholder="Enter phone" maxLength={12} value={leadData?.phone} onChange={handleChange} />
+                                    <input type="text" className="form-control" name="phone" id="phone" placeholder="Enter phone" maxLength={15} value={leadData?.phone} onChange={handleChange} />
                                     {formErrors.phone && <small className="text-danger">{formErrors.phone}</small>}
                                 </div>
                             </div>
@@ -218,7 +216,6 @@ const LeadEdit = () => {
                                 <div className="col-md-4">
                                     <label htmlFor="projectName" className="form-label">Project Name</label>
                                     <input type="text" className="form-control" name="projectName" id="projectName" placeholder="Enter Project Name" value={leadData?.projectName} onChange={handleChange} />
-                                    {formErrors.projectName && <small className="text-danger">{formErrors.projectName}</small>}
                                 </div>
                             </div>
 

@@ -6,7 +6,7 @@ export const LeadValidator = [
     body("phone").trim().isMobilePhone().withMessage("Valid phone number is required").bail(),
     body("company").trim().bail(),
     body("address").trim(),
-    body("projectName").trim().notEmpty().withMessage("Project Name is required").bail(),
+    body("projectName").trim().bail(),
     body("projectType").trim().bail(),
     body("requirements").trim().bail(),
 ];

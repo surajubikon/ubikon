@@ -27,14 +27,23 @@ function BlogListPage() {
     }, []);
 
     return (
-      <>
+           <>
    <Navbar/>
    <div className="blog-banner position-relative mb-5">
-    <div className="text-center blog-banner-title">
-        <h2>Blog</h2><p>Stay Updated with the Latest Tech Insights</p>
-    </div>
-        <img className="w-100 blogcoverimage" src={blogBG} alt="Creating a Realistic Budget for Your Startup: Best Practices" />
-    </div>
+   <div className="text-center blog-banner-title">
+    <h2>Blog</h2>
+    <p>{posts?.[0]?.title || "Latest Blog"}</p> 
+    {/* Agar posts empty hai toh "Latest Blog" dikhao */}
+</div>
+
+<img 
+    className="w-100 blogcoverimage" 
+    src={posts?.[0]?.previewImage ? `${baseURL}${posts[0].previewImage}` : blogBG}  
+    alt={posts?.[0]?.title || "Blog Cover"} 
+/>
+</div>
+{/* Agar posts[0].coverImage nahi hai toh default blogBG image dikhao */}
+
         <div className="container">
 
           <div className="row">
@@ -45,7 +54,7 @@ function BlogListPage() {
                                     <div className="blog-image">
                                         {/* Link to dynamic blog post page */}
                                         <Link to={`/blog/${post.slug}`}>
-                                            {post.thumbnail && <img src={`${baseURL}${post.thumbnail}`} alt={post.title || "Image"} />}
+                                            {post.coverImage && <img src={`${baseURL}${post.coverImage}`} alt={post.title || "Image"} />}
                                         </Link>
                                     </div>
                                 </div>

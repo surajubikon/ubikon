@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import fs from 'fs'; 
 
 export const createSubService = async (req, res) => {
-    const { title, content, description, seometa, publishedAt, serviceId } = req.body;
+    const { title, content, description, seometa, publishedAt, serviceId, features, useCases, whyChooseUs} = req.body;
 
     try {
       
@@ -23,11 +23,21 @@ export const createSubService = async (req, res) => {
       if (subServiceExists) {
         return res.status(400).json({ message: "Sub-service with this slug already exists" });
       }
-  
-     
-    
-    
-     let thumbnailUrl = req.files.map(file => "/uploads/subservice/" + file.filename);
+      let thumbnailUrl = req.files ? req.files.map(file => "/uploads/subservice/" + file.filename) : [];
+
+    const parseJSON = (data, defaultValue) => {
+      try {
+          return typeof data === "string" ? JSON.parse(data) : data;
+      } catch (error) {
+          console.error("JSON Parse Error:", error);
+          return defaultValue;
+      }
+  };
+
+  const parsedFeatures = parseJSON(features, []);
+  const parsedUseCases = parseJSON(useCases, []);
+  const parsedWhyChooseUs = parseJSON(whyChooseUs, []);
+
 
       // Create sub-service with image URLs and serviceId
       const subService = await SubServiceSchema.create({
@@ -39,6 +49,10 @@ export const createSubService = async (req, res) => {
         publishedAt,
         thumbnail: thumbnailUrl,
         serviceId,
+        features: parsedFeatures, 
+        useCases: parsedUseCases,
+        whyChooseUs: parsedWhyChooseUs,
+      
       });
   
       res.status(201).json(subService);
@@ -47,58 +61,66 @@ export const createSubService = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
- 
-// Update a service
+
+
 export const updateSubService = async (req, res) => {
   const { id } = req.params;
-  const { title, content, description, seometa, publishedAt, serviceId } = req.body;
-  const updates = req.body;
+  const { title, content, description, seometa, publishedAt, serviceId, features, useCases, whyChooseUs } = req.body;
 
   try {
-    let updatedFields = { ...updates };
+    let updatedFields = { title, content, description, seometa, publishedAt, serviceId };
 
-    // 🔹 Generate new slug if the title is updated
+    // 🔹 Generate new slug if title is updated
     if (title) {
       const slug = title
         .toLowerCase()
         .trim()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-');
-
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
       updatedFields.slug = slug;
     }
 
-    // 🔹 Handle image update if new images are uploaded
+    // 🔹 JSON Parsing for Arrays & Objects
+    updatedFields.features = features ? JSON.parse(features) : [];
+    updatedFields.useCases = useCases ? JSON.parse(useCases) : [];
+    updatedFields.whyChooseUs = whyChooseUs ? JSON.parse(whyChooseUs) : [];
+    // 🔹 Handle Image Update (Keep Old Images If No New Uploaded)
     if (req.files && req.files.length > 0) {
       let thumbnailUrls = [];
 
       for (const file of req.files) {
-        const imagePath = file.path; // Path where multer stored the image
+        const imagePath = file.path;
 
-        // 🔹 Resize and compress image using Sharp
+        // 🔹 Resize & Compress Image
         const compressedImagePath = `./public/uploads/subservice/compressed-${file.filename}`;
         await sharp(imagePath)
-          .resize(800, 600)
+          .resize(800, 600, { fit: 'inside' })
           .webp({ quality: 80 })
           .toFile(compressedImagePath);
 
-        // 🔹 Store the compressed image path
         thumbnailUrls.push(`/uploads/subservice/compressed-${file.filename}`);
 
-        // 🔹 Remove original uploaded image to save space
+        // 🔹 Remove Original Uploaded Image to Save Space
         fs.unlinkSync(imagePath);
       }
 
       updatedFields.thumbnail = thumbnailUrls;
     }
 
-    // 🔹 Update the sub-service
-    const updatedService = await SubServiceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
-
-    if (!updatedService) {
+    // 🔹 Fetch Old Data First
+    const existingSubService = await SubServiceSchema.findById(id);
+    if (!existingSubService) {
       return res.status(404).json({ message: "Sub-service not found" });
     }
+
+    // 🔹 Keep Old Images if No New Images Are Uploaded
+    if (!updatedFields.thumbnail) {
+      updatedFields.thumbnail = existingSubService.thumbnail;
+    }
+
+    // 🔹 Update the Sub-Service
+    const updatedService = await SubServiceSchema.findByIdAndUpdate(id, updatedFields, { new: true });
 
     res.json(updatedService);
   } catch (error) {
@@ -106,6 +128,7 @@ export const updateSubService = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get all services
 export const getSubService = async (req, res) => {
